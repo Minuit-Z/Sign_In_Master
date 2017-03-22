@@ -9,6 +9,10 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/third-party" />
+            <option value="$PROJECT_DIR$/third-party/Common" />
+            <option value="$PROJECT_DIR$/third-party/DynamicBox" />
+            <option value="$PROJECT_DIR$/third-party/MvpFrame" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

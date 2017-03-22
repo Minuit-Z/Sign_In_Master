@@ -40,7 +40,7 @@ public abstract class BaseActivity<V extends IView> extends BaseActivityPresente
         initInject();
         super.onCreate(savedInstanceState);
         AppManager.getAppManager().addActivity(this);
-        init();
+//        init();
     }
 
     @Override

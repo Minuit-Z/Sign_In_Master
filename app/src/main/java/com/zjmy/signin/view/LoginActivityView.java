@@ -1,15 +1,18 @@
 package com.zjmy.signin.view;
 
+import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.utopia.mvp.view.BaseViewImpl;
 import com.zjmy.signin.R;
 import com.zjmy.signin.model.bean.User;
+import com.zjmy.signin.presenters.activity.common.MainActivity;
 import com.zjmy.signin.utils.files.SPHelper;
 
 import java.util.List;
@@ -48,7 +51,7 @@ public class LoginActivityView extends BaseViewImpl {
     public void setActivityContext(AppCompatActivity appCompatActivity) {
         activity  = appCompatActivity;
 
-        String userName = (String)SPHelper.getInstance(appCompatActivity).getParam(SPHelper.USER_NAME,"");
+        String userName = (String)SPHelper.getInstance(appCompatActivity).getParam(SPHelper.USER,"");
         if(userName!=null && !userName.trim().equals("")) {
             _etUsername.setText(userName);
             _etUsername.setSelection(userName.length());//调整光标位置
@@ -67,14 +70,19 @@ public class LoginActivityView extends BaseViewImpl {
     private void doLogin(final String name, String pass) {
 
         BmobQuery<User> query = new BmobQuery<>();
-        query.addWhereEqualTo("userpass", pass);
-        query.addWhereEqualTo("username", name);
-
+        query.addWhereEqualTo("password", pass);
+        query.addWhereEqualTo("user", name);
         query.findObjects(new FindListener<User>() {
             @Override
             public void done(List<User> list, BmobException e) {
-                if (e == null) {
+                if (e == null&&!list.isEmpty()) {
                     Log.e("test","success");
+                    SPHelper.getInstance(activity).setParam(SPHelper.USER,list.get(0).getUser());
+                    SPHelper.getInstance(activity).setParam(SPHelper.NAME,list.get(0).getName());
+                    activity.startActivity(new Intent(activity, MainActivity.class));
+                    activity.finish();
+                }else {
+                    Toast.makeText(activity, "登录失败", Toast.LENGTH_SHORT).show();
                 }
             }
 
