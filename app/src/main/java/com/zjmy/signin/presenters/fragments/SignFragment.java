@@ -34,6 +34,7 @@ public class SignFragment extends Fragment {
 
     private TextView tv_time;
     private Button btn_sign;
+    private String date;
 
 
     @Nullable
@@ -74,6 +75,8 @@ public class SignFragment extends Fragment {
             public void onClick(View v) {
                 Intent i = new Intent(getActivity(), SignActivity.class);
                 i.putExtra("where", "sign");
+                i.putExtra("time",tv_time.getText().toString());
+                i.putExtra("date",date);
                 getActivity().startActivity(i);
             }
         });
@@ -88,6 +91,9 @@ public class SignFragment extends Fragment {
                     SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
                     String times = formatter.format(new Date(aLong * 1000L));
                     tv_time.setText(times);
+
+                    SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd");
+                    date = formatter2.format(new Date(aLong * 1000L));
                 } else {
                     Log.i("bmob", "获取服务器时间失败:" + e.getMessage());
                 }

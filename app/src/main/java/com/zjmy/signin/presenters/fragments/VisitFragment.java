@@ -67,7 +67,7 @@ public class VisitFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getActivity(), SignActivity.class);
-                i.putExtra("where", "sign");
+                i.putExtra("where", "visit");
                 startActivity(i);
             }
         });

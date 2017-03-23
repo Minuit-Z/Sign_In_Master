@@ -15,7 +15,7 @@ public class Visit extends BmobObject {
     String pic; //现场图片
     String summary;// 摘要
     String sendee;//接收人
-    BmobDate time ;//时间
+    String date ;//时间
 
     public String getName() {
         return name;
@@ -73,11 +73,11 @@ public class Visit extends BmobObject {
         this.sendee = sendee;
     }
 
-    public BmobDate getTime() {
-        return time;
+    public String getDate() {
+        return date;
     }
 
-    public void setTime(BmobDate time) {
-        this.time = time;
+    public void setDate(String date) {
+        this.date = date;
     }
 }
