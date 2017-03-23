@@ -6,7 +6,7 @@
 
     <TextView
         android:textSize="17dp"
-        android:text="当前时间"
+        android:text="服务器时间"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView"
@@ -25,14 +25,16 @@
         android:layout_below="@+id/textView"
         android:layout_alignParentStart="true" />
 
-    <Button
+    <android.support.v7.widget.AppCompatButton
         android:id="@+id/btn_sign"
         android:layout_width="170dp"
         android:layout_height="60dp"
-        android:background="#2C8CF3"
+        android:background="@drawable/circular_shape"
         android:textColor="#FDFEF3"
         android:textSize="15dp"
-        android:text="打 卡"
+        android:drawableLeft="@mipmap/location_icon"
+        android:paddingLeft="20sp"
+        android:text="外 出 打 卡"
         android:layout_marginEnd="19dp"
         android:layout_marginBottom="96dp"
         android:layout_alignParentBottom="true"

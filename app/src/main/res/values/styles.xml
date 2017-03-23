@@ -6,8 +6,6 @@
         <item name="colorPrimary">#000</item>
         <item name="colorPrimaryDark">#0288D1</item>
         <item name="colorAccent">#2fa881</item>
-        <!-- set Can use Activity transitions -->
-        <item name="android:windowContentTransitions">true</item>
     </style>
     <style name="Translucent" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimaryDark">#fff</item>
@@ -19,12 +17,6 @@
     <style name="TextLabel" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Label color in TRUE state and bar color FALSE and TRUE State -->
         <item name="colorControlActivated">#FFCC00</item>
-    </style>
-
-    <style name="AppTheme2" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimaryDark">#fff</item>
-        <item name="colorAccent">#10B404</item>
-        <item name="colorPrimary">#10B404</item>
     </style>
 
     <style name="toolbar_green_theme" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">

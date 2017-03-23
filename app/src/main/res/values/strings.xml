@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MzSign</string>
+    <string name="app_name">移动签到</string>
     <string name="login_success">login success</string>
     <string name="login">LOGIN</string>
     <string name="Username">Username</string>

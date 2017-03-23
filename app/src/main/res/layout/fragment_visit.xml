@@ -6,7 +6,7 @@
 
     <TextView
         android:textSize="17dp"
-        android:text="当前时间"
+        android:text="服务器时间"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="113dp"
@@ -25,15 +25,18 @@
         android:layout_below="@+id/textView"
         android:layout_alignParentEnd="true" />
 
-    <Button
-        android:id="@+id/btn_sign"
-        android:layout_width="170dp"
-        android:layout_height="60dp"
-        android:background="#68BD2A"
-        android:textColor="#FDFEF3"
-        android:text="打卡"
-        android:layout_marginStart="27dp"
-        android:layout_marginBottom="96dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"/>
+    <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btn_sign"
+            android:layout_width="170dp"
+            android:layout_height="60dp"
+            android:background="@drawable/circular_shape"
+            android:textColor="#FDFEF3"
+            android:textSize="15dp"
+            android:drawableLeft="@mipmap/location_icon"
+            android:paddingLeft="20sp"
+            android:text="外 出 访 问"
+            android:layout_marginStart="27dp"
+            android:layout_marginBottom="96dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true" />
 </RelativeLayout>

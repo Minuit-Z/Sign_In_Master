@@ -10,9 +10,6 @@ import com.zjmy.signin.inject.component.DaggerActivityComponent;
 import com.zjmy.signin.inject.module.ActivityModule;
 import com.zjmy.signin.presenters.SignInApplication;
 import com.zjmy.signin.utils.app.AppManager;
-import com.zjmy.signin.utils.ui.StatusBarUtil;
-
-import static com.zjmy.signin.utils.ui.StatusBarUtil.StatusBarLightMode;
 
 
 /**
@@ -40,7 +37,6 @@ public abstract class BaseActivity<V extends IView> extends BaseActivityPresente
         initInject();
         super.onCreate(savedInstanceState);
         AppManager.getAppManager().addActivity(this);
-//        init();
     }
 
     @Override
@@ -51,22 +47,6 @@ public abstract class BaseActivity<V extends IView> extends BaseActivityPresente
     @Override
     protected void onPause() {
         super.onPause();
-    }
-
-    private boolean init() {
-        StatusBarLightMode(this);
-        return isInitSystemBar()?initSystemBar():false;
-    }
-
-    private boolean initSystemBar() {//修改状态栏颜色
-        return StatusBarUtil.setStatusBarColor(this);
-    }
-
-    /**
-     * 是否初始化状态栏
-     */
-    protected boolean isInitSystemBar() {
-        return true;
     }
 
 
