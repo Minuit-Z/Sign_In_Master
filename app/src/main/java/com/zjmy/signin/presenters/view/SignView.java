@@ -112,10 +112,6 @@ public class SignView extends BaseViewImpl {
     public void onPresenterDestory() {
     }
 
-    @OnClick(R.id.img_sign)
-    protected void sign(View v){
-        Toast.makeText(activity, "ssss", Toast.LENGTH_SHORT).show();
-    }
 
     @OnClick(R.id.btn_refresh)
     protected void refresh(View v){
@@ -162,10 +158,29 @@ public class SignView extends BaseViewImpl {
     public void initViewBySign() {
         til_feedback_content.setVisibility(View.GONE);
         tv_behavior.setText("上班签到");
+
+        img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(activity, "签到成功", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     public void initViewByVisit() {
         til_feedback_content.setVisibility(View.VISIBLE);
         tv_behavior.setText("访问记录");
+
+        img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String msg = til_feedback_content.getEditText().getText().toString();
+                if(msg==null || msg.isEmpty()){
+                    til_feedback_content.setError("访问记录不能为空");
+                }else{
+                    Toast.makeText(activity, "访问记录已提交", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 }
