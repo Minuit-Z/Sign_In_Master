@@ -13,7 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.zjmy.signin.R;
-import com.zjmy.signin.presenters.activity.common.SignActivity;
+import com.zjmy.signin.presenters.activity.SignActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

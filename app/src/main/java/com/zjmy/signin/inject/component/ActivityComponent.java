@@ -4,10 +4,10 @@ import android.app.Activity;
 
 import com.zjmy.signin.inject.module.ActivityModule;
 import com.zjmy.signin.inject.scope.ActivityLife;
-import com.zjmy.signin.presenters.activity.common.HistoryActivity;
-import com.zjmy.signin.presenters.activity.common.LoginActivity;
-import com.zjmy.signin.presenters.activity.common.MainActivity;
-import com.zjmy.signin.presenters.activity.common.SignActivity;
+import com.zjmy.signin.presenters.activity.HistoryActivity;
+import com.zjmy.signin.presenters.activity.LoginActivity;
+import com.zjmy.signin.presenters.activity.MainActivity;
+import com.zjmy.signin.presenters.activity.SignActivity;
 
 import dagger.Component;
 

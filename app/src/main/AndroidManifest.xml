@@ -33,14 +33,14 @@
         android:theme="@style/AppTheme"
         tools:replace="android:theme">
         <activity
-            android:name=".presenters.activity.common.LoginActivity"
+            android:name=".presenters.activity.LoginActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/Translucent"
             android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <activity
-            android:name=".presenters.activity.common.MainActivity"
+            android:name=".presenters.activity.MainActivity"
             android:theme="@style/Translucent">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -49,9 +49,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".presenters.activity.common.SignActivity"
+            android:name=".presenters.activity.SignActivity"
             android:theme="@style/Translucent" />
-        <activity android:name=".presenters.activity.common.HistoryActivity"
+        <activity android:name=".presenters.activity.HistoryActivity"
             android:theme="@style/Translucent">
         </activity>
 

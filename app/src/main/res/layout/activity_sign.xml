@@ -3,6 +3,7 @@
                 xmlns:toolbar="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:background="@color/backgroundColor">
 
     <android.support.design.widget.AppBarLayout
@@ -20,8 +21,9 @@
                     android:layout_height="?attr/actionBarSize"
                     android:background="@color/colorPrimary"
                     android:minHeight="?attr/actionBarSize"
-                    toolbar:title=" ">
-            </android.support.v7.widget.Toolbar>
+                    app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                    toolbar:title=" "/>
 
             <TextView
                     android:layout_width="wrap_content"
@@ -29,18 +31,17 @@
                     android:layout_marginLeft="80dip"
                     android:layout_marginRight="80dip"
                     android:layout_centerInParent="true"
-                    android:text="签到打卡"
+                    android:text="手机打卡"
                     android:textColor="@color/white"
                     android:textSize="20dp"/>
         </RelativeLayout>
     </android.support.design.widget.AppBarLayout>
 
     <RelativeLayout
-            android:layout_width="210dp"
+            android:layout_width="match_parent"
             android:layout_height="167dp"
-            android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="92dp"
+            android:layout_marginTop="140dip"
             android:id="@+id/relativeLayout">
 
         <ImageView
@@ -72,7 +73,7 @@
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="点击签到"
+                android:text="上班签到"
                 android:layout_below="@id/content"
                 android:layout_marginTop="5dip"
                 android:layout_centerHorizontal="true"
@@ -110,5 +111,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/tv_sign_location"
-            android:layout_toStartOf="@+id/relativeLayout"/>
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="32dp"/>
 </RelativeLayout>

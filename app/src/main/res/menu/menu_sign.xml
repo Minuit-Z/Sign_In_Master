@@ -6,7 +6,6 @@
         android:id="@+id/menu_detail"
         android:title="记录"
         app:showAsAction="ifRoom"
-        android:showAsAction="ifRoom"
         >
     </item>
 </menu>

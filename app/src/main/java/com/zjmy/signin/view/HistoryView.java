@@ -1,41 +1,22 @@
 package com.zjmy.signin.view;
 
-import android.app.DatePickerDialog;
-import android.content.Context;
-import android.content.Intent;
-import android.os.Handler;
-import android.os.Message;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.DatePicker;
-import android.widget.ImageView;
 import android.widget.NumberPicker;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.baidu.location.BDLocation;
-import com.baidu.location.BDLocationListener;
-import com.baidu.location.LocationClient;
-import com.baidu.location.LocationClientOption;
 import com.utopia.mvp.view.BaseViewImpl;
 import com.zjmy.signin.R;
 import com.zjmy.signin.model.bean.Sign;
-import com.zjmy.signin.presenters.activity.common.HistoryActivity;
 import com.zjmy.signin.presenters.adapters.HistoryAdapter;
 
 import java.util.List;
 
 import butterknife.Bind;
-import butterknife.OnClick;
-
-import static com.zjmy.signin.utils.app.JUtils.TAG;
 
 /**
  * @Description: 登录

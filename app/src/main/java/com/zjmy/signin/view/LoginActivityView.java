@@ -12,7 +12,7 @@ import android.widget.Toast;
 import com.utopia.mvp.view.BaseViewImpl;
 import com.zjmy.signin.R;
 import com.zjmy.signin.model.bean.User;
-import com.zjmy.signin.presenters.activity.common.MainActivity;
+import com.zjmy.signin.presenters.activity.MainActivity;
 import com.zjmy.signin.utils.files.SPHelper;
 
 import java.util.List;

@@ -1,17 +1,15 @@
-package com.zjmy.signin.presenters.activity.common;
+package com.zjmy.signin.presenters.activity;
 
+import android.Manifest;
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 
+import com.tbruyelle.rxpermissions.RxPermissions;
 import com.zjmy.signin.R;
-import com.zjmy.signin.presenters.activity.BaseActivity;
 import com.zjmy.signin.view.SignView;
 
 public class SignActivity extends BaseActivity<SignView> {
-
-    private Toolbar toolbar;
 
     @Override
     public Class<SignView> getRootViewClass() {
@@ -22,7 +20,17 @@ public class SignActivity extends BaseActivity<SignView> {
     public void inCreat(Bundle savedInstanceState) {
         activityComponent.inject(this);
 
-        v.showLocation(getApplicationContext());
+        RxPermissions rxPermissions = new RxPermissions(this); // where this is an Activity instance
+        //申请定位权限
+        rxPermissions
+                .request(Manifest.permission.ACCESS_COARSE_LOCATION)
+                .subscribe(granted -> {
+                    if (granted) {
+                        v.showLocation(getApplicationContext());
+                    } else {
+                        v.setPermissions("获取定位权限失败");
+                    }
+                });
     }
 
     @Override

@@ -20,7 +20,7 @@ import com.baidu.location.LocationClientOption;
 import com.skyfishjy.library.RippleBackground;
 import com.utopia.mvp.view.BaseViewImpl;
 import com.zjmy.signin.R;
-import com.zjmy.signin.presenters.activity.common.HistoryActivity;
+import com.zjmy.signin.presenters.activity.HistoryActivity;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -153,5 +153,9 @@ public class SignView extends BaseViewImpl {
         locationClient.setLocOption(option);
         locationClient.start();
         locationClient.requestLocation();
+    }
+
+    public void setPermissions(String error) {
+        this.tv_loc_type.setText(error);
     }
 }

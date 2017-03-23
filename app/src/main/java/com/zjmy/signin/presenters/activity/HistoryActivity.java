@@ -1,20 +1,16 @@
-package com.zjmy.signin.presenters.activity.common;
+package com.zjmy.signin.presenters.activity;
 
 import android.app.Activity;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.Menu;
 
 import com.zjmy.signin.R;
 import com.zjmy.signin.model.bean.Sign;
-import com.zjmy.signin.presenters.activity.BaseActivity;
-import com.zjmy.signin.utils.files.SPHelper;
 import com.zjmy.signin.view.HistoryView;
 
 import java.util.List;
 
-import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
