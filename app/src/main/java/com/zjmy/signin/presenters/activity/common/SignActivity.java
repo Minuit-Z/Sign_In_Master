@@ -1,12 +1,9 @@
 package com.zjmy.signin.presenters.activity.common;
 
 import android.app.Activity;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.view.Window;
-import android.widget.Toast;
+import android.view.Menu;
 
 import com.zjmy.signin.R;
 import com.zjmy.signin.presenters.activity.BaseActivity;
@@ -25,8 +22,7 @@ public class SignActivity extends BaseActivity<SignView> {
     public void inCreat(Bundle savedInstanceState) {
         activityComponent.inject(this);
 
-
-
+        v.showLocation(getApplicationContext());
     }
 
     @Override
@@ -34,4 +30,9 @@ public class SignActivity extends BaseActivity<SignView> {
         return this;
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_sign,menu);
+        return true;
+    }
 }

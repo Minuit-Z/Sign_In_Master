@@ -6,11 +6,14 @@
     android:background="#fff">
 
     <android.support.design.widget.AppBarLayout
+        toolbar:elevation="1dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/toolbar_green_theme"
-        >
+        android:theme="@style/toolbar_green_theme">
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize">
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
@@ -18,16 +21,18 @@
             android:background="#fff"
             android:minHeight="?attr/actionBarSize"
             toolbar:title=" ">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="签到打卡"
-                android:textColor="#09C90F"
-                android:textSize="20dp"
-                android:textStyle="bold" />
         </android.support.v7.widget.Toolbar>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="80dip"
+            android:layout_marginRight="80dip"
+            android:layout_centerInParent="true"
+            android:text="签到打卡"
+            android:textColor="#09C90F"
+            android:textSize="20dp"/>
+        </RelativeLayout>
     </android.support.design.widget.AppBarLayout>
 
     <ImageView
@@ -39,10 +44,32 @@
         android:layout_marginTop="92dp"
         android:src="@drawable/sign" />
 
-    <ImageView
+    <TextView
+        android:id="@+id/tv_sign_location"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:background="@drawable/bottom" />
+        android:background="@drawable/bottom"
+        android:gravity="center"
+        android:text="123132" />
+
+    <TextView
+        android:id="@+id/tv_sign_loctype"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="22dp"
+        android:layout_marginEnd="49dp"
+        android:text="定位方式" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/btn_refresh"
+        android:elevation="5dp"
+        android:src="@mipmap/ic_autorenew_white_36dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/tv_sign_location"
+        android:layout_toStartOf="@+id/img_sign" />
 </RelativeLayout>
