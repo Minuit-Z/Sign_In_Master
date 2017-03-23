@@ -3,10 +3,10 @@ package com.zjmy.signin.presenters.activity;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuItem;
 
 import com.zjmy.signin.R;
 import com.zjmy.signin.presenters.view.MainActivityView;
+import com.zjmy.signin.utils.files.SPHelper;
 
 public class MainActivity extends BaseActivity<MainActivityView>{
     @Override
@@ -32,9 +32,10 @@ public class MainActivity extends BaseActivity<MainActivityView>{
         return true;
     }
 
-
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        return super.onOptionsItemSelected(item);
+    protected void onResume() {
+        super.onResume();
+        String userName = (String)SPHelper.getInstance(this).getParam(SPHelper.NAME,"");
+        v.initUser(userName);
     }
 }

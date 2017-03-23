@@ -1,19 +1,14 @@
 package com.zjmy.signin.presenters.view;
 
-import android.content.Intent;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.utopia.mvp.view.BaseViewImpl;
 import com.zjmy.signin.R;
 import com.zjmy.signin.model.bean.User;
-import com.zjmy.signin.presenters.activity.MainActivity;
 import com.zjmy.signin.utils.files.SPHelper;
 
 import java.util.List;
@@ -39,8 +34,7 @@ public class LoginActivityView extends BaseViewImpl {
     protected Button _btGo;
     @Bind(R.id.cv)
     protected CardView cv;
-    @Bind(R.id.fab)
-    protected FloatingActionButton fab;
+
     @Bind(R.id.bg_login)
     protected RelativeLayout layout;
 
@@ -67,25 +61,30 @@ public class LoginActivityView extends BaseViewImpl {
     protected void onClickFab(){
         String name = _etUsername.getText().toString();
         String pass = _etPassword.getText().toString();
-        doLogin(name, pass);
+
+        if(name.isEmpty()){
+            _etUsername.setError("用户名不能为空");
+        }else if(pass.isEmpty()){
+            _etPassword.setError("密码不能为空");
+        }else {
+            doLogin(name, pass);
+        }
     }
 
     private void doLogin(final String name, String pass) {
-
         BmobQuery<User> query = new BmobQuery<>();
         query.addWhereEqualTo("password", pass);
         query.addWhereEqualTo("user", name);
         query.findObjects(new FindListener<User>() {
             @Override
             public void done(List<User> list, BmobException e) {
-                if (e == null&&!list.isEmpty()) {
-                    Log.e("test","success");
+                if (e == null && !list.isEmpty()) {
                     SPHelper.getInstance(activity).setParam(SPHelper.USER,list.get(0).getUser());
                     SPHelper.getInstance(activity).setParam(SPHelper.NAME,list.get(0).getName());
-                    activity.startActivity(new Intent(activity, MainActivity.class));
+
                     activity.finish();
                 }else {
-                    Toast.makeText(activity, "登录失败", Toast.LENGTH_SHORT).show();
+                    _etPassword.setError("密码错误");
                 }
             }
 

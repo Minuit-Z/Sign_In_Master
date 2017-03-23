@@ -11,12 +11,14 @@ import android.widget.TextView;
 
 import com.utopia.mvp.view.BaseViewImpl;
 import com.zjmy.signin.R;
+import com.zjmy.signin.presenters.activity.LoginActivity;
 import com.zjmy.signin.presenters.activity.SignActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import butterknife.Bind;
+import butterknife.OnClick;
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.QueryListener;
@@ -31,6 +33,10 @@ public class MainActivityView extends BaseViewImpl {
     protected AppCompatButton btn_visit;
     @Bind(R.id.toolbar)
     protected Toolbar toolbar;
+    @Bind(R.id.tv_showuser)
+    protected TextView tv_showuser;
+    @Bind(R.id.tv_clickme)
+    protected TextView tv_clickme;
 
     private AppCompatActivity activity;
     @Override
@@ -91,5 +97,19 @@ public class MainActivityView extends BaseViewImpl {
     @Override
     public void onPresenterDestory() {
 
+    }
+
+    //点击登录或点击注销
+    @OnClick(R.id.tv_clickme)
+    protected void clickme(){
+        activity.startActivity(new Intent(activity, LoginActivity.class));
+    }
+
+    public void initUser(String userName) {
+        if(userName!=null && !userName.isEmpty()){
+            tv_clickme.setText("注销");
+        }else{
+
+        }
     }
 }

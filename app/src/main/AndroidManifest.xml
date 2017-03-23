@@ -35,6 +35,7 @@
         <activity
             android:name=".presenters.activity.LoginActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
+            android:theme="@style/MyDialog"
             android:launchMode="singleTask"/>
 
         <activity

@@ -1,25 +1,12 @@
 <resources>
     <string name="app_name">移动签到</string>
-    <string name="login_success">login success</string>
-    <string name="login">LOGIN</string>
-    <string name="Username">Username</string>
-    <string name="Password">Password</string>
-    <string name="forgot_your_password">Forgot your password ?</string>
-    <string name="go">GO</string>
-    <string name="repeat_password">Repeat Password</string>
-    <string name="next">NEXT</string>
-    <string name="register">REGISTER</string>
-    <string name="January">是起点,我们又一次同时出发,\n是时光荏苒,\n而你我永远不变的永恒</string>
-    <string name="February">更换,取舍,旧梦已逝\n愿我如星君如月\n共赏余生喜乐事</string>
-    <string name="March">万物生长\n你也会渐渐长成一片美景\n缀着柔软的春光和生的永恒</string>
-    <string name="April">阳光雨露伴你成长,崎岖山岭令你茁壮\n一想起你\n风光正好,你正年少</string>
-    <string name="May">阳光跃进你眼底\n你看我一眼,便将我照亮\n光明归你,炎热归我</string>
-    <string name="June">静下心来，不再烦躁，不再一触即发\n平淡如水，了无波痕\n会莫名其妙的微笑，会躲起来痛哭</string>
-    <string name="July">我读懂了流萤闪烁的七月\n分明有一种来自遥远的抚慰\n裹紧你被风吹开的衣裳</string>
-    <string name="August">叶落\n或归根,或吹向更远的地方\n但你却是那漫长的八月的意义所在</string>
-    <string name="September">将自己藏起,躲在暗中享受懒洋洋\n尽管长夜漫漫\n九月的夜晚会哄你入睡</string>
-    <string name="October">天人各自忙碌,人间却是最美好的秋天\n就算候鸟南迁\n我都会一直陪着你</string>
-    <string name="Novmber">夏天过了,明年还有夏天\n离开的人会温暖的回到你身边</string>
+    <string name="login_success">登录成功</string>
+    <string name="login">登录</string>
+    <string name="Username">用户名</string>
+    <string name="Password">密码</string>
+    <string name="forgot_your_password">忘记密码?</string>
+    <string name="go">登录</string>
+
     <string name="clickmelogin"><u>点我登录</u></string>
     <string name="clickmelogout"><u>点我注销</u></string>
 </resources>

@@ -24,6 +24,7 @@ import com.zjmy.signin.R;
 import com.zjmy.signin.model.bean.Sign;
 import com.zjmy.signin.model.bean.Visit;
 import com.zjmy.signin.presenters.activity.HistoryActivity;
+import com.zjmy.signin.presenters.activity.LocationActivity;
 import com.zjmy.signin.utils.files.SPHelper;
 
 import java.util.List;
@@ -38,12 +39,7 @@ import cn.bmob.v3.listener.UpdateListener;
 
 import static com.zjmy.signin.utils.app.JUtils.TAG;
 
-/**
- * @Description: 登录
- * @authors: utopia
- * @Create time: 16-12-19 上午10:43
- * @Update time: 16-12-19 上午10:43
- */
+
 public class SignView extends BaseViewImpl {
 
     @Bind(R.id.toolbar)
@@ -54,8 +50,7 @@ public class SignView extends BaseViewImpl {
     protected TextView tv_loc;
     @Bind(R.id.tv_sign_loctype)
     protected TextView tv_loc_type;
-    @Bind(R.id.btn_refresh)
-    protected ImageView bt_refresh;
+
     @Bind(R.id.content)
     protected RippleBackground rippleBackground;
     @Bind(R.id.til_feedback_content)
@@ -99,14 +94,13 @@ public class SignView extends BaseViewImpl {
     @Override
     public void setActivityContext(AppCompatActivity appCompatActivity) {
         activity = appCompatActivity;
+
         appCompatActivity.setSupportActionBar(toolbar);
         appCompatActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener((View v) -> {
             appCompatActivity.finish();
         });
 
-        toolbar.getMenu().clear();
-        toolbar.inflateMenu(R.menu.menu_sign);
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -264,7 +258,7 @@ public class SignView extends BaseViewImpl {
             @Override
             public void onClick(View view) {
                 Intent intent = activity.getIntent();
-                String where = intent.getStringExtra("where");
+                String where = intent.getStringExtra("type");
                 switch (where) {
                     case "sign":
                         doSignInOrOut(activity.getIntent());
@@ -293,5 +287,11 @@ public class SignView extends BaseViewImpl {
                 }
             }
         });
+    }
+
+    @OnClick(R.id.btn_refresh)
+    protected void refreshLocation(){
+        Intent intent = new Intent(activity, LocationActivity.class);
+        activity.startActivity(intent);
     }
 }

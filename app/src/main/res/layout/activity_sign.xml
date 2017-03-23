@@ -8,38 +8,6 @@
 
     <include layout="@layout/appbar_layout"/>
 
-    <android.support.design.widget.AppBarLayout
-            toolbar:elevation="1dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-        <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize">
-
-            <android.support.v7.widget.Toolbar
-                    toolbar:theme="@style/ToolbarTheme"
-                    android:id="@+id/toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    android:background="@color/colorPrimary"
-                    android:minHeight="?attr/actionBarSize"
-                    toolbar:title=" ">
-            </android.support.v7.widget.Toolbar>
-
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="80dip"
-                    android:layout_marginRight="80dip"
-                    android:layout_centerInParent="true"
-                    android:text="签到打卡"
-                    android:textColor="@color/white"
-                    android:textSize="20dp"/>
-        </RelativeLayout>
-    </android.support.design.widget.AppBarLayout>
->>>>>>> a0a2090cad1e6a15ba3ce3518c97f11c06b4e9b0
-
     <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="167dp"

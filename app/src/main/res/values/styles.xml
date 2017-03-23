@@ -21,4 +21,9 @@
     <style name="ToolbarTheme" parent="@style/ThemeOverlay.AppCompat.ActionBar">
         <item name="actionMenuTextColor">@color/white</item> <!--  敲定颜色-->
     </style>
+
+    <style name="MyDialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
 </resources>
