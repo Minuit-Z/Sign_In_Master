@@ -2,8 +2,11 @@ package com.zjmy.signin.presenters.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 
-import com.zjmy.signin.view.MainActivityView;
+import com.zjmy.signin.R;
+import com.zjmy.signin.presenters.view.MainActivityView;
 
 public class MainActivity extends BaseActivity<MainActivityView>{
     @Override
@@ -14,7 +17,7 @@ public class MainActivity extends BaseActivity<MainActivityView>{
     @Override
     public void inCreat(Bundle savedInstanceState) {
         activityComponent.inject(this);
-        v.initAdapter(getSupportFragmentManager(),this);
+        v.init();
     }
 
     @Override
@@ -22,4 +25,16 @@ public class MainActivity extends BaseActivity<MainActivityView>{
         return this;
     }
 
+    //设置菜单
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return super.onOptionsItemSelected(item);
+    }
 }

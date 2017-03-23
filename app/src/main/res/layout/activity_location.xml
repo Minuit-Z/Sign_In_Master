@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/backgroundColor">
+
+    <include layout="@layout/appbar_layout"/>
+
+    <RelativeLayout
+            android:id="@+id/rl_layout"
+            android:layout_width="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="?attr/actionBarSize"
+            android:background="#BFFF97"
+            android:layout_height="240dip">
+
+        <com.zjmy.signin.presenters.view.RadarView
+                android:id="@+id/radarView"
+                android:layout_width="200dip"
+                android:layout_height="200dip"
+                android:layout_centerInParent="true"/>
+    </RelativeLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_below="@id/rl_layout"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dip"
+                android:orientation="horizontal">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:text="精度："/>
+
+            <TextView
+                    android:id="@+id/tv_accuracy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:text="3.0"/>
+        </LinearLayout>
+
+        <View
+                android:layout_width="match_parent"
+                android:background="@color/divider"
+                android:layout_height="2dip"/>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dip"
+                android:orientation="horizontal">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:text="地址："/>
+
+            <TextView
+                    android:id="@+id/tv_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:text="北京市海淀区自在香山155-1"/>
+        </LinearLayout>
+
+        <View
+                android:layout_width="match_parent"
+                android:background="@color/divider"
+                android:layout_height="2dip"/>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dip"
+                android:orientation="vertical">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/divider"
+                    android:textSize="16sp"
+                    android:text="温馨提示："/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="10dip"
+                    android:textSize="16sp"
+                    android:text="1. 安卓定位权限设置：设置 -> 授权管理 -> 应用授权管理 -> 开启定位服务"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="10dip"
+                    android:textSize="16sp"
+                    android:text="2. 定位精度相对较差时，请移至空旷地带，并开启GPS开关重新定位"/>
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

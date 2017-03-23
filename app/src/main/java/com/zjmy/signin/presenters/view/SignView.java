@@ -1,10 +1,10 @@
-package com.zjmy.signin.view;
+package com.zjmy.signin.presenters.view;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
-import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -21,6 +21,7 @@ import com.skyfishjy.library.RippleBackground;
 import com.utopia.mvp.view.BaseViewImpl;
 import com.zjmy.signin.R;
 import com.zjmy.signin.presenters.activity.HistoryActivity;
+import com.zjmy.signin.presenters.activity.LocationActivity;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -42,9 +43,13 @@ public class SignView extends BaseViewImpl {
     @Bind(R.id.tv_sign_loctype)
     protected TextView tv_loc_type;
     @Bind(R.id.btn_refresh)
-    protected FloatingActionButton bt_refresh;
+    protected ImageView bt_refresh;
     @Bind(R.id.content)
     protected RippleBackground rippleBackground;
+    @Bind(R.id.til_feedback_content)
+    protected TextInputLayout til_feedback_content;
+    @Bind(R.id.tv_behavior)
+    protected TextView tv_behavior;
 
     private Handler handler=new Handler(){
         @Override
@@ -54,25 +59,20 @@ public class SignView extends BaseViewImpl {
             BDLocation location= (BDLocation) msg.obj;
             String loc=location.getLocationDescribe().replaceFirst("在","");
             loc=loc.replace("附近","");
-            loc=location.getAddrStr()+loc;
-            switch (location.getLocType()){
+            String type = "离线异常";
+            switch (location.getLocType()) {
                 case BDLocation.TypeGpsLocation:
-                    //GPS
-                    tv_loc_type.setText("GPS定位");
+                    type = "GPS定位";
                     break;
                 case BDLocation.TypeNetWorkLocation:
-                    tv_loc_type.setText("网络定位");
-                    //网络定位
-                    break;
-                case BDLocation.TypeOffLineLocation:
-                    tv_loc_type.setText("离线定位");
-                    //离线定位
+                    type = "网络定位";
                     break;
                 default:
-                    tv_loc_type.setText("离线异常");
-                    //异常
+                    type = "定位异常";
             }
-            tv_loc.setText(loc);
+
+            tv_loc_type.setText(type+" — "+location.getRadius());
+            tv_loc.setText(location.getAddrStr()+loc);
         }
     };
     private AppCompatActivity activity;
@@ -119,7 +119,9 @@ public class SignView extends BaseViewImpl {
 
     @OnClick(R.id.btn_refresh)
     protected void refresh(View v){
-        showLocation(activity);
+        //showLocation(activity);
+        Intent intent = new Intent(activity, LocationActivity.class);
+        activity.startActivity(intent);
     }
 
     public void showLocation(Context context){
@@ -133,8 +135,6 @@ public class SignView extends BaseViewImpl {
                 Message msg=Message.obtain();
                 msg.obj=bdLocation;
                 handler.sendMessage(msg);
-
-                Toast.makeText(activity, "已更新位置", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -157,5 +157,15 @@ public class SignView extends BaseViewImpl {
 
     public void setPermissions(String error) {
         this.tv_loc_type.setText(error);
+    }
+
+    public void initViewBySign() {
+        til_feedback_content.setVisibility(View.GONE);
+        tv_behavior.setText("上班签到");
+    }
+
+    public void initViewByVisit() {
+        til_feedback_content.setVisibility(View.VISIBLE);
+        tv_behavior.setText("访问记录");
     }
 }

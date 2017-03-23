@@ -7,7 +7,7 @@ import android.view.Menu;
 
 import com.zjmy.signin.R;
 import com.zjmy.signin.model.bean.Sign;
-import com.zjmy.signin.view.HistoryView;
+import com.zjmy.signin.presenters.view.HistoryView;
 
 import java.util.List;
 

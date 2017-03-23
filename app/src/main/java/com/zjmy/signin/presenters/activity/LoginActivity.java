@@ -3,9 +3,7 @@ package com.zjmy.signin.presenters.activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.zjmy.signin.presenters.activity.BaseActivity;
-import com.zjmy.signin.presenters.adapters.TabAdapter;
-import com.zjmy.signin.view.LoginActivityView;
+import com.zjmy.signin.presenters.view.LoginActivityView;
 
 public class LoginActivity extends BaseActivity<LoginActivityView> {
     @Override

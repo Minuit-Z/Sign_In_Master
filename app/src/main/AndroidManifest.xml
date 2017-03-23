@@ -51,6 +51,11 @@
         <activity
             android:name=".presenters.activity.SignActivity"
             android:theme="@style/Translucent" />
+
+        <activity
+                android:name=".presenters.activity.LocationActivity"
+                android:theme="@style/Translucent" />
+
         <activity android:name=".presenters.activity.HistoryActivity"
             android:theme="@style/Translucent">
         </activity>

@@ -1,4 +1,4 @@
-package com.zjmy.signin.view;
+package com.zjmy.signin.presenters.view;
 
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;

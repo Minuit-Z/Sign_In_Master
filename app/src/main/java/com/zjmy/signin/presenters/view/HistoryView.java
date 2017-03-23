@@ -1,4 +1,4 @@
-package com.zjmy.signin.view;
+package com.zjmy.signin.presenters.view;
 
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
