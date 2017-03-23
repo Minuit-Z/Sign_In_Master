@@ -70,7 +70,7 @@ public class SignActivity extends BaseActivity<SignView> {
                     v.setSignBehavior(4,date,time,null);
                 }else if (e==null&&list.size()>0){
                     //已经进行过打卡,无法修改
-                    v.setSignBehavior(5,date,time,null);
+                    v.setSignBehavior(5,date,time,list.get(0).getDate()+"  "+list.get(0).getSummary());
                 }
             }
         });

@@ -28,7 +28,6 @@ import com.zjmy.signin.utils.files.SPHelper;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
@@ -115,19 +114,6 @@ public class SignView extends BaseViewImpl {
 
     @Override
     public void onPresenterDestory() {
-    }
-
-
-
-    /**
-    *@author 张子扬
-    *@time 2017/3/23 0023 17:15
-    *@desc 拜访的签到签退
-    */
-    private void doVisitInOrOut(Intent intent) {
-        String date = intent.getStringExtra("date");
-
-        BmobQuery<Visit> query=new BmobQuery<>();
     }
 
 
@@ -243,12 +229,16 @@ public class SignView extends BaseViewImpl {
         tv_behavior.setText("拜访记录");
 
         img.setOnClickListener((View view) ->{
+            if(status==4) {
                 String msg = til_feedback_content.getEditText().getText().toString();
-                if(msg==null || msg.isEmpty()){
+                if (msg == null || msg.isEmpty()) {
                     til_feedback_content.setError("访问记录不能为空");
-                }else{
+                } else {
                     doVisitIn(msg);
                 }
+            }else{
+                Toast.makeText(activity, "今日已有拜访记录", Toast.LENGTH_SHORT).show();
+            }
         });
     }
 
@@ -299,7 +289,11 @@ public class SignView extends BaseViewImpl {
             case 3 : tv_behavior.setText("未签到"); break;//今日未签到
 
             case 4 : tv_behavior.setText("拜访记录"); break;//今日未签到
-            case 5 : tv_behavior.setText("已记录"); break;//今日未签到
+            case 5 : tv_behavior.setText("已记录");
+                til_feedback_content.getEditText().setText(objId);
+                til_feedback_content.setError("数据已提交，禁止修改");
+                til_feedback_content.getEditText().setEnabled(false);
+                break;//今日未签到
 
             default:tv_behavior.setText("服务器异常"); break;//今日未签到
         }
