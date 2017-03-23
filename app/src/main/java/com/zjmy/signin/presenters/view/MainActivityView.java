@@ -41,7 +41,7 @@ public class MainActivityView extends BaseViewImpl {
     protected TextView tv_clickme;
 
     private AppCompatActivity activity;
-
+    private String date;
     @Override
     public int getRootViewId() {
         return R.layout.main_activity;
@@ -70,10 +70,14 @@ public class MainActivityView extends BaseViewImpl {
             }
         };
         countDownTimer.start();
+
+
         btn_sign.setOnClickListener((View v) -> {
             if (SignInApplication.userName != null && !SignInApplication.userName.isEmpty()) {
                 Intent i = new Intent(activity, SignActivity.class);
                 i.putExtra("type", "sign");
+                i.putExtra("time",tv_time.getText().toString());
+                i.putExtra("date",date);
                 activity.startActivity(i);
             } else {
                 JUtils.Toast("请先登录");
@@ -85,6 +89,8 @@ public class MainActivityView extends BaseViewImpl {
             if (SignInApplication.userName != null && !SignInApplication.userName.isEmpty()) {
                 Intent i = new Intent(activity, SignActivity.class);
                 i.putExtra("type", "visit");
+                i.putExtra("time",tv_time.getText().toString());
+                i.putExtra("date",date);
                 activity.startActivity(i);
             } else {
                 JUtils.Toast("请先登录");
@@ -101,6 +107,10 @@ public class MainActivityView extends BaseViewImpl {
                     SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
                     String times = formatter.format(new Date(aLong * 1000L));
                     tv_time.setText(times);
+
+                    SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd");
+                    date = formatter2.format(new Date(aLong * 1000L));
+
                 } else {
                     Log.i("bmob", "获取服务器时间失败:" + e.getMessage());
                 }
@@ -117,6 +127,9 @@ public class MainActivityView extends BaseViewImpl {
     @OnClick(R.id.tv_clickme)
     protected void clickme() {
         SignInApplication.userName = null;
+        tv_clickme.setText("登录");
+        tv_showuser.setText("用户尚未登录  ");
+
         activity.startActivity(new Intent(activity, LoginActivity.class));
     }
 

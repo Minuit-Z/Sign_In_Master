@@ -90,7 +90,6 @@
                         android:inputType="textPassword"
                         android:paddingBottom="2dp"
                         android:textColor="#2fa881"
-                        android:text="121121"
                         android:textCursorDrawable="@drawable/bg_input_cursor"
                         android:textSize="13sp" />
                 </android.support.design.widget.TextInputLayout>
