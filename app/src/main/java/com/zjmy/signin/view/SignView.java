@@ -17,6 +17,7 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
+import com.skyfishjy.library.RippleBackground;
 import com.utopia.mvp.view.BaseViewImpl;
 import com.zjmy.signin.R;
 import com.zjmy.signin.presenters.activity.common.HistoryActivity;
@@ -42,6 +43,8 @@ public class SignView extends BaseViewImpl {
     protected TextView tv_loc_type;
     @Bind(R.id.btn_refresh)
     protected FloatingActionButton bt_refresh;
+    @Bind(R.id.content)
+    protected RippleBackground rippleBackground;
 
     private Handler handler=new Handler(){
         @Override
@@ -87,6 +90,7 @@ public class SignView extends BaseViewImpl {
         toolbar.setNavigationOnClickListener((View v)-> {
                 appCompatActivity.finish();
         });
+
         toolbar.getMenu().clear();
         toolbar.inflateMenu(R.menu.menu_sign);
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
@@ -98,6 +102,9 @@ public class SignView extends BaseViewImpl {
                 return true;
             }
         });
+
+        rippleBackground.startRippleAnimation();
+
     }
 
 

@@ -65,5 +65,8 @@ dependencies {
     compile 'com.nispok:snackbar:2.11.+'
     compile 'cn.bmob.android:bmob-sdk:3.5.0'
     testCompile 'junit:junit:4.12'
+
+    //波纹效果
+    compile 'com.skyfishjy.ripplebackground:library:1.0.1'
 }
 

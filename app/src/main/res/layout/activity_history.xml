@@ -3,6 +3,7 @@
     xmlns:toolbar="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/backgroundColor"
     android:orientation="vertical">
 
     <android.support.design.widget.AppBarLayout
@@ -44,15 +45,10 @@
             android:id="@+id/tv_signtime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dip"
             android:text="一月"
             android:textColor="#68BD2A"
             android:textSize="40dp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="是起点,我们又一次同时出发,\n是时光荏苒,\n而你我永远不变的永恒" />
     </LinearLayout>
 
     <LinearLayout
@@ -64,6 +60,6 @@
             android:id="@+id/rv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="10dp"></android.support.v7.widget.RecyclerView>
+            android:padding="10dp"/>
     </LinearLayout>
 </LinearLayout>

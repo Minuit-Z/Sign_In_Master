@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/menu_detail"
-        android:title="历史"
+        android:title="记录"
         app:showAsAction="ifRoom"
         android:showAsAction="ifRoom"
         >

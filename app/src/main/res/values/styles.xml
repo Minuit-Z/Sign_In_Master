@@ -4,23 +4,18 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">#000</item>
-        <item name="colorPrimaryDark">#0288D1</item>
-        <item name="colorAccent">#2fa881</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
     </style>
-    <style name="Translucent" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimaryDark">#fff</item>
-        <item name="android:windowIsTranslucent">true</item>
+
+    <style name="Translucent" parent="AppTheme">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="actionMenuTextColor">#10B404</item>
     </style>
+
     <style name="TextLabel" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Label color in TRUE state and bar color FALSE and TRUE State -->
         <item name="colorControlActivated">#FFCC00</item>
-    </style>
-
-    <style name="toolbar_green_theme" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-        <item name="colorControlNormal">#10B404</item>
-        <item name="android:actionBarSize">46dp</item>
     </style>
 </resources>

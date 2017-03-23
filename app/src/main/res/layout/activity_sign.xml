@@ -1,75 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:toolbar="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#fff">
+                xmlns:toolbar="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/backgroundColor">
 
     <android.support.design.widget.AppBarLayout
-        toolbar:elevation="1dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/toolbar_green_theme">
+            toolbar:elevation="1dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
         <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize">
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#fff"
-            android:minHeight="?attr/actionBarSize"
-            toolbar:title=" ">
-        </android.support.v7.widget.Toolbar>
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="80dip"
-            android:layout_marginRight="80dip"
-            android:layout_centerInParent="true"
-            android:text="签到打卡"
-            android:textColor="#09C90F"
-            android:textSize="20dp"/>
+            <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="@color/colorPrimary"
+                    android:minHeight="?attr/actionBarSize"
+                    toolbar:title=" ">
+            </android.support.v7.widget.Toolbar>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="80dip"
+                    android:layout_marginRight="80dip"
+                    android:layout_centerInParent="true"
+                    android:text="签到打卡"
+                    android:textColor="@color/white"
+                    android:textSize="20dp"/>
         </RelativeLayout>
     </android.support.design.widget.AppBarLayout>
 
-    <ImageView
-        android:id="@+id/img_sign"
-        android:layout_width="210dp"
-        android:layout_height="167dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="92dp"
-        android:src="@drawable/sign" />
+    <RelativeLayout
+            android:layout_width="210dp"
+            android:layout_height="167dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="92dp"
+            android:id="@+id/relativeLayout">
+
+        <ImageView
+                android:id="@+id/img_sign"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@mipmap/click_bg"/>
+
+        <com.skyfishjy.library.RippleBackground
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="60dip"
+                android:layout_height="60dip"
+                android:id="@+id/content"
+                app:rb_color="@color/white"
+                app:rb_radius="5dp"
+                app:rb_rippleAmount="4"
+                app:rb_duration="5000"
+                app:rb_scale="6"
+                android:layout_centerInParent="true"/>
+
+        <ImageView
+                android:layout_width="36dip"
+                android:layout_height="36dip"
+                android:layout_below="@id/content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="-40dip"
+                android:src="@mipmap/ic_touch_app_white_36dp"/>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="点击签到"
+                android:layout_below="@id/content"
+                android:layout_marginTop="5dip"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/white"
+                android:id="@+id/textView2"/>
+    </RelativeLayout>
+
 
     <TextView
-        android:id="@+id/tv_sign_location"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:background="@drawable/bottom"
-        android:gravity="center"
-        android:text="123132" />
+            android:id="@+id/tv_sign_location"
+            android:layout_width="match_parent"
+            android:layout_height="120dip"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:background="@mipmap/bottombg"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:text="定位中..."/>
 
     <TextView
-        android:id="@+id/tv_sign_loctype"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="22dp"
-        android:layout_marginEnd="49dp"
-        android:text="定位方式" />
+            android:id="@+id/tv_sign_loctype"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="22dp"
+            android:layout_marginEnd="49dp"
+            android:textColor="@color/white"
+            android:text="定位方式"/>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/btn_refresh"
-        android:elevation="5dp"
-        android:src="@mipmap/ic_autorenew_white_36dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/tv_sign_location"
-        android:layout_toStartOf="@+id/img_sign" />
+            android:id="@+id/btn_refresh"
+            android:elevation="5dp"
+            android:src="@mipmap/ic_autorenew_white_36dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/tv_sign_location"
+            android:layout_toStartOf="@+id/relativeLayout"/>
 </RelativeLayout>
