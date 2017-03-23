@@ -7,6 +7,7 @@ import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.utopia.mvp.view.BaseViewImpl;
@@ -40,6 +41,8 @@ public class LoginActivityView extends BaseViewImpl {
     protected CardView cv;
     @Bind(R.id.fab)
     protected FloatingActionButton fab;
+    @Bind(R.id.bg_login)
+    protected RelativeLayout layout;
 
     private AppCompatActivity activity;
     @Override

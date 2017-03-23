@@ -20,4 +20,6 @@
     <string name="September">将自己藏起,躲在暗中享受懒洋洋\n尽管长夜漫漫\n九月的夜晚会哄你入睡</string>
     <string name="October">天人各自忙碌,人间却是最美好的秋天\n就算候鸟南迁\n我都会一直陪着你</string>
     <string name="Novmber">夏天过了,明年还有夏天\n离开的人会温暖的回到你身边</string>
+    <string name="clickmelogin"><u>点我登录</u></string>
+    <string name="clickmelogout"><u>点我注销</u></string>
 </resources>
