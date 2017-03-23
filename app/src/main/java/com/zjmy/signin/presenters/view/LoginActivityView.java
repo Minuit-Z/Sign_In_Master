@@ -9,6 +9,7 @@ import android.widget.RelativeLayout;
 import com.utopia.mvp.view.BaseViewImpl;
 import com.zjmy.signin.R;
 import com.zjmy.signin.model.bean.User;
+import com.zjmy.signin.presenters.SignInApplication;
 import com.zjmy.signin.utils.files.SPHelper;
 
 import java.util.List;
@@ -81,7 +82,7 @@ public class LoginActivityView extends BaseViewImpl {
                 if (e == null && !list.isEmpty()) {
                     SPHelper.getInstance(activity).setParam(SPHelper.USER,list.get(0).getUser());
                     SPHelper.getInstance(activity).setParam(SPHelper.NAME,list.get(0).getName());
-
+                    SignInApplication.userName = list.get(0).getName();
                     activity.finish();
                 }else {
                     _etPassword.setError("密码错误");

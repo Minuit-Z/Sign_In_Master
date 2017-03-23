@@ -11,8 +11,10 @@ import android.widget.TextView;
 
 import com.utopia.mvp.view.BaseViewImpl;
 import com.zjmy.signin.R;
+import com.zjmy.signin.presenters.SignInApplication;
 import com.zjmy.signin.presenters.activity.LoginActivity;
 import com.zjmy.signin.presenters.activity.SignActivity;
+import com.zjmy.signin.utils.app.JUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -39,6 +41,7 @@ public class MainActivityView extends BaseViewImpl {
     protected TextView tv_clickme;
 
     private AppCompatActivity activity;
+
     @Override
     public int getRootViewId() {
         return R.layout.main_activity;
@@ -46,16 +49,16 @@ public class MainActivityView extends BaseViewImpl {
 
     @Override
     public void setActivityContext(AppCompatActivity appCompatActivity) {
-        activity  = appCompatActivity;
+        activity = appCompatActivity;
 
         toolbar.getMenu().clear();
         toolbar.inflateMenu(R.menu.menu_main);
         appCompatActivity.setSupportActionBar(toolbar);
     }
 
-    public void init(){
+    public void init() {
         // 每1分钟更新一次时间
-        CountDownTimer countDownTimer = new CountDownTimer(1000*60*10, 1000*60) {
+        CountDownTimer countDownTimer = new CountDownTimer(1000 * 60 * 10, 1000 * 60) {
             @Override
             public void onTick(long millisUntilFinished) {
                 initData();
@@ -67,16 +70,26 @@ public class MainActivityView extends BaseViewImpl {
             }
         };
         countDownTimer.start();
-        btn_sign.setOnClickListener((View v)-> {
+        btn_sign.setOnClickListener((View v) -> {
+            if (SignInApplication.userName != null && !SignInApplication.userName.isEmpty()) {
                 Intent i = new Intent(activity, SignActivity.class);
                 i.putExtra("type", "sign");
                 activity.startActivity(i);
+            } else {
+                JUtils.Toast("请先登录");
+            }
+
         });
 
-        btn_visit.setOnClickListener((View v)-> {
-            Intent i = new Intent(activity, SignActivity.class);
-            i.putExtra("type", "visit");
-            activity.startActivity(i);
+        btn_visit.setOnClickListener((View v) -> {
+            if (SignInApplication.userName != null && !SignInApplication.userName.isEmpty()) {
+                Intent i = new Intent(activity, SignActivity.class);
+                i.putExtra("type", "visit");
+                activity.startActivity(i);
+            } else {
+                JUtils.Toast("请先登录");
+            }
+
         });
     }
 
@@ -94,6 +107,7 @@ public class MainActivityView extends BaseViewImpl {
             }
         });
     }
+
     @Override
     public void onPresenterDestory() {
 
@@ -101,15 +115,19 @@ public class MainActivityView extends BaseViewImpl {
 
     //点击登录或点击注销
     @OnClick(R.id.tv_clickme)
-    protected void clickme(){
+    protected void clickme() {
+        SignInApplication.userName = null;
         activity.startActivity(new Intent(activity, LoginActivity.class));
     }
 
-    public void initUser(String userName) {
-        if(userName!=null && !userName.isEmpty()){
+    public void initUser() {
+        String userName = SignInApplication.userName;
+        if (userName != null && !userName.isEmpty()) {
             tv_clickme.setText("注销");
-        }else{
-
+            tv_showuser.setText(userName + " 已登录  ");
+        } else {
+            tv_clickme.setText("登录");
+            tv_showuser.setText("用户尚未登录  ");
         }
     }
 }

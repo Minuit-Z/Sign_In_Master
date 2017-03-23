@@ -23,8 +23,10 @@ import com.utopia.mvp.view.BaseViewImpl;
 import com.zjmy.signin.R;
 import com.zjmy.signin.model.bean.Sign;
 import com.zjmy.signin.model.bean.Visit;
+import com.zjmy.signin.presenters.SignInApplication;
 import com.zjmy.signin.presenters.activity.HistoryActivity;
 import com.zjmy.signin.presenters.activity.LocationActivity;
+import com.zjmy.signin.utils.app.JUtils;
 import com.zjmy.signin.utils.files.SPHelper;
 
 import java.util.List;
@@ -257,16 +259,10 @@ public class SignView extends BaseViewImpl {
         img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = activity.getIntent();
-                String where = intent.getStringExtra("type");
-                switch (where) {
-                    case "sign":
-                        doSignInOrOut(activity.getIntent());
-                        break;
-                    case "visit":
-                        doVisitInOrOut(activity.getIntent());
-                        break;
-                    default:
+                if(SignInApplication.userName!=null && !SignInApplication.userName.isEmpty()) {
+                    doSignInOrOut(activity.getIntent());
+                }else{
+                    JUtils.Toast("请先登录");
                 }
             }
         });
@@ -283,7 +279,11 @@ public class SignView extends BaseViewImpl {
                 if(msg==null || msg.isEmpty()){
                     til_feedback_content.setError("访问记录不能为空");
                 }else{
-                    Toast.makeText(activity, "访问记录已提交", Toast.LENGTH_SHORT).show();
+                    if(SignInApplication.userName!=null && !SignInApplication.userName.isEmpty()) {
+                        doVisitInOrOut(activity.getIntent());
+                    }else{
+                        JUtils.Toast("请先登录");
+                    }
                 }
             }
         });

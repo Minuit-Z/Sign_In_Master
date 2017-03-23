@@ -16,7 +16,7 @@ import cn.bmob.v3.Bmob;
 
 public class SignInApplication extends MultiDexApplication {
     private static SignInApplication application;
-
+    public static String userName ;
     @Override
     public void onCreate() {
 

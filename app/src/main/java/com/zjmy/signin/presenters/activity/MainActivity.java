@@ -6,7 +6,6 @@ import android.view.Menu;
 
 import com.zjmy.signin.R;
 import com.zjmy.signin.presenters.view.MainActivityView;
-import com.zjmy.signin.utils.files.SPHelper;
 
 public class MainActivity extends BaseActivity<MainActivityView>{
     @Override
@@ -35,7 +34,6 @@ public class MainActivity extends BaseActivity<MainActivityView>{
     @Override
     protected void onResume() {
         super.onResume();
-        String userName = (String)SPHelper.getInstance(this).getParam(SPHelper.NAME,"");
-        v.initUser(userName);
+        v.initUser();
     }
 }
