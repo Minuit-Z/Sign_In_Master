@@ -34,11 +34,8 @@
         tools:replace="android:theme">
         <activity
             android:name=".presenters.activity.common.LoginActivity"
-            android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
-            android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:theme="@style/Translucent"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
+            />
         <activity
             android:name=".presenters.activity.common.MainActivity"
             android:theme="@style/Translucent">

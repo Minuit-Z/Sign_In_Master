@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.zjmy.signin.R;
 import com.zjmy.signin.presenters.activity.common.SignActivity;
+import com.zjmy.signin.utils.files.SPHelper;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -48,8 +49,20 @@ public class VisitFragment extends Fragment {
             }
         };
         countDownTimer.start();
-
         btn_sign = (Button) view.findViewById(R.id.btn_sign);
+
+        if ("".equals(SPHelper.getInstance(getActivity()).getParam(SPHelper.NAME,""))){
+            //为空,无法签到
+            btn_sign.setText("未登录");
+            btn_sign.setTextColor(getResources().getColor(R.color.black));
+            btn_sign.setEnabled(false);
+            btn_sign.setBackground(getResources().getDrawable(R.drawable.circular_shape_none));
+        }else {
+            btn_sign.setBackground(getResources().getDrawable(R.drawable.circular_shape));
+            btn_sign.setEnabled(true);
+            btn_sign.setText("外 出 访 问");
+        }
+
         btn_sign.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
