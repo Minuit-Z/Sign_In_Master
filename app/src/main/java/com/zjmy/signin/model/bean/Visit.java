@@ -1,7 +1,6 @@
 package com.zjmy.signin.model.bean;
 
 import cn.bmob.v3.BmobObject;
-import cn.bmob.v3.datatype.BmobDate;
 
 /**
  * Created by Administrator on 2017/3/20 0020.
@@ -16,6 +15,15 @@ public class Visit extends BmobObject {
     String summary;// 摘要
     String sendee;//接收人
     String date ;//时间
+    String month;//月份
+
+    public String getMonth() {
+        return month;
+    }
+
+    public void setMonth(String month) {
+        this.month = month;
+    }
 
     public String getName() {
         return name;

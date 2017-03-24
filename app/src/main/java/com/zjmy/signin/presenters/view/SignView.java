@@ -7,7 +7,6 @@ import android.os.Message;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -22,7 +21,6 @@ import com.utopia.mvp.view.BaseViewImpl;
 import com.zjmy.signin.R;
 import com.zjmy.signin.model.bean.Sign;
 import com.zjmy.signin.model.bean.Visit;
-import com.zjmy.signin.presenters.activity.HistoryActivity;
 import com.zjmy.signin.presenters.activity.LocationActivity;
 import com.zjmy.signin.utils.files.SPHelper;
 
@@ -97,15 +95,6 @@ public class SignView extends BaseViewImpl {
             appCompatActivity.finish();
         });
 
-        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                if (item.getItemId() == R.id.menu_detail) {
-                    activity.startActivity(new Intent(activity, HistoryActivity.class));
-                }
-                return true;
-            }
-        });
 
         rippleBackground.startRippleAnimation();
 
@@ -252,6 +241,7 @@ public class SignView extends BaseViewImpl {
         if(status == 4) {
             Visit visit = new Visit();
             visit.setDate(date);
+            visit.setMonth(date.split("-")[1]);
             visit.setName((String) SPHelper.getInstance(activity).getParam(SPHelper.NAME, ""));
             visit.setUser((String) SPHelper.getInstance(activity).getParam(SPHelper.USER, ""));
             visit.setLocation(tv_loc.getText().toString());
@@ -262,6 +252,8 @@ public class SignView extends BaseViewImpl {
                     if (e == null) {
                         tv_behavior.setText("已记录");
                         status = 5;
+                        til_feedback_content.setError("数据已提交，禁止修改");
+                        til_feedback_content.getEditText().setEnabled(false);
                         Toast.makeText(activity, "拜访完成", Toast.LENGTH_SHORT).show();
                     }
                 }

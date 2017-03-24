@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.zjmy.signin.R;
-import com.zjmy.signin.model.bean.Sign;
+import com.zjmy.signin.model.bean.Visit;
 
 import java.util.List;
 
@@ -16,13 +16,13 @@ import java.util.List;
  * Created by Administrator on 2017/3/22 0022.
  */
 
-public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyHolder> {
+public class HistoryAdapter4Visit extends RecyclerView.Adapter<HistoryAdapter4Visit.MyHolder> {
 
     private LayoutInflater inflater;
     private Context context;
-    private List<Sign> lists;
+    private List<Visit> lists;
 
-    public HistoryAdapter(Context context, List<Sign> lists) {
+    public HistoryAdapter4Visit(Context context, List<Visit> lists) {
         this.context = context;
         this.lists = lists;
         inflater = LayoutInflater.from(context);
@@ -30,7 +30,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyHolder
 
     @Override
     public MyHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.item_history, parent,false);
+        View view = inflater.inflate(R.layout.item_history4visit, parent,false);
         MyHolder holder = new MyHolder(view);
         return holder;
     }
@@ -38,10 +38,8 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyHolder
     @Override
     public void onBindViewHolder(MyHolder holder, int position) {
         holder.tv_day.setText(getDay(lists.get(position).getDate()));
-        holder.tv_signin_time.setText("签到: "+lists.get(position).getStartTime());
-        holder.tv_signout_time.setText("签退: "+lists.get(position).getEndTime());
-        holder.tv_signout_place.setText(lists.get(position).getSignoutPlace());
-        holder.tv_signin_place.setText(lists.get(position).getSigninPlace());
+        holder.tv_place.setText(lists.get(position).getLocation());
+        holder.tv_summary.setText(lists.get(position).getSummary());
     }
 
     private String getDay(String date) {
@@ -56,16 +54,14 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyHolder
 
 
     class MyHolder extends RecyclerView.ViewHolder {
-        TextView tv_signin_time, tv_signout_time, tv_day, tv_signin_place, tv_signout_place;
+        TextView tv_day,tv_place,tv_summary;
 
         public MyHolder(View itemView) {
             super(itemView);
 
             tv_day= (TextView) itemView.findViewById(R.id.tv_history_day);
-            tv_signin_time= (TextView) itemView.findViewById(R.id.tv_history_signin_time);
-            tv_signin_place= (TextView) itemView.findViewById(R.id.tv_history_signin_place);
-            tv_signout_time= (TextView) itemView.findViewById(R.id.tv_history_signout_time);
-            tv_signout_place= (TextView) itemView.findViewById(R.id.tv_history_signout_place);
+            tv_place= (TextView) itemView.findViewById(R.id.tv_item_visit_place);
+            tv_summary= (TextView) itemView.findViewById(R.id.tv_item_visit_summary);
         }
     }
 }

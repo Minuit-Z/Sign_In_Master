@@ -2,22 +2,36 @@ package com.zjmy.signin.presenters.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.NumberPicker;
 
 import com.zjmy.signin.R;
 import com.zjmy.signin.model.bean.Sign;
+import com.zjmy.signin.model.bean.Visit;
 import com.zjmy.signin.presenters.view.HistoryView;
+import com.zjmy.signin.utils.app.DynamicBoxUtil;
+import com.zjmy.signin.utils.files.SPHelper;
 
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
+import mehdi.sakout.dynamicbox.DynamicBox;
+
 
 public class HistoryActivity extends BaseActivity<HistoryView> {
-
-
+    private AlertDialog alertDialog;
+    private DynamicBox dynamicBox;
+    final String[] months = new String[]{"一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"};
+    private String type = "";
     @Override
     public Class<HistoryView> getRootViewClass() {
         return HistoryView.class;
@@ -26,21 +40,20 @@ public class HistoryActivity extends BaseActivity<HistoryView> {
     @Override
     public void inCreat(Bundle savedInstanceState) {
         activityComponent.inject(this);
+        dynamicBox = DynamicBoxUtil.newInstance(this,v.get(R.id.rv));
+        dynamicBox.showLoadingLayout();
 
-        BmobQuery<Sign> query=new BmobQuery<>();
-        query.addWhereEqualTo("user", "15513881370");
-        query.findObjects(new FindListener<Sign>() {
-            @Override
-            public void done(List<Sign> list, BmobException e) {
-                if (e==null&&list.size()!=0)
-                {
-                    LinearLayoutManager managers = new LinearLayoutManager(HistoryActivity.this);
-                    managers.setOrientation(LinearLayoutManager.VERTICAL);
-                    v.initRecyclerData(list,managers);
-                }
-            }
-        });
-
+        String date = getIntent().getStringExtra("date");
+        String month = date.split("-")[1];
+        type = getIntent().getStringExtra("where");
+        switch (type){
+            case "sign"://加载Sign表中的数据
+               initSignData(month);
+                break;
+            case "visit"://加载Visit表中的数据
+                initVisitData(month);
+                break;
+        }
     }
 
     @Override
@@ -52,5 +65,89 @@ public class HistoryActivity extends BaseActivity<HistoryView> {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_history,menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == R.id.menu_change_month){
+            showPicker();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void showPicker() {
+        LayoutInflater inflater = getLayoutInflater();
+        View view = inflater.inflate(R.layout.dialog_picker, null);
+        NumberPicker picker_month = (NumberPicker) view.findViewById(R.id.picker_month);
+        picker_month.setMaxValue(12);
+        picker_month.setMinValue(1);
+        picker_month.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);//禁止编辑
+        NumberPicker picker_year = (NumberPicker) view.findViewById(R.id.picker_year);
+        picker_year.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);//禁止编辑
+        picker_year.setMinValue(2017);
+        picker_year.setMaxValue(2017);
+        Button btn = (Button) view.findViewById(R.id.btn_get);
+        btn.setOnClickListener((View view1)-> {
+                String month = picker_month.getValue() + "";
+                v.setMouth(months[Integer.parseInt(month)-1]);
+                if ("sign".equals(type)) {
+                   initSignData("0"+month);
+                } else if ("visit".equals(type)) {
+                    initVisitData("0"+month);
+                }
+                alertDialog.dismiss();
+        });
+
+
+        alertDialog = new AlertDialog.Builder(this)
+                .setTitle("选择时间")
+                .setView(view)
+                .create();
+        alertDialog.show();
+    }
+
+
+    private void initVisitData(String month){
+        BmobQuery<Visit> query=new BmobQuery<>();
+        query.addWhereEqualTo("month", month);
+        Log.e("test",month);
+        query.addWhereEqualTo("user",SPHelper.getInstance(this).getParam(SPHelper.USER,""));
+        query.findObjects(new FindListener<Visit>() {
+            @Override
+            public void done(List<Visit> list, BmobException e) {
+                if (e == null && list.size() != 0) {
+
+                    Log.e("test",list.size()+":");
+
+                    LinearLayoutManager managers = new LinearLayoutManager(HistoryActivity.this);
+                    managers.setOrientation(LinearLayoutManager.VERTICAL);
+                    v.initRecyclerDataVisit(list, managers);
+                    dynamicBox.hideAll();
+                } else {
+                    dynamicBox.showCustomView(DynamicBoxUtil.emptyView);
+                }
+            }
+        });
+    }
+
+    private void initSignData(String month){
+        BmobQuery<Sign> query=new BmobQuery<>();
+        query.addWhereEqualTo("month", month);
+
+        query.addWhereEqualTo("user", SPHelper.getInstance(this).getParam(SPHelper.USER,""));
+        query.findObjects(new FindListener<Sign>() {
+            @Override
+            public void done(List<Sign> list, BmobException e) {
+                if (e==null && list.size()!=0)
+                {
+                    LinearLayoutManager managers = new LinearLayoutManager(HistoryActivity.this);
+                    managers.setOrientation(LinearLayoutManager.VERTICAL);
+                    v.initRecyclerData(list,managers);
+                    dynamicBox.hideAll();
+                }else{
+                    dynamicBox.showCustomView(DynamicBoxUtil.emptyView);
+                }
+            }
+        });
     }
 }

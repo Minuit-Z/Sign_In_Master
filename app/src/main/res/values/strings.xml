@@ -9,4 +9,9 @@
 
     <string name="clickmelogin"><u>点我登录</u></string>
     <string name="clickmelogout"><u>点我注销</u></string>
+
+    <!-- DynamicBoxUtil -->
+    <string name="load_ing">加载中···</string>
+    <string name="load_error">加载数据出错</string>
+    <string name="msg_read_detail_fail">无法获取网络数据，请刷新重试...</string>
 </resources>

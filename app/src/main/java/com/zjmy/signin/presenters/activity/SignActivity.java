@@ -2,8 +2,10 @@ package com.zjmy.signin.presenters.activity;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 
 import com.tbruyelle.rxpermissions.RxPermissions;
 import com.zjmy.signin.R;
@@ -19,6 +21,9 @@ import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 
 public class SignActivity extends BaseActivity<SignView> {
+    private String type = "";
+    String date = "";
+    String time = "";
 
     @Override
     public Class<SignView> getRootViewClass() {
@@ -28,8 +33,10 @@ public class SignActivity extends BaseActivity<SignView> {
     @Override
     public void inCreat(Bundle savedInstanceState) {
         activityComponent.inject(this);
+        date = getIntent().getStringExtra("date");
+        time = getIntent().getStringExtra("time");
+        type = getIntent().getStringExtra("type");
 
-        String type = getIntent().getStringExtra("type");
         if(type.equals("sign")){//签到
             v.initViewBySign();
             doSignInOrOut();
@@ -50,15 +57,23 @@ public class SignActivity extends BaseActivity<SignView> {
         return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == R.id.menu_detail){
+            Intent intent = new Intent(this,HistoryActivity.class);
+            intent.putExtra("where",type);
+            intent.putExtra("date",date);
+            startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     /**
      * @author 张子扬
      * @time 2017/3/23 0023 17:15
      * @desc 拜访的签到签退
      */
     private void doVisitInOrOut() {
-        String date = getIntent().getStringExtra("date");
-        String time = getIntent().getStringExtra("time");
-
         BmobQuery<Visit> query = new BmobQuery<>();
         query.addWhereEqualTo("date", date);
         query.addWhereEqualTo("user", SPHelper.getInstance(this).getParam(SPHelper.USER, ""));
@@ -84,8 +99,6 @@ public class SignActivity extends BaseActivity<SignView> {
      *
      */
     private void doSignInOrOut() {
-        String date = getIntent().getStringExtra("date");
-        String time = getIntent().getStringExtra("time");
         //判断是签到还是签退
         BmobQuery<Sign> query = new BmobQuery<>();
         query.addWhereEqualTo("date", date);
