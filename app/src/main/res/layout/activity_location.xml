@@ -14,11 +14,10 @@
             android:background="#BFFF97"
             android:layout_height="240dip">
 
-        <com.zjmy.signin.presenters.view.RadarView
-                android:id="@+id/radarView"
-                android:layout_width="200dip"
-                android:layout_height="200dip"
-                android:layout_centerInParent="true"/>
+        <com.baidu.mapapi.map.MapView
+            android:id="@+id/baidumap"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></com.baidu.mapapi.map.MapView>
     </RelativeLayout>
 
     <LinearLayout

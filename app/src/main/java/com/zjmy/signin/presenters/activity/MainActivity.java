@@ -3,6 +3,8 @@ package com.zjmy.signin.presenters.activity;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.zjmy.signin.R;
 import com.zjmy.signin.presenters.view.MainActivityView;
@@ -28,6 +30,24 @@ public class MainActivity extends BaseActivity<MainActivityView>{
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId())
+        {
+            //TODO
+            case R.id.menu_about:
+                Toast.makeText(this, "研发中心制作", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.menu_feedback:
+                break;
+            case R.id.menu_exit:
+                finish();
+                break;
+        }
+
         return true;
     }
 

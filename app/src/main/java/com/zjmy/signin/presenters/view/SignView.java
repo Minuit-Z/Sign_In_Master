@@ -51,13 +51,13 @@ public class SignView extends BaseViewImpl {
 
     private int status = 1000 ;
     private String time = "" , date = "" , objId = "";
-
+    private BDLocation location;
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
 
-            BDLocation location= (BDLocation) msg.obj;
+            location= (BDLocation) msg.obj;
             String loc=location.getLocationDescribe().replaceFirst("在","");
             loc=loc.replace("附近","");
             String type = "离线异常";
@@ -266,6 +266,8 @@ public class SignView extends BaseViewImpl {
     @OnClick(R.id.btn_refresh)
     protected void refreshLocation(){
         Intent intent = new Intent(activity, LocationActivity.class);
+        intent.putExtra("latitude",location.getLatitude());
+        intent.putExtra("longitude",location.getLongitude());
         activity.startActivity(intent);
     }
 
@@ -289,5 +291,9 @@ public class SignView extends BaseViewImpl {
 
             default:tv_behavior.setText("服务器异常"); break;//今日未签到
         }
+    }
+
+    public BDLocation getLocation(){
+        return location;
     }
 }

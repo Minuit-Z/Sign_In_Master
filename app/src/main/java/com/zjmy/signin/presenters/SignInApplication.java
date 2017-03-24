@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.StrictMode;
 import android.support.multidex.MultiDexApplication;
 
+import com.baidu.mapapi.SDKInitializer;
 import com.osama.firecrasher.CrashListener;
 import com.osama.firecrasher.FireCrasher;
 import com.zjmy.signin.BuildConfig;
@@ -45,6 +46,7 @@ public class SignInApplication extends MultiDexApplication {
         JUtils.initialize(this);
 
         Bmob.initialize(getApplicationContext(),"f654080ef415d1b3dd5b65a2bbf75ee3");
+        SDKInitializer.initialize(getApplicationContext());
     }
 
     public ApplicationComponent getAppComponent() {

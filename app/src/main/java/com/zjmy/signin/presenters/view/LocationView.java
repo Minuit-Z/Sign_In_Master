@@ -1,6 +1,7 @@
 package com.zjmy.signin.presenters.view;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +13,15 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
+import com.baidu.mapapi.map.BaiduMap;
+import com.baidu.mapapi.map.BitmapDescriptor;
+import com.baidu.mapapi.map.BitmapDescriptorFactory;
+import com.baidu.mapapi.map.MapStatusUpdate;
+import com.baidu.mapapi.map.MapStatusUpdateFactory;
+import com.baidu.mapapi.map.MapView;
+import com.baidu.mapapi.map.MyLocationConfiguration;
+import com.baidu.mapapi.map.MyLocationData;
+import com.baidu.mapapi.model.LatLng;
 import com.utopia.mvp.view.BaseViewImpl;
 import com.zjmy.signin.R;
 
@@ -33,9 +43,9 @@ public class LocationView extends BaseViewImpl {
     protected TextView tv_accuracy;//定位精度
     @Bind(R.id.tv_location)
     protected TextView tv_location;//定位地址
-    @Bind(R.id.radarView)
-    protected RadarView radarView;
-
+    @Bind(R.id.baidumap)
+    protected MapView mapView;
+    BaiduMap map;
 
     private Handler handler = new Handler() {
         @Override
@@ -56,7 +66,25 @@ public class LocationView extends BaseViewImpl {
                 default:
                     type = "定位异常";
             }
-            tv_accuracy.setText(type+" — "+location.getRadius());
+            tv_accuracy.setText(type + " — " + location.getRadius());
+
+            map.setMyLocationEnabled(true);
+            MyLocationData data = new MyLocationData.Builder()
+                    .latitude(location.getLatitude()).longitude(location.getLongitude()).build();
+
+            map.setMyLocationData(data);
+            BitmapDescriptor bitmapDescriptor = BitmapDescriptorFactory
+                    .fromResource(R.mipmap.icon_gcoding);
+            MyLocationConfiguration config = new MyLocationConfiguration(null, true, bitmapDescriptor);
+            map.setMyLocationConfigeration(config);
+            LatLng ll = new LatLng(location.getLatitude(),
+                    location.getLongitude());
+            MapStatusUpdate update = MapStatusUpdateFactory.newLatLng(ll);
+            // 移动到某经纬度
+            map.animateMapStatus(update);
+            update = MapStatusUpdateFactory.zoomBy(5f);
+            // 放大
+            map.animateMapStatus(update);
         }
     };
     private AppCompatActivity activity;
@@ -77,18 +105,13 @@ public class LocationView extends BaseViewImpl {
         });
 
         tv_title.setText("定位预览");
-
-        //设置雷达扫描方向
-        radarView.setDirection(RadarView.ANTI_CLOCK_WISE);
-        radarView.start();
-
+        map = mapView.getMap();
     }
 
 
     @Override
     public void onPresenterDestory() {
     }
-
 
 
     public void showLocation(Context context) {

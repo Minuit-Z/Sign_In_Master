@@ -59,11 +59,12 @@
             android:background="@color/white"
             android:layout_marginTop="15dip"
             android:padding="15dip"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+        android:weightSum="1">
 
         <EditText
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="130dp"
                 android:background="@null"
                 android:clickable="true"
                 android:gravity="top"
@@ -83,7 +84,8 @@
             android:layout_width="match_parent"
             android:layout_height="120dip"
             android:layout_alignParentBottom="true"
-            android:background="@mipmap/bottombg">
+            android:background="@mipmap/bottombg"
+        android:id="@+id/relativeLayout2">
 
         <ImageView
                 android:id="@+id/btn_refresh"
