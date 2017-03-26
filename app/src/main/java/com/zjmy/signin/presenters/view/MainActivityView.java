@@ -147,4 +147,10 @@ public class MainActivityView extends BaseViewImpl {
             tv_showuser.setText("用户尚未登录  ");
         }
     }
+
+    public void initClock(){
+        SimpleDateFormat   formatter   =   new   SimpleDateFormat   ("HH:mm");
+        Date curDate =  new Date(System.currentTimeMillis());
+        tv_time.setText(formatter.format(curDate));
+    }
 }

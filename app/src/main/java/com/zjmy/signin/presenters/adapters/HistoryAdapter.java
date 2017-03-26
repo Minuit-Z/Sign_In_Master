@@ -39,7 +39,12 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyHolder
     public void onBindViewHolder(MyHolder holder, int position) {
         holder.tv_day.setText(getDay(lists.get(position).getDate()));
         holder.tv_signin_time.setText("签到: "+lists.get(position).getStartTime());
+        if (lists.get(position).getEndTime()==null){
+            holder.tv_signout_time.setText("未签退");
+            holder.tv_signout_time.setTextColor(context.getResources().getColor(R.color.red));
+        }else {
         holder.tv_signout_time.setText("签退: "+lists.get(position).getEndTime());
+        }
         holder.tv_signout_place.setText(lists.get(position).getSignoutPlace());
         holder.tv_signin_place.setText(lists.get(position).getSigninPlace());
     }

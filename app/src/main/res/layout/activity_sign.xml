@@ -1,115 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:toolbar="http://schemas.android.com/apk/res-auto"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:background="@color/backgroundColor">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:toolbar="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundColor">
 
     <include
         android:id="@+id/tb_sign"
-        layout="@layout/appbar_layout"/>
+        layout="@layout/appbar_layout" />
 
     <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="167dp"
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="167dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="140dip">
+
+        <ImageView
+            android:id="@+id/img_sign"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="140dip"
-            android:id="@+id/relativeLayout">
+            android:src="@mipmap/click_bg" />
+
+        <com.skyfishjy.library.RippleBackground xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/content"
+            android:layout_width="60dip"
+            android:layout_height="60dip"
+            android:layout_centerInParent="true"
+            app:rb_color="@color/white"
+            app:rb_duration="5000"
+            app:rb_radius="5dp"
+            app:rb_rippleAmount="4"
+            app:rb_scale="6" />
 
         <ImageView
-                android:id="@+id/img_sign"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@mipmap/click_bg"/>
+            android:layout_width="36dip"
+            android:layout_height="36dip"
+            android:layout_below="@id/content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="-40dip"
+            android:src="@mipmap/ic_touch_app_white_36dp" />
 
-        <com.skyfishjy.library.RippleBackground
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:layout_width="60dip"
-                android:layout_height="60dip"
-                android:id="@+id/content"
-                app:rb_color="@color/white"
-                app:rb_radius="5dp"
-                app:rb_rippleAmount="4"
-                app:rb_duration="5000"
-                app:rb_scale="6"
-                android:layout_centerInParent="true"/>
-
-        <ImageView
-                android:layout_width="36dip"
-                android:layout_height="36dip"
-                android:layout_below="@id/content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="-40dip"
-                android:src="@mipmap/ic_touch_app_white_36dp"/>
         <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="上班签到"
-                android:layout_below="@id/content"
-                android:layout_marginTop="5dip"
-                android:layout_centerHorizontal="true"
-                android:textColor="@color/white"
-                android:id="@+id/tv_behavior"/>
+            android:id="@+id/tv_behavior"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dip"
+            android:text="上班签到"
+            android:textColor="@color/white" />
     </RelativeLayout>
 
     <android.support.design.widget.TextInputLayout
-            android:id="@+id/til_feedback_content"
-            android:layout_below="@id/relativeLayout"
-            android:layout_width="match_parent"
-            android:background="@color/white"
-            android:layout_marginTop="15dip"
-            android:padding="15dip"
-            android:layout_height="wrap_content"
+        android:id="@+id/til_feedback_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/relativeLayout"
+        android:layout_marginTop="15dip"
+        android:background="@color/white"
+        android:padding="15dip"
         android:weightSum="1">
 
         <EditText
-                android:layout_width="match_parent"
-                android:layout_height="130dp"
-                android:background="@null"
-                android:clickable="true"
-                android:gravity="top"
-                android:imeOptions="actionDone"
-                android:inputType="textMultiLine"
-                android:minLines="8"
-                android:paddingBottom="8dip"
-                android:paddingLeft="20dip"
-                android:paddingRight="20dip"
-                android:paddingTop="8dip"
-                android:textColor="#000000"
-                android:hint="请输入拜访记录："
-                android:textSize="14sp" />
+            android:layout_width="match_parent"
+            android:layout_height="130dp"
+            android:background="@null"
+            android:clickable="true"
+            android:gravity="top"
+            android:hint="请输入拜访记录："
+            android:imeOptions="actionDone"
+            android:inputType="textMultiLine"
+            android:minLines="8"
+            android:paddingBottom="8dip"
+            android:paddingLeft="20dip"
+            android:paddingRight="20dip"
+            android:paddingTop="8dip"
+            android:textColor="#000000"
+            android:textSize="14sp" />
     </android.support.design.widget.TextInputLayout>
 
     <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="120dip"
-            android:layout_alignParentBottom="true"
-            android:background="@mipmap/bottombg"
-        android:id="@+id/relativeLayout2">
+        android:id="@+id/relativeLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="120dip"
+        android:layout_alignParentBottom="true"
+        android:background="@mipmap/bottombg">
 
         <ImageView
-                android:id="@+id/btn_refresh"
-                android:src="@mipmap/map_location"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_centerVertical="true"
-                android:layout_alignParentStart="true"/>
+            android:id="@+id/btn_refresh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="30dp"
+            android:src="@mipmap/map_location" />
 
-    <TextView
+        <TextView
             android:id="@+id/tv_sign_location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/btn_refresh"
+            android:layout_centerVertical="true"
             android:layout_marginLeft="15dip"
             android:layout_marginRight="15dip"
-            android:layout_centerVertical="true"
-            android:textColor="@color/white"
-            android:text="定位中..."/>
+            android:layout_toRightOf="@+id/btn_refresh"
+            android:text="定位中..."
+            android:textColor="@color/white" />
 
-    <TextView
+        <TextView
             android:id="@+id/tv_sign_loctype"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -117,8 +118,8 @@
             android:layout_marginLeft="15dip"
             android:layout_marginTop="5dip"
             android:layout_toRightOf="@+id/btn_refresh"
-            android:textColor="@color/white"
-            android:text="定位方式"/>
+            android:text="定位方式"
+            android:textColor="@color/white" />
 
 
     </RelativeLayout>
