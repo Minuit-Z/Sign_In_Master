@@ -7,6 +7,7 @@ import android.os.Message;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -33,6 +34,8 @@ import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
 
+import static android.content.ContentValues.TAG;
+
 
 public class SignView extends BaseViewImpl {
 
@@ -52,6 +55,8 @@ public class SignView extends BaseViewImpl {
     @Bind(R.id.tv_behavior)
     protected TextView tv_behavior;
 
+    @Bind(R.id.tv_title)
+    protected TextView tv_title;
     private int status = 1000 ;
     private String time = "" , date = "" , objId = "";
 
@@ -200,7 +205,7 @@ public class SignView extends BaseViewImpl {
             SignView view = mView.get();
             location= (BDLocation) msg.obj;
 
-            if (view != null) {
+            if (view != null&&location.getLocationDescribe()!=null) {
                 String loc=location.getLocationDescribe().replaceFirst("在","");
                 loc=loc.replace("附近","");
                 String type = "离线异常";
@@ -240,7 +245,7 @@ public class SignView extends BaseViewImpl {
     public void initViewByVisit() {
         til_feedback_content.setVisibility(View.VISIBLE);
         tv_behavior.setText("拜访记录");
-
+        tv_title.setText("拜访记录");
         img.setOnClickListener((View view) ->{
             if(status==4) {
                 String msg = til_feedback_content.getEditText().getText().toString();

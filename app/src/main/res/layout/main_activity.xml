@@ -5,7 +5,8 @@
                 android:background="@color/backgroundColor"
                 android:orientation="vertical">
 
-    <include layout="@layout/appbar_layout"/>
+    <include layout="@layout/appbar_layout"
+        android:id="@+id/tb_main"/>
     <TextView
             android:textSize="17dp"
             android:text="服务器时间"
@@ -47,7 +48,7 @@
                 android:paddingRight="20sp"
                 android:layout_marginRight="15dip"
                 android:layout_marginLeft="15dip"
-                android:text="手 机 签 到" />
+                android:text="手 机 打 卡" />
 
         <android.support.v7.widget.AppCompatButton
                 android:id="@+id/btn_visit"
@@ -62,7 +63,7 @@
                 android:layout_marginRight="15dip"
                 android:paddingLeft="20sp"
                 android:paddingRight="20sp"
-                android:text="访 问 记 录"/>
+                android:text="拜 访 记 录"/>
     </LinearLayout>
 
     <LinearLayout

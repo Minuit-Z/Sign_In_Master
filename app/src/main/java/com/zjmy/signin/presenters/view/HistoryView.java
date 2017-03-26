@@ -31,6 +31,7 @@ public class HistoryView extends BaseViewImpl {
     protected RecyclerView rv;
     @Bind(R.id.tv_title)
     protected TextView tv_title;
+
     private AppCompatActivity activity;
     private HistoryAdapter adapter;
     private HistoryAdapter4Visit adapter2;
@@ -79,5 +80,8 @@ public class HistoryView extends BaseViewImpl {
     }
     public void setYear(String msg){
         tv_signtime_year.setText(msg);
+    }
+    public void initToolbar(String msg){
+        tv_title.setText(msg);
     }
 }

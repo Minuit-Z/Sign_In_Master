@@ -39,6 +39,8 @@ public class MainActivityView extends BaseViewImpl {
     protected TextView tv_showuser;
     @Bind(R.id.tv_clickme)
     protected TextView tv_clickme;
+    @Bind(R.id.tv_title)
+    protected TextView tv_title;
 
     private AppCompatActivity activity;
     private String date;
@@ -54,6 +56,8 @@ public class MainActivityView extends BaseViewImpl {
         toolbar.getMenu().clear();
         toolbar.inflateMenu(R.menu.menu_main);
         appCompatActivity.setSupportActionBar(toolbar);
+
+        tv_title.setText("移动考勤");
     }
 
     public void init() {
