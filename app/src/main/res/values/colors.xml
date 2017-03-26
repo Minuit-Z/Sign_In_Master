@@ -9,7 +9,7 @@
     <color name="colorGray">#dfff</color>
 
     <color name="white">#fff</color>
-
+    <color name="grey">#808080</color><!--灰色 -->
+    <color name="gray">#A9B6C5</color><!--灰色 -->
     <color name="black">#31382D</color>
-    <color name="divider">#808080</color>
 </resources>

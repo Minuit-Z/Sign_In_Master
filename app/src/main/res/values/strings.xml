@@ -14,4 +14,13 @@
     <string name="load_ing">加载中···</string>
     <string name="load_error">加载数据出错</string>
     <string name="msg_read_detail_fail">无法获取网络数据，请刷新重试...</string>
+
+    <!-- activity_feedback_layout -->
+    <string name="suggestion">意见或建议</string>
+    <string name="phone">手机号：</string>
+    <string name="optional">选填</string>
+    <string name="submit_feedback">提交反馈</string>
+
+    <!-- activity_feedback_layout -->
+    <string name="feedback_tips">客服电话：13691047175 \n 邮箱：ningrongrong@bjzjmy.com</string>
 </resources>

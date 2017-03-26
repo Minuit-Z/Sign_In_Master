@@ -16,6 +16,7 @@
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <!-- 可选权限 -->
     <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
 
     <!-- 这个权限用于进行网络定位 -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -36,10 +37,13 @@
             android:name=".presenters.activity.LoginActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
             android:theme="@style/MyDialog"
+            android:screenOrientation="portrait"
             android:launchMode="singleTask"/>
 
         <activity
             android:name=".presenters.activity.MainActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
             android:theme="@style/Translucent">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -49,20 +53,35 @@
         </activity>
         <activity
             android:name=".presenters.activity.SignActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Translucent" />
 
         <activity
                 android:name=".presenters.activity.LocationActivity"
+                android:launchMode="singleTask"
+                android:screenOrientation="portrait"
                 android:theme="@style/Translucent" />
 
         <activity android:name=".presenters.activity.HistoryActivity"
+                  android:launchMode="singleTask"
+                  android:screenOrientation="portrait"
             android:theme="@style/Translucent">
+        </activity>
+
+        <activity android:name=".presenters.activity.FeedBackActivity"
+                  android:launchMode="singleTask"
+                  android:screenOrientation="portrait"
+                  android:theme="@style/Translucent">
         </activity>
 
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="pDWWNF3qLZZ76RArkxCrKjrLEB863nLF" />
+            android:value="0C8WDb4oxgCR6gRNfBlIlOQ9jsuunaQt" />
 
+        <service
+                android:name="com.baidu.location.f"
+                android:enabled="true"
+                android:process=":remote" />
     </application>
 
 </manifest>

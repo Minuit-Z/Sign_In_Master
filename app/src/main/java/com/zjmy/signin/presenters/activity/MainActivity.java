@@ -1,6 +1,7 @@
 package com.zjmy.signin.presenters.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -42,6 +43,8 @@ public class MainActivity extends BaseActivity<MainActivityView>{
                 Toast.makeText(this, "研发中心制作", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.menu_feedback:
+                Intent intent = new Intent(this,FeedBackActivity.class);
+                startActivity(intent);
                 break;
             case R.id.menu_exit:
                 finish();

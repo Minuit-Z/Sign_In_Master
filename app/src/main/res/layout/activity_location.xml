@@ -51,7 +51,7 @@
 
         <View
                 android:layout_width="match_parent"
-                android:background="@color/divider"
+                android:background="@color/grey"
                 android:layout_height="2dip"/>
 
         <LinearLayout
@@ -78,7 +78,7 @@
 
         <View
                 android:layout_width="match_parent"
-                android:background="@color/divider"
+                android:background="@color/grey"
                 android:layout_height="2dip"/>
 
         <LinearLayout
@@ -90,7 +90,7 @@
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/divider"
+                    android:textColor="@color/grey"
                     android:textSize="16sp"
                     android:text="温馨提示："/>
 

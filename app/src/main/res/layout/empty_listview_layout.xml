@@ -14,7 +14,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="查询结果为空"
-            android:textColor="@color/divider"
+            android:textColor="@color/grey"
             android:textSize="14sp" />
 
         <ImageView

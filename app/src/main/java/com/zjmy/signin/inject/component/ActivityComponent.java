@@ -4,6 +4,7 @@ import android.app.Activity;
 
 import com.zjmy.signin.inject.module.ActivityModule;
 import com.zjmy.signin.inject.scope.ActivityLife;
+import com.zjmy.signin.presenters.activity.FeedBackActivity;
 import com.zjmy.signin.presenters.activity.HistoryActivity;
 import com.zjmy.signin.presenters.activity.LocationActivity;
 import com.zjmy.signin.presenters.activity.LoginActivity;
@@ -21,6 +22,7 @@ public interface ActivityComponent {
     void inject(SignActivity activity);
     void inject(HistoryActivity activity);
     void inject(LocationActivity activity);
+    void inject(FeedBackActivity activity);
     Activity provideActivity();
 }
 

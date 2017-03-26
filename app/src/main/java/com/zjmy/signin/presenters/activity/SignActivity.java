@@ -131,8 +131,7 @@ public class SignActivity extends BaseActivity<SignView> {
         super.onResume();
         RxPermissions rxPermissions = new RxPermissions(this); // where this is an Activity instance
         //申请定位权限
-        rxPermissions
-                .request(Manifest.permission.ACCESS_COARSE_LOCATION)
+        rxPermissions.request(Manifest.permission.ACCESS_COARSE_LOCATION)
                 .subscribe(granted -> {
                     if (granted) {
                         v.showLocation(getApplicationContext());

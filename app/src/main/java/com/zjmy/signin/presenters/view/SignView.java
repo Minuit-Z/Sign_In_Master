@@ -7,6 +7,7 @@ import android.os.Message;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -168,16 +169,20 @@ public class SignView extends BaseViewImpl {
 
 
     public void showLocation(Context context) {
-        locationClient = new LocationClient(context);
         //设置定位条件
         locationClient = new LocationClient(context);
         locationClient.registerLocationListener(new BDLocationListener() {
 
             @Override
             public void onReceiveLocation(BDLocation bdLocation) {
-                Message msg = Message.obtain();
-                msg.obj = bdLocation;
-                handler.sendMessage(msg);
+                Log.e("test",bdLocation.getTime());
+                if(bdLocation != null) {
+                    Message msg = Message.obtain();
+                    msg.obj = bdLocation;
+                    handler.sendMessage(msg);
+                }else{
+                    locationClient.requestLocation();
+                }
             }
 
             @Override
@@ -189,9 +194,9 @@ public class SignView extends BaseViewImpl {
         option.setOpenGps(true); // 打开gps
         option.setCoorType("bd09ll"); // 设置坐标类型
         option.setIsNeedAddress(true); //需要地址信息
-        option.setOpenGps(true);
         option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy); // 设置GPS优先  // 设置GPS优先
         option.disableCache(true);//禁止启用缓存定位
+        option.setScanSpan(1000);
         option.setIsNeedLocationDescribe(true); //设置语义化结果
         locationClient.setLocOption(option);
         locationClient.start();
@@ -266,8 +271,8 @@ public class SignView extends BaseViewImpl {
     @OnClick(R.id.btn_refresh)
     protected void refreshLocation(){
         Intent intent = new Intent(activity, LocationActivity.class);
-        intent.putExtra("latitude",location.getLatitude());
-        intent.putExtra("longitude",location.getLongitude());
+        //intent.putExtra("latitude",location.getLatitude());
+        //intent.putExtra("longitude",location.getLongitude());
         activity.startActivity(intent);
     }
 
