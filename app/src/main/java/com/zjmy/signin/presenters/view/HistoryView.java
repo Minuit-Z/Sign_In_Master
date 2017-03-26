@@ -37,6 +37,8 @@ public class HistoryView extends BaseViewImpl {
 
     @Bind(R.id.tv_signtime)
     protected TextView tv_signtime;
+    @Bind(R.id.tv_signtime_year)
+    protected TextView tv_signtime_year;
 
     @Override
     public int getRootViewId() {
@@ -53,6 +55,7 @@ public class HistoryView extends BaseViewImpl {
             appCompatActivity.finish();
         });
         tv_title.setText("打卡记录");
+
     }
 
     @Override
@@ -73,5 +76,8 @@ public class HistoryView extends BaseViewImpl {
 
     public void setMouth(String msg){
         tv_signtime.setText(msg);
+    }
+    public void setYear(String msg){
+        tv_signtime_year.setText(msg);
     }
 }

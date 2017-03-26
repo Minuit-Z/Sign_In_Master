@@ -85,7 +85,7 @@ public class AppManager {
 	/**
 	 * 退出应用程序
 	 */
-	public void AppExit(Context context) {
+	public void AppExit() {
 		try {
 			finishAllActivity();
 			System.exit(0);

@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.NumberPicker;
+import android.widget.TextView;
 
 import com.zjmy.signin.R;
 import com.zjmy.signin.model.bean.Sign;
@@ -21,6 +22,7 @@ import com.zjmy.signin.utils.files.SPHelper;
 
 import java.util.List;
 
+import butterknife.Bind;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
@@ -30,6 +32,11 @@ import mehdi.sakout.dynamicbox.DynamicBox;
 public class HistoryActivity extends BaseActivity<HistoryView> {
     private AlertDialog alertDialog;
     private DynamicBox dynamicBox;
+
+    @Bind(R.id.tv_signtime)
+    protected TextView tv_month;
+    @Bind(R.id.tv_signtime_year)
+    protected TextView tv_year;
     final String[] months = new String[]{"一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"};
     private String type = "";
     @Override
@@ -45,6 +52,10 @@ public class HistoryActivity extends BaseActivity<HistoryView> {
 
         String date = getIntent().getStringExtra("date");
         String month = date.split("-")[1];
+        String year = date.split("-")[0];
+
+        v.setMouth(months[Integer.parseInt(month)-1]);
+        v.setYear(year);
         type = getIntent().getStringExtra("where");
         switch (type){
             case "sign"://加载Sign表中的数据
@@ -70,16 +81,24 @@ public class HistoryActivity extends BaseActivity<HistoryView> {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == R.id.menu_change_month){
-            showPicker();
+            String date = getIntent().getStringExtra("date");
+            String month = date.split("-")[1];
+            showPicker(month);
         }
         return super.onOptionsItemSelected(item);
     }
 
-    private void showPicker() {
+    /**
+    *@author 张子扬
+    *@time 2017/3/26 0026 11:34
+    *@param mo 当前月份
+    *@desc 根据当前月份来初始化时间选择器
+    */
+    private void showPicker(String mo) {
         LayoutInflater inflater = getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_picker, null);
         NumberPicker picker_month = (NumberPicker) view.findViewById(R.id.picker_month);
-        picker_month.setMaxValue(12);
+        picker_month.setMaxValue(Integer.parseInt(mo));
         picker_month.setMinValue(1);
         picker_month.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);//禁止编辑
         NumberPicker picker_year = (NumberPicker) view.findViewById(R.id.picker_year);
