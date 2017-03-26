@@ -26,6 +26,8 @@ import com.zjmy.signin.presenters.activity.LocationActivity;
 import com.zjmy.signin.utils.files.SPHelper;
 import com.zjmy.signin.utils.network.NetworkUtil;
 
+import java.lang.ref.WeakReference;
+
 import butterknife.Bind;
 import butterknife.OnClick;
 import cn.bmob.v3.exception.BmobException;
@@ -53,35 +55,11 @@ public class SignView extends BaseViewImpl {
 
     private int status = 1000 ;
     private String time = "" , date = "" , objId = "";
-    private BDLocation location;
-    private Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
 
-            location= (BDLocation) msg.obj;
-            String loc=location.getLocationDescribe().replaceFirst("在","");
-            loc=loc.replace("附近","");
-            String type = "离线异常";
 
-            switch (location.getLocType()) {
-                case BDLocation.TypeGpsLocation:
-                    type = "GPS定位";
-                    break;
-                case BDLocation.TypeNetWorkLocation:
-                    type = "网络定位";
-                    break;
-                default:
-                    type = "定位异常";
-            }
-
-            tv_loc_type.setText(type+" — "+location.getRadius());
-            tv_loc.setText(location.getAddrStr()+loc);
-        }
-    };
     private AppCompatActivity activity;
     private LocationClient locationClient = null;
-
+    private final MyHandler handler = new MyHandler(this);
     @Override
     public int getRootViewId() {
         return R.layout.activity_sign;
@@ -105,6 +83,7 @@ public class SignView extends BaseViewImpl {
 
     @Override
     public void onPresenterDestory() {
+
     }
 
 
@@ -170,6 +149,7 @@ public class SignView extends BaseViewImpl {
 
 
     public void showLocation(Context context) {
+<<<<<<< HEAD
         if (NetworkUtil.checkNetWorkAvaluable(context)) {
             //设置定位条件
             locationClient = new LocationClient(context);
@@ -185,11 +165,26 @@ public class SignView extends BaseViewImpl {
                     } else {
                         locationClient.requestLocation();
                     }
+=======
+        //设置定位条件
+        locationClient = new LocationClient(context);
+        locationClient.registerLocationListener(new BDLocationListener() {
+
+            @Override
+            public void onReceiveLocation(BDLocation bdLocation) {
+                if(bdLocation != null) {
+                    Message msg = Message.obtain();
+                    msg.obj = bdLocation;
+                    handler.sendMessage(msg);
+                }else{
+                    locationClient.requestLocation();
+>>>>>>> b3d455b7904bf4d9b48bb754b03dfdf35a214c0f
                 }
 
                 @Override
                 public void onConnectHotSpotMessage(String s, int i) {
 
+<<<<<<< HEAD
                 }
             });
             LocationClientOption option = new LocationClientOption();
@@ -203,6 +198,62 @@ public class SignView extends BaseViewImpl {
             locationClient.setLocOption(option);
             locationClient.start();
             locationClient.requestLocation();
+        }
+=======
+            }
+        });
+        LocationClientOption option = new LocationClientOption();
+        option.setOpenGps(true); // 打开gps
+        option.setCoorType("bd09ll"); // 设置坐标类型
+        option.setIsNeedAddress(true); //需要地址信息
+        option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy); // 设置GPS优先  // 设置GPS优先
+        option.disableCache(true);//禁止启用缓存定位
+        option.setScanSpan(3000);
+        option.setIsNeedLocationDescribe(true); //设置语义化结果
+        locationClient.setLocOption(option);
+        locationClient.start();
+        locationClient.requestLocation();
+>>>>>>> b3d455b7904bf4d9b48bb754b03dfdf35a214c0f
+    }
+
+    public void stopLocation() {
+        if(locationClient!=null){
+            Log.e("test","stop");
+            locationClient.stop();
+        }
+    }
+
+    private static class MyHandler extends Handler {
+        private final WeakReference<SignView> mView;
+        private BDLocation location;
+
+        public MyHandler(SignView view) {
+            mView = new WeakReference<>(view);
+        }
+        @Override
+        public void handleMessage(Message msg) {
+            SignView view = mView.get();
+            location= (BDLocation) msg.obj;
+
+            if (view != null) {
+                String loc=location.getLocationDescribe().replaceFirst("在","");
+                loc=loc.replace("附近","");
+                String type = "离线异常";
+
+                switch (location.getLocType()) {
+                    case BDLocation.TypeGpsLocation:
+                        type = "GPS定位";
+                        break;
+                    case BDLocation.TypeNetWorkLocation:
+                        type = "网络定位";
+                        break;
+                    default:
+                        type = "定位异常";
+                }
+
+                view.tv_loc_type.setText(type+" — "+location.getRadius());
+                view.tv_loc.setText(location.getAddrStr()+loc);
+            }
         }
     }
 
@@ -301,7 +352,4 @@ public class SignView extends BaseViewImpl {
         }
     }
 
-    public BDLocation getLocation(){
-        return location;
-    }
 }
