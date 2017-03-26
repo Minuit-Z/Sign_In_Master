@@ -53,6 +53,7 @@
         </activity>
         <activity
             android:name=".presenters.activity.SignActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/Translucent" />
 
