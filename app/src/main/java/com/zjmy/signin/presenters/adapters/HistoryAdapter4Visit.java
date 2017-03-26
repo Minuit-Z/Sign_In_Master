@@ -37,10 +37,17 @@ public class HistoryAdapter4Visit extends RecyclerView.Adapter<HistoryAdapter4Vi
 
     @Override
     public void onBindViewHolder(MyHolder holder, int position) {
-        holder.tv_day.setText(getDay(lists.get(position).getDate()));
+        String date = lists.get(position).getCreatedAt().toString();
+        String time = "";
+        if(date.split(" ").length>1) {
+            time = date.split(" ")[1];
+        }
+
+        holder.tv_day.setText(getDay(lists.get(position).getDate())+"日");
         holder.tv_place.setText(lists.get(position).getLocation());
         holder.tv_summary.setText(lists.get(position).getSummary());
-        holder.tv_item_visit_date.setText(lists.get(position).getCreatedAt().toString());
+        if(time.length()>5)
+            holder.tv_item_visit_date.setText(time.substring(0,5));
     }
 
     private String getDay(String date) {

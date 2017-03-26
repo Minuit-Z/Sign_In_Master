@@ -18,8 +18,6 @@ public class Sign extends BmobObject{
     String signoutPlace;//签退地点
     String early_late;//迟到早退及时间  迟到25;早退10
     String absence; //旷工
-    String signinPic;//签到图片url
-    String signoutPic;//签退图片url
 
     public String getUser() {
         return user;
@@ -107,21 +105,5 @@ public class Sign extends BmobObject{
 
     public void setAbsence(String absence) {
         this.absence = absence;
-    }
-
-    public String getSigninPic() {
-        return signinPic;
-    }
-
-    public void setSigninPic(String signinPic) {
-        this.signinPic = signinPic;
-    }
-
-    public String getSignoutPic() {
-        return signoutPic;
-    }
-
-    public void setSignoutPic(String signoutPic) {
-        this.signoutPic = signoutPic;
     }
 }
