@@ -7,7 +7,6 @@ import android.os.Message;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -157,13 +156,10 @@ public class SignView extends BaseViewImpl {
 
                 @Override
                 public void onReceiveLocation(BDLocation bdLocation) {
-                    Log.e("test", bdLocation.getTime());
                     if (bdLocation != null) {
                         Message msg = Message.obtain();
                         msg.obj = bdLocation;
                         handler.sendMessage(msg);
-                    } else {
-                        locationClient.requestLocation();
                     }
                 }
 
@@ -178,7 +174,7 @@ public class SignView extends BaseViewImpl {
             option.setIsNeedAddress(true); //需要地址信息
             option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy); // 设置GPS优先  // 设置GPS优先
             option.disableCache(true);//禁止启用缓存定位
-            option.setScanSpan(1000);
+            option.setScanSpan(2000);
             option.setIsNeedLocationDescribe(true); //设置语义化结果
             locationClient.setLocOption(option);
             locationClient.start();
@@ -188,7 +184,6 @@ public class SignView extends BaseViewImpl {
 
     public void stopLocation() {
         if(locationClient!=null){
-            Log.e("test","stop");
             locationClient.stop();
         }
     }

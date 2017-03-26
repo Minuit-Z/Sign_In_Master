@@ -40,7 +40,7 @@ public class HistoryAdapter4Visit extends RecyclerView.Adapter<HistoryAdapter4Vi
         holder.tv_day.setText(getDay(lists.get(position).getDate()));
         holder.tv_place.setText(lists.get(position).getLocation());
         holder.tv_summary.setText(lists.get(position).getSummary());
-        holder.tv_item_visit_date.setText(lists.get(position).getUpdatedAt().toString());
+        holder.tv_item_visit_date.setText(lists.get(position).getCreatedAt().toString());
     }
 
     private String getDay(String date) {

@@ -46,7 +46,7 @@ public class SignInApplication extends MultiDexApplication {
         JUtils.initialize(this);
 
         Bmob.initialize(getApplicationContext(),"f654080ef415d1b3dd5b65a2bbf75ee3");
-        SDKInitializer.initialize(getApplicationContext());
+        SDKInitializer.initialize(getApplicationContext());//百度地图初始化
     }
 
     public ApplicationComponent getAppComponent() {

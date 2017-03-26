@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -130,7 +129,8 @@ public class HistoryActivity extends BaseActivity<HistoryView> {
         BmobQuery<Visit> query=new BmobQuery<>();
         query.addWhereEqualTo("month", month);
         query.addWhereEqualTo("user",SPHelper.getInstance(this).getParam(SPHelper.USER,""));
-        query.findObjects(new FindListener<Visit>() {
+
+        query.order("createdAt").findObjects(new FindListener<Visit>() {
             @Override
             public void done(List<Visit> list, BmobException e) {
                 if (e == null && list.size() != 0) {
@@ -150,7 +150,7 @@ public class HistoryActivity extends BaseActivity<HistoryView> {
         query.addWhereEqualTo("month", month);
 
         query.addWhereEqualTo("user", SPHelper.getInstance(this).getParam(SPHelper.USER,""));
-        query.findObjects(new FindListener<Sign>() {
+        query.order("createdAt").findObjects(new FindListener<Sign>() {
             @Override
             public void done(List<Sign> list, BmobException e) {
                 if (e==null && list.size()!=0)
