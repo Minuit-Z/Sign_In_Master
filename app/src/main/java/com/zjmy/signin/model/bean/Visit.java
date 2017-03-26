@@ -14,7 +14,7 @@ public class Visit extends BmobObject {
     String pic; //现场图片
     String summary;// 摘要
     String sendee;//接收人
-    String date ;//时间
+    String date ;//日期
     String month;//月份
 
     public String getMonth() {

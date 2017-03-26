@@ -250,7 +250,7 @@ public class SignView extends BaseViewImpl {
                     doVisitIn(msg);
                 }
             }else{
-                Toast.makeText(activity, "今日已有拜访记录", Toast.LENGTH_SHORT).show();
+                Toast.makeText(activity, "禁止连续提交记录", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -283,7 +283,7 @@ public class SignView extends BaseViewImpl {
                 }
             });
         }else{
-            Toast.makeText(activity, "今日已有拜访记录", Toast.LENGTH_SHORT).show();
+            Toast.makeText(activity, "禁止连续提交记录", Toast.LENGTH_SHORT).show();
         }
     }
 

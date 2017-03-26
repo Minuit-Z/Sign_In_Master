@@ -40,6 +40,7 @@ public class HistoryAdapter4Visit extends RecyclerView.Adapter<HistoryAdapter4Vi
         holder.tv_day.setText(getDay(lists.get(position).getDate()));
         holder.tv_place.setText(lists.get(position).getLocation());
         holder.tv_summary.setText(lists.get(position).getSummary());
+        holder.tv_item_visit_date.setText(lists.get(position).getUpdatedAt().toString());
     }
 
     private String getDay(String date) {
@@ -54,7 +55,7 @@ public class HistoryAdapter4Visit extends RecyclerView.Adapter<HistoryAdapter4Vi
 
 
     class MyHolder extends RecyclerView.ViewHolder {
-        TextView tv_day,tv_place,tv_summary;
+        TextView tv_day,tv_place,tv_summary , tv_item_visit_date;
 
         public MyHolder(View itemView) {
             super(itemView);
@@ -62,6 +63,7 @@ public class HistoryAdapter4Visit extends RecyclerView.Adapter<HistoryAdapter4Vi
             tv_day= (TextView) itemView.findViewById(R.id.tv_history_day);
             tv_place= (TextView) itemView.findViewById(R.id.tv_item_visit_place);
             tv_summary= (TextView) itemView.findViewById(R.id.tv_item_visit_summary);
+            tv_item_visit_date = (TextView)itemView.findViewById(R.id.tv_item_visit_date);
         }
     }
 }

@@ -105,12 +105,12 @@ public class SignActivity extends BaseActivity<SignView> {
         query.findObjects(new FindListener<Visit>() {
             @Override
             public void done(List<Visit> list, BmobException e) {
-                if (e==null&&list.size()==0){
+                if (e==null){
                     //没有当日数据,进行打卡
                     v.setSignBehavior(4,date,time,null);
-                }else if (e==null&&list.size()>0){
+                }else if (e==null && list.size()>0){
                     //已经进行过打卡,无法修改
-                    v.setSignBehavior(5,date,time,list.get(0).getDate()+"  "+list.get(0).getSummary());
+                    //v.setSignBehavior(5,date,time,list.get(0).getDate()+"  "+list.get(0).getSummary());
                 }
             }
         });

@@ -78,9 +78,11 @@ public class LocationActivity extends BaseActivity<LocationView> {
 
             @Override
             public void onReceiveLocation(BDLocation bdLocation) {
-                Message msg = Message.obtain();
-                msg.obj = bdLocation;
-                handler.sendMessage(msg);
+                if(bdLocation!=null) {
+                    Message msg = Message.obtain();
+                    msg.obj = bdLocation;
+                    handler.sendMessage(msg);
+                }
             }
 
             @Override
@@ -93,9 +95,8 @@ public class LocationActivity extends BaseActivity<LocationView> {
         option.setCoorType("bd09ll"); // 设置坐标类型
         option.setIsNeedAddress(true); //需要地址信息
         option.setOpenGps(true);
-        option.setScanSpan(1000);//每秒定位一次
+        option.setScanSpan(2000);//每秒定位一次
         option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy); // 设置GPS优先  // 设置GPS优先
-        option.disableCache(true);//禁止启用缓存定位
         option.setIsNeedLocationDescribe(true); //设置语义化结果
         locationClient.setLocOption(option);
         locationClient.start();

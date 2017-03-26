@@ -110,15 +110,11 @@ public class HistoryActivity extends BaseActivity<HistoryView> {
     private void initVisitData(String month){
         BmobQuery<Visit> query=new BmobQuery<>();
         query.addWhereEqualTo("month", month);
-        Log.e("test",month);
         query.addWhereEqualTo("user",SPHelper.getInstance(this).getParam(SPHelper.USER,""));
         query.findObjects(new FindListener<Visit>() {
             @Override
             public void done(List<Visit> list, BmobException e) {
                 if (e == null && list.size() != 0) {
-
-                    Log.e("test",list.size()+":");
-
                     LinearLayoutManager managers = new LinearLayoutManager(HistoryActivity.this);
                     managers.setOrientation(LinearLayoutManager.VERTICAL);
                     v.initRecyclerDataVisit(list, managers);
