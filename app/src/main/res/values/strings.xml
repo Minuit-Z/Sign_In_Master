@@ -21,6 +21,17 @@
     <string name="optional">选填</string>
     <string name="submit_feedback">提交反馈</string>
 
+    <!-- BaseUpdateService -->
+    <string name="updating">正在更新</string>
+    <string name="close">关闭</string>
+    <string name="cancle">取消</string>
+
+    <!-- DefaultDownloadService -->
+    <string name="install">安装</string>
+    <string name="update">更新</string>
+    <string name="is_immediately_install">已为您准备好新的版本,立刻安装?</string>
+    <string name="find_new_version">发现新版本</string>
+
     <!-- activity_feedback_layout -->
     <string name="feedback_tips">客服电话：13691047175 \n 邮箱：ningrongrong@bjzjmy.com</string>
 </resources>

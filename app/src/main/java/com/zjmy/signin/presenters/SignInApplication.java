@@ -14,6 +14,7 @@ import com.zjmy.signin.inject.module.ApplicationModule;
 import com.zjmy.signin.utils.app.JUtils;
 
 import cn.bmob.v3.Bmob;
+import im.fir.sdk.FIR;
 
 public class SignInApplication extends MultiDexApplication {
     private static SignInApplication application;
@@ -44,7 +45,7 @@ public class SignInApplication extends MultiDexApplication {
         application = this;
 
         JUtils.initialize(this);
-
+        FIR.init(this);//版本更新,错误收集等
         Bmob.initialize(getApplicationContext(),"f654080ef415d1b3dd5b65a2bbf75ee3");
         SDKInitializer.initialize(getApplicationContext());//百度地图初始化
     }

@@ -129,8 +129,8 @@ public class HistoryActivity extends BaseActivity<HistoryView> {
         BmobQuery<Visit> query=new BmobQuery<>();
         query.addWhereEqualTo("month", month);
         query.addWhereEqualTo("user",SPHelper.getInstance(this).getParam(SPHelper.USER,""));
-
-        query.order("createdAt").findObjects(new FindListener<Visit>() {
+        query.order("-createdAt");
+        query.findObjects(new FindListener<Visit>() {
             @Override
             public void done(List<Visit> list, BmobException e) {
                 if (e == null && list.size() != 0) {
@@ -148,9 +148,9 @@ public class HistoryActivity extends BaseActivity<HistoryView> {
     private void initSignData(String month){
         BmobQuery<Sign> query=new BmobQuery<>();
         query.addWhereEqualTo("month", month);
-
+        query.order("-createdAt");
         query.addWhereEqualTo("user", SPHelper.getInstance(this).getParam(SPHelper.USER,""));
-        query.order("createdAt").findObjects(new FindListener<Sign>() {
+        query.findObjects(new FindListener<Sign>() {
             @Override
             public void done(List<Sign> list, BmobException e) {
                 if (e==null && list.size()!=0)

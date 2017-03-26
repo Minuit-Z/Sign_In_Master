@@ -33,6 +33,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:theme">
+
+        <!-- fir.im 更新 -->
+        <meta-data
+                android:name="BUG_HD_API_TOKEN"
+                android:value="66ea3440e0b813b5d5a346264543766f" />
+
+        <meta-data
+                android:name="BUG_HD_SDK_GENERAL_KEY"
+                android:value="d873ba40d9c3a2493f73e2d5f739ddfa" />
+
+        <service android:name=".utils.update.service.DefaultDownloadService" />
+        <!-- activity -->
         <activity
             android:name=".presenters.activity.LoginActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
@@ -53,13 +65,11 @@
         </activity>
         <activity
             android:name=".presenters.activity.SignActivity"
-            android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/Translucent" />
 
         <activity
                 android:name=".presenters.activity.LocationActivity"
-                android:launchMode="singleTask"
                 android:screenOrientation="portrait"
                 android:theme="@style/Translucent" />
 

@@ -11,10 +11,16 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
+import com.baidu.mapapi.map.BaiduMap;
+import com.baidu.mapapi.map.BitmapDescriptor;
+import com.baidu.mapapi.map.BitmapDescriptorFactory;
+import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
+import com.baidu.mapapi.map.MyLocationConfiguration;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.model.LatLng;
 import com.tbruyelle.rxpermissions.RxPermissions;
+import com.zjmy.signin.R;
 import com.zjmy.signin.presenters.view.LocationView;
 
 import java.lang.ref.WeakReference;
@@ -22,8 +28,8 @@ import java.lang.ref.WeakReference;
 public class LocationActivity extends BaseActivity<LocationView> {
     private RxPermissions rxPermissions;
     private LocationClient locationClient;
-    private final MyHandler handler = new MyHandler(this);
-
+    private MyHandler handler;
+    private BaiduMap map;
     @Override
     public Class<LocationView> getRootViewClass() {
         return LocationView.class;
@@ -33,13 +39,27 @@ public class LocationActivity extends BaseActivity<LocationView> {
     public void inCreat(Bundle savedInstanceState) {
         activityComponent.inject(this);
         rxPermissions = new RxPermissions(this); // where this is an Activity instance
+        handler = new MyHandler(this);
+
+        map = v.getMapView().getMap();
+
+        map.setMyLocationEnabled(true);
+
+        BitmapDescriptor bitmapDescriptor = BitmapDescriptorFactory.fromResource(R.mipmap.icon_gcoding);
+        MyLocationConfiguration config = new MyLocationConfiguration(null, true, bitmapDescriptor);
+        map.setMyLocationConfigeration(config);
+
+
+        MapStatusUpdate update = MapStatusUpdateFactory.zoomBy(5f);
+        // 放大
+        map.animateMapStatus(update);
 
         //申请定位权限
         rxPermissions
                 .request(Manifest.permission.ACCESS_COARSE_LOCATION)
                 .subscribe(granted -> {
                     if (granted) {
-                        showLocation(getApplicationContext());
+                        showLocation(this);
                     } else {
                         //v.setPermissions("获取定位权限失败");
                     }
@@ -53,21 +73,18 @@ public class LocationActivity extends BaseActivity<LocationView> {
 
     @Override
     protected void onResume() {
-        super.onResume();
-
         //在activity执行onResume时执行mMapView. onResume ()，实现地图生命周期管理
         v.getMapView().onResume();
+
+        super.onResume();
     }
 
     @Override
     protected void onPause() {
-        super.onPause();
         //在activity执行onPause时执行mMapView. onPause ()，实现地图生命周期管理
         v.getMapView().onPause();
 
-        if (locationClient != null) {
-            locationClient.stop();
-        }
+        super.onPause();
     }
 
     public void showLocation(Context context) {
@@ -103,9 +120,13 @@ public class LocationActivity extends BaseActivity<LocationView> {
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
-        //在activity执行onDestroy时执行mMapView.onDestroy()，实现地图生命周期管理
+        // 退出时销毁定位
+        locationClient.stop();
+        // 关闭定位图层
+        map.setMyLocationEnabled(false);
         v.getMapView().onDestroy();
+
+        super.onDestroy();
     }
 
 
@@ -122,10 +143,8 @@ public class LocationActivity extends BaseActivity<LocationView> {
         public void handleMessage(Message msg) {
             LocationActivity activity = mActivity.get();
             location = (BDLocation) msg.obj;
-            if (activity != null && activity.v!=null) {
-                String loc = location.getLocationDescribe().replaceFirst("在", "");
-                loc = loc.replace("附近", "");
-                activity.v.getTv_location().setText(location.getAddrStr() + loc);
+            if (activity != null && activity.v!=null && activity.map!=null) {
+                activity.v.getTv_location().setText(location.getAddrStr() + location.getLocationDescribe());
                 String type = "离线异常";
                 switch (location.getLocType()) {
                     case BDLocation.TypeGpsLocation:
@@ -142,10 +161,10 @@ public class LocationActivity extends BaseActivity<LocationView> {
                 MyLocationData data = new MyLocationData.Builder()
                         .latitude(location.getLatitude()).longitude(location.getLongitude()).build();
 
-                activity.v.getMap().setMyLocationData(data);
+                activity.map.setMyLocationData(data);
 
                 // 移动到某经纬度
-                activity.v.getMap().animateMapStatus(MapStatusUpdateFactory.newLatLng(new LatLng(location.getLatitude(), location.getLongitude())));
+                activity.map.animateMapStatus(MapStatusUpdateFactory.newLatLng(new LatLng(location.getLatitude(), location.getLongitude())));
             }
         }
     }

@@ -89,6 +89,7 @@
                         android:hint="@string/Password"
                         android:inputType="textPassword"
                         android:paddingBottom="2dp"
+                        android:text="121121"
                         android:textColor="#2fa881"
                         android:textCursorDrawable="@drawable/bg_input_cursor"
                         android:textSize="13sp" />

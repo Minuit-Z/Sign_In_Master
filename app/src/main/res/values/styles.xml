@@ -26,4 +26,10 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+
+    <style name="AlertDialog.AppCompat.Dialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:title">发现系统更新</item>
+    </style>
 </resources>
