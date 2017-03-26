@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">移动签到</string>
+    <string name="app_name">移动考勤</string>
     <string name="login_success">登录成功</string>
     <string name="login">登录</string>
     <string name="Username">用户名</string>
