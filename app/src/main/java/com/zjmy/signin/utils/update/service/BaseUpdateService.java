@@ -332,7 +332,7 @@ public abstract class BaseUpdateService extends Service implements DownloadProgr
                     if (current.versionCode < Integer.parseInt(info.versionCode)) {
                         showNewVersion(info);
                     } else {
-                        showLeastVersion(info);
+                        //showLeastVersion(info);
                     }
                 }
             } else {
@@ -342,7 +342,7 @@ public abstract class BaseUpdateService extends Service implements DownloadProgr
                 if (current.versionCode < Integer.parseInt(info.versionCode)) {
                     showNewVersion(info);
                 } else {
-                    showLeastVersion(info);
+                    //showLeastVersion(info);
                 }
             }
         } else {
@@ -350,7 +350,7 @@ public abstract class BaseUpdateService extends Service implements DownloadProgr
             if (current.versionCode < Integer.parseInt(info.versionCode)) {
                 showNewVersion(info);
             } else {
-                showLeastVersion(info);
+                //showLeastVersion(info);
             }
         }
     }

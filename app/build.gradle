@@ -73,6 +73,9 @@ dependencies {
     compile 'com.nispok:snackbar:2.11.+'
     compile 'cn.bmob.android:bmob-sdk:3.5.0'
     compile 'im.fir:fir-sdk:latest.integration@aar'
+
+
+
     testCompile 'junit:junit:4.12'
 
     //波纹效果

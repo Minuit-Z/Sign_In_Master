@@ -8,7 +8,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.zjmy.signin.R;
 import com.zjmy.signin.presenters.view.MainActivityView;
@@ -53,10 +52,6 @@ public class MainActivity extends BaseActivity<MainActivityView>{
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId())
         {
-            //TODO
-            case R.id.menu_about:
-                Toast.makeText(this, "研发中心制作", Toast.LENGTH_SHORT).show();
-                break;
             case R.id.menu_feedback:
                 Intent intent = new Intent(this,FeedBackActivity.class);
                 startActivity(intent);
