@@ -5,12 +5,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.utopia.mvp.view.BaseViewImpl;
 import com.zjmy.signin.R;
+import com.zjmy.signin.model.bean.Feedback;
+import com.zjmy.signin.presenters.activity.FeedBackActivity;
+import com.zjmy.signin.utils.files.SPHelper;
 
 import butterknife.Bind;
-
+import butterknife.OnClick;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.SaveListener;
 
 
 /**
@@ -26,7 +34,11 @@ public class FeedBackActivityView extends BaseViewImpl {
     protected TextInputLayout til_feedback_content;
     @Bind(R.id.btn_feedback)
     protected Button _loginButton;
-
+    @Bind(R.id.tv_phone)
+    protected EditText tv_phone;
+    @Bind(R.id.tv_title)
+    protected TextView tv_title;
+    private AppCompatActivity activity;
 
     @Override
     public int getRootViewId() {
@@ -35,6 +47,7 @@ public class FeedBackActivityView extends BaseViewImpl {
 
     @Override
     public void setActivityContext(AppCompatActivity activity) {
+        this.activity=activity;
         toolbar.setTitle("问题反馈");
         activity.setSupportActionBar(toolbar);
         activity.getSupportActionBar().setHomeButtonEnabled(true);
@@ -46,6 +59,7 @@ public class FeedBackActivityView extends BaseViewImpl {
         til_feedback_content.setCounterEnabled(true);
         til_feedback_content.setCounterMaxLength(200);
 
+        tv_title.setText("");
     }
 
     @Override
@@ -62,5 +76,36 @@ public class FeedBackActivityView extends BaseViewImpl {
             til_feedback_content.setError("");
         }
         return content;
+    }
+
+    @OnClick(R.id.btn_feedback)
+    protected void feedback(View view){
+        //提交反馈
+        String content=getContent();
+        if ("".equals(content)){
+            return ;
+        }else {
+            //可以开始提交
+            Feedback feedback=new Feedback();
+            feedback.setName((String) SPHelper.getInstance(activity).getParam(SPHelper.NAME,""));
+            feedback.setUser((String) SPHelper.getInstance(activity).getParam(SPHelper.USER,""));
+            feedback.setFeedback(content);
+
+            String phone="".equals(tv_phone.getText().toString())?"":tv_phone.getText().toString();
+            feedback.setPhone(phone);
+            feedback.save(new SaveListener<String>() {
+                @Override
+                public void done(String s, BmobException e) {
+                    if (e==null){
+                        //保存完成
+                        Toast.makeText(activity, "反馈完成", Toast.LENGTH_SHORT).show();
+                        activity.finish();
+                    }else {
+                        Toast.makeText(activity, e.toString(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        }
+
     }
 }

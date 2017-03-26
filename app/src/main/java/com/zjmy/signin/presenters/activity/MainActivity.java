@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.zjmy.signin.R;
 import com.zjmy.signin.presenters.view.MainActivityView;
+import com.zjmy.signin.utils.app.AppManager;
 
 public class MainActivity extends BaseActivity<MainActivityView>{
     @Override
@@ -47,7 +48,7 @@ public class MainActivity extends BaseActivity<MainActivityView>{
                 startActivity(intent);
                 break;
             case R.id.menu_exit:
-                finish();
+                AppManager.getAppManager().AppExit();
                 break;
         }
 

@@ -24,6 +24,7 @@ import com.zjmy.signin.model.bean.Sign;
 import com.zjmy.signin.model.bean.Visit;
 import com.zjmy.signin.presenters.activity.LocationActivity;
 import com.zjmy.signin.utils.files.SPHelper;
+import com.zjmy.signin.utils.network.NetworkUtil;
 
 import java.lang.ref.WeakReference;
 
@@ -148,6 +149,23 @@ public class SignView extends BaseViewImpl {
 
 
     public void showLocation(Context context) {
+<<<<<<< HEAD
+        if (NetworkUtil.checkNetWorkAvaluable(context)) {
+            //设置定位条件
+            locationClient = new LocationClient(context);
+            locationClient.registerLocationListener(new BDLocationListener() {
+
+                @Override
+                public void onReceiveLocation(BDLocation bdLocation) {
+                    Log.e("test", bdLocation.getTime());
+                    if (bdLocation != null) {
+                        Message msg = Message.obtain();
+                        msg.obj = bdLocation;
+                        handler.sendMessage(msg);
+                    } else {
+                        locationClient.requestLocation();
+                    }
+=======
         //设置定位条件
         locationClient = new LocationClient(context);
         locationClient.registerLocationListener(new BDLocationListener() {
@@ -160,12 +178,28 @@ public class SignView extends BaseViewImpl {
                     handler.sendMessage(msg);
                 }else{
                     locationClient.requestLocation();
+>>>>>>> b3d455b7904bf4d9b48bb754b03dfdf35a214c0f
                 }
-            }
 
-            @Override
-            public void onConnectHotSpotMessage(String s, int i) {
+                @Override
+                public void onConnectHotSpotMessage(String s, int i) {
 
+<<<<<<< HEAD
+                }
+            });
+            LocationClientOption option = new LocationClientOption();
+            option.setOpenGps(true); // 打开gps
+            option.setCoorType("bd09ll"); // 设置坐标类型
+            option.setIsNeedAddress(true); //需要地址信息
+            option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy); // 设置GPS优先  // 设置GPS优先
+            option.disableCache(true);//禁止启用缓存定位
+            option.setScanSpan(1000);
+            option.setIsNeedLocationDescribe(true); //设置语义化结果
+            locationClient.setLocOption(option);
+            locationClient.start();
+            locationClient.requestLocation();
+        }
+=======
             }
         });
         LocationClientOption option = new LocationClientOption();
@@ -179,6 +213,7 @@ public class SignView extends BaseViewImpl {
         locationClient.setLocOption(option);
         locationClient.start();
         locationClient.requestLocation();
+>>>>>>> b3d455b7904bf4d9b48bb754b03dfdf35a214c0f
     }
 
     public void stopLocation() {
