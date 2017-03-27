@@ -102,6 +102,7 @@ public class HistoryActivity extends BaseActivity<HistoryView> {
         NumberPicker picker_month = (NumberPicker) view.findViewById(R.id.picker_month);
         picker_month.setMaxValue(Integer.parseInt(mo));
         picker_month.setMinValue(1);
+        picker_month.setValue(Integer.parseInt(mo)); //显示当前月份
         picker_month.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);//禁止编辑
         NumberPicker picker_year = (NumberPicker) view.findViewById(R.id.picker_year);
         picker_year.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);//禁止编辑
