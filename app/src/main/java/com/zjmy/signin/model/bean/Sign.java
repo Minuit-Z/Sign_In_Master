@@ -20,6 +20,15 @@ public class Sign extends BmobObject{
     String absence; //旷工
     String signinPic;//签到图片url
     String signoutPic;//签退图片url
+    String month; //月份
+
+    public String getMonth() {
+        return month;
+    }
+
+    public void setMonth(String month) {
+        this.month = month;
+    }
 
     public String getUser() {
         return user;

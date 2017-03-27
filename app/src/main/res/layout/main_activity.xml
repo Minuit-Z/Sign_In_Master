@@ -1,92 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/backgroundColor"
-                android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundColor"
+    android:orientation="vertical">
 
-    <include layout="@layout/appbar_layout"
-        android:id="@+id/tb_main"/>
+    <include
+        android:id="@+id/tb_main"
+        layout="@layout/appbar_layout" />
+
     <TextView
-            android:textSize="17dp"
-            android:text="服务器时间"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView"
-            android:layout_marginTop="113dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignStart="@+id/tv_signtime" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tb_main"
+        android:ellipsize="marquee"
+        android:singleLine="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:textColor="@color/red"
+        android:text="可签到时间为早上6点到10点  签退时间中午12点到晚上23点" />
+
     <TextView
-            android:fontFamily="sans-serif-thin"
-            android:id="@+id/tv_signtime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="100dp"
-            android:layout_marginStart="33dp"
-            android:layout_marginTop="50dp"
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/tv_signtime"
+        android:layout_marginTop="113dp"
+        android:text="服务器时间"
+        android:textSize="17dp" />
+
+    <TextView
+        android:id="@+id/tv_signtime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
         android:layout_below="@+id/textView"
-        android:layout_alignParentStart="true" />
+        android:layout_marginStart="33dp"
+        android:layout_marginTop="50dp"
+        android:fontFamily="sans-serif-thin"
+        android:textSize="100dp" />
 
     <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="128dp"
-            android:orientation="horizontal"
-            android:gravity="center">
-        <android.support.v7.widget.AppCompatButton
-                android:id="@+id/btn_sign"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_weight="1"
-                android:background="@drawable/circular_shape"
-                android:textColor="#FDFEF3"
-                android:textSize="15dp"
-                android:drawableLeft="@mipmap/location_icon"
-                android:paddingLeft="20sp"
-                android:paddingRight="20sp"
-                android:layout_marginRight="15dip"
-                android:layout_marginLeft="15dip"
-                android:text="手 机 打 卡" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="128dp"
+        android:gravity="center"
+        android:orientation="horizontal">
 
         <android.support.v7.widget.AppCompatButton
-                android:id="@+id/btn_visit"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_weight="1"
-                android:background="@drawable/circular_shape"
-                android:textColor="#FDFEF3"
-                android:textSize="15dp"
-                android:drawableLeft="@mipmap/location_icon"
-                android:layout_marginLeft="15dip"
-                android:layout_marginRight="15dip"
-                android:paddingLeft="20sp"
-                android:paddingRight="20sp"
-                android:text="拜 访 记 录"/>
+            android:id="@+id/btn_sign"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginLeft="15dip"
+            android:layout_marginRight="15dip"
+            android:layout_weight="1"
+            android:background="@drawable/circular_shape"
+            android:drawableLeft="@mipmap/location_icon"
+            android:paddingLeft="20sp"
+            android:paddingRight="20sp"
+            android:text="手 机 打 卡"
+            android:textColor="#FDFEF3"
+            android:textSize="15dp" />
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btn_visit"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginLeft="15dip"
+            android:layout_marginRight="15dip"
+            android:layout_weight="1"
+            android:background="@drawable/circular_shape"
+            android:drawableLeft="@mipmap/location_icon"
+            android:paddingLeft="20sp"
+            android:paddingRight="20sp"
+            android:text="拜 访 记 录"
+            android:textColor="#FDFEF3"
+            android:textSize="15dp" />
     </LinearLayout>
 
     <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/white"
-            android:layout_alignParentBottom="true"
-            android:gravity="center"
-            android:orientation="horizontal">
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:gravity="center"
+        android:orientation="horizontal">
 
         <TextView
-                android:id="@+id/tv_showuser"
-                android:gravity="center"
-                android:text="用户尚未登录  "
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent" />
+            android:id="@+id/tv_showuser"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="用户尚未登录  " />
+
         <TextView
-                android:id="@+id/tv_clickme"
-                android:text="@string/clickmelogin"
-                android:autoLink="all"
-                android:gravity="center"
-                android:textColor="#1979CA"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent" />
+            android:id="@+id/tv_clickme"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:autoLink="all"
+            android:gravity="center"
+            android:text="@string/clickmelogin"
+            android:textColor="#1979CA" />
     </LinearLayout>
 </RelativeLayout>
 

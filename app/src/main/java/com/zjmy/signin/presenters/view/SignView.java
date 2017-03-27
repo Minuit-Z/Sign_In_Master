@@ -99,7 +99,7 @@ public class SignView extends BaseViewImpl {
      */
     private void doLogout() {
         String[] times = time.split(":");  // [时][分]
-        if (Integer.parseInt(times[0]) >= 17 && Integer.parseInt(times[0]) <= 19 && status == 1) {
+        if (Integer.parseInt(times[0]) >= 12 && Integer.parseInt(times[0]) <= 23 && status == 1) {
             if (date.isEmpty() || time.isEmpty() || objId == null) {
                 return;
             }
@@ -136,6 +136,7 @@ public class SignView extends BaseViewImpl {
             sign.setUser((String) SPHelper.getInstance(activity).getParam(SPHelper.USER, ""));
             sign.setName((String) SPHelper.getInstance(activity).getParam(SPHelper.NAME, ""));
             sign.setSigninPlace(tv_loc.getText().toString());
+            sign.setMonth(date.split("-")[1]);
             sign.setStartTime(time);
 
             sign.save(new SaveListener<String>() {
