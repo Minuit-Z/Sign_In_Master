@@ -37,7 +37,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyHolder
 
     @Override
     public void onBindViewHolder(MyHolder holder, int position) {
-        holder.tv_day.setText(getDay(lists.get(position).getDate()));
+        holder.tv_day.setText(getDay(lists.get(position).getDate())+"日");
         holder.tv_signin_time.setText("签到: "+lists.get(position).getStartTime());
         if (lists.get(position).getEndTime()==null){
             holder.tv_signout_time.setText("未签退");

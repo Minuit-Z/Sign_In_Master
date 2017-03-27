@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -37,10 +38,10 @@ public class SignActivity extends BaseActivity<SignView> {
         time = getIntent().getStringExtra("time");
         type = getIntent().getStringExtra("type");
 
-        if(type.equals("sign")){//签到
+        if (type.equals("sign")) {//签到
             v.initViewBySign();
             doSignInOrOut();
-        }else{//访问
+        } else {//访问
             v.initViewByVisit();
             doVisitInOrOut();
         }
@@ -78,16 +79,16 @@ public class SignActivity extends BaseActivity<SignView> {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_sign,menu);
+        getMenuInflater().inflate(R.menu.menu_sign, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == R.id.menu_detail){
-            Intent intent = new Intent(this,HistoryActivity.class);
-            intent.putExtra("where",type);
-            intent.putExtra("date",date);
+        if (item.getItemId() == R.id.menu_detail) {
+            Intent intent = new Intent(this, HistoryActivity.class);
+            intent.putExtra("where", type);
+            intent.putExtra("date", date);
             startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
@@ -105,10 +106,10 @@ public class SignActivity extends BaseActivity<SignView> {
         query.findObjects(new FindListener<Visit>() {
             @Override
             public void done(List<Visit> list, BmobException e) {
-                if (e==null){
+                if (e == null) {
                     //没有当日数据,进行打卡
-                    v.setSignBehavior(4,date,time,null);
-                }else if (e==null && list.size()>0){
+                    v.setSignBehavior(4, date, time, null);
+                } else if (e == null && list.size() > 0) {
                     //已经进行过打卡,无法修改
                     //v.setSignBehavior(5,date,time,list.get(0).getDate()+"  "+list.get(0).getSummary());
                 }
@@ -117,13 +118,10 @@ public class SignActivity extends BaseActivity<SignView> {
     }
 
 
-
-
     /**
      * @author 张子扬
      * @time 2017/3/23 0023 16:30
      * @desc 打卡的签到签退
-     *
      */
     private void doSignInOrOut() {
         //判断是签到还是签退
@@ -134,20 +132,26 @@ public class SignActivity extends BaseActivity<SignView> {
             @Override
             public void done(List<Sign> list, BmobException e) {
 
+                Log.e("test", "done: "+list.size() );
                 if (e == null && list.size() == 0) {
                     //数据库中没有当日数据,进行签到
-                    v.setSignBehavior(0,date,time,null);
+                    v.setSignBehavior(0, date, time, null);
+                    Log.e("test", 1+"");
                 } else if (e == null && list.size() > 0) {
                     //数据库有当日数据,签退
-                    if (!list.get(0).getSignoutPlace().isEmpty()) {
+                    if (list.get(0).getSignoutPlace()!=null) {
+                        Log.e("test",  2+"");
                         // 已经签退,无法更新数据
-                        v.setSignBehavior(2,date,time,null);
-                    }else {
+                        v.setSignBehavior(2, date, time, null);
+                    } else {
+                        Log.e("test",  3+"");
                         String objId = list.get(0).getObjectId();
-                        v.setSignBehavior(1,date,time,objId);
+                        v.setSignBehavior(1, date, time, objId);
                     }
                 } else {
-                    v.setSignBehavior(5,date,time,null);
+                    Log.e("test", e.toString());
+                    Log.e("test", list.size()+"");
+                    v.setSignBehavior(999, date, time, null);
                 }
             }
         });

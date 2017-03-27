@@ -7,7 +7,6 @@ import android.os.Message;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -33,8 +32,6 @@ import butterknife.OnClick;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
-
-import static android.content.ContentValues.TAG;
 
 
 public class SignView extends BaseViewImpl {
@@ -80,8 +77,10 @@ public class SignView extends BaseViewImpl {
         });
 
 
-        rippleBackground.startRippleAnimation();
+        til_feedback_content.setCounterEnabled(true);
+        til_feedback_content.setCounterMaxLength(200);
 
+        rippleBackground.startRippleAnimation();
     }
 
 
@@ -129,7 +128,7 @@ public class SignView extends BaseViewImpl {
      */
     private void doLogin() {
         String[] times = time.split(":");  // [时][分]
-        if (Integer.parseInt(times[0]) >= 8 && Integer.parseInt(times[0]) <= 10 && status == 0) {
+        if (Integer.parseInt(times[0]) >= 6 && Integer.parseInt(times[0]) <= 10 && status == 0) {
             //在签到时间,可以进行签到
             Sign sign = new Sign();
             sign.setDate(date);

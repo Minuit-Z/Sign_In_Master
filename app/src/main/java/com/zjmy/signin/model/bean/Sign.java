@@ -117,20 +117,4 @@ public class Sign extends BmobObject{
     public void setAbsence(String absence) {
         this.absence = absence;
     }
-
-    public String getSigninPic() {
-        return signinPic;
-    }
-
-    public void setSigninPic(String signinPic) {
-        this.signinPic = signinPic;
-    }
-
-    public String getSignoutPic() {
-        return signoutPic;
-    }
-
-    public void setSignoutPic(String signoutPic) {
-        this.signoutPic = signoutPic;
-    }
 }
