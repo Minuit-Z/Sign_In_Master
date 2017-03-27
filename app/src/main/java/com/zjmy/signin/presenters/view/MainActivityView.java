@@ -1,7 +1,9 @@
 package com.zjmy.signin.presenters.view;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.CountDownTimer;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.Toolbar;
@@ -44,6 +46,7 @@ public class MainActivityView extends BaseViewImpl {
 
     private AppCompatActivity activity;
     private String date;
+
     @Override
     public int getRootViewId() {
         return R.layout.main_activity;
@@ -80,8 +83,8 @@ public class MainActivityView extends BaseViewImpl {
             if (SignInApplication.userName != null && !SignInApplication.userName.isEmpty()) {
                 Intent i = new Intent(activity, SignActivity.class);
                 i.putExtra("type", "sign");
-                i.putExtra("time",tv_time.getText().toString());
-                i.putExtra("date",date);
+                i.putExtra("time", tv_time.getText().toString());
+                i.putExtra("date", date);
                 activity.startActivity(i);
             } else {
                 JUtils.Toast("请先登录");
@@ -93,8 +96,8 @@ public class MainActivityView extends BaseViewImpl {
             if (SignInApplication.userName != null && !SignInApplication.userName.isEmpty()) {
                 Intent i = new Intent(activity, SignActivity.class);
                 i.putExtra("type", "visit");
-                i.putExtra("time",tv_time.getText().toString());
-                i.putExtra("date",date);
+                i.putExtra("time", tv_time.getText().toString());
+                i.putExtra("date", date);
                 activity.startActivity(i);
             } else {
                 JUtils.Toast("请先登录");
@@ -130,11 +133,30 @@ public class MainActivityView extends BaseViewImpl {
     //点击登录或点击注销
     @OnClick(R.id.tv_clickme)
     protected void clickme() {
-        SignInApplication.userName = null;
-        tv_clickme.setText("登录");
-        tv_showuser.setText("用户尚未登录  ");
+        if (tv_clickme.getText().toString().equals("注销")) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+            builder.setTitle("提醒");
+            builder.setMessage("确定要注销当前账户吗?");
+            builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    SignInApplication.userName = null;
+                    tv_clickme.setText("登录");
+                    tv_showuser.setText("用户尚未登录  ");
+                    activity.startActivity(new Intent(activity, LoginActivity.class));
+                }
+            });
+            builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
 
-        activity.startActivity(new Intent(activity, LoginActivity.class));
+                }
+            });
+            builder.show();
+        } else {
+            activity.startActivity(new Intent(activity, LoginActivity.class));
+
+        }
     }
 
     public void initUser() {
@@ -148,9 +170,9 @@ public class MainActivityView extends BaseViewImpl {
         }
     }
 
-    public void initClock(){
-        SimpleDateFormat   formatter   =   new   SimpleDateFormat   ("HH:mm");
-        Date curDate =  new Date(System.currentTimeMillis());
+    public void initClock() {
+        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
+        Date curDate = new Date(System.currentTimeMillis());
         tv_time.setText(formatter.format(curDate));
     }
 }
