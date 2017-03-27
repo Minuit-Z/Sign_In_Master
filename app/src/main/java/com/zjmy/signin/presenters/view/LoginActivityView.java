@@ -5,6 +5,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
@@ -15,6 +16,7 @@ import com.zjmy.signin.R;
 import com.zjmy.signin.model.bean.User;
 import com.zjmy.signin.presenters.SignInApplication;
 import com.zjmy.signin.presenters.activity.MainActivity;
+import com.zjmy.signin.utils.app.IdManager;
 import com.zjmy.signin.utils.files.SPHelper;
 import com.zjmy.signin.utils.network.NetworkUtil;
 
@@ -25,6 +27,8 @@ import butterknife.OnClick;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * @Description: 登录
@@ -57,8 +61,10 @@ public class LoginActivityView extends BaseViewImpl {
         activity = appCompatActivity;
 
         String userName = (String) SPHelper.getInstance(appCompatActivity).getParam(SPHelper.USER, "");
+        String pass = (String) SPHelper.getInstance(appCompatActivity).getParam(SPHelper.PASS_WORD, "");
         if (userName != null && !userName.trim().equals("")) {
             _etUsername.setText(userName);
+            _etPassword.setText(pass);
             _etUsername.setSelection(userName.length());//调整光标位置
         } else {
             _etUsername.setSelection(0);//调整光标位置
@@ -89,10 +95,21 @@ public class LoginActivityView extends BaseViewImpl {
                 @Override
                 public void done(List<User> list, BmobException e) {
                     if (e == null && !list.isEmpty()) {
-                        SPHelper.getInstance(activity).setParam(SPHelper.USER, list.get(0).getUser());
-                        SPHelper.getInstance(activity).setParam(SPHelper.NAME, list.get(0).getName());
-                        SignInApplication.userName = list.get(0).getName();
-                        activity.finish();
+                        if (list.get(0).getAndroidId() == null || list.get(0).getAndroidId() == ""
+                                || list.get(0).getAndroidId().equals(IdManager.getAndroidId(activity))){
+                            // 未绑定设备,或者绑定设备的id等于本设备id,登陆成功
+                            SPHelper.getInstance(activity).setParam(SPHelper.USER, list.get(0).getUser());
+                            SPHelper.getInstance(activity).setParam(SPHelper.NAME, list.get(0).getName());
+                            SPHelper.getInstance(activity).setParam(SPHelper.OBJID, list.get(0).getObjectId());
+                            SPHelper.getInstance(activity).setParam(SPHelper.PASS_WORD, list.get(0).getPassword());
+                            SignInApplication.userName = list.get(0).getName();
+                            Toast.makeText(activity, "登录完成", Toast.LENGTH_SHORT).show();
+                            activity.finish();
+                        } else {
+                            if (!list.get(0).getAndroidId().equals(IdManager.getAndroidId(activity))) {
+                                _etPassword.setError("账号已被绑定,无法在其他设备登录");
+                            }
+                        }
                     } else {
                         _etPassword.setError("密码错误");
                     }

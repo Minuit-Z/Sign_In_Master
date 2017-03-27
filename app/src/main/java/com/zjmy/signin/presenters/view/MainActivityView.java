@@ -17,6 +17,7 @@ import com.zjmy.signin.presenters.SignInApplication;
 import com.zjmy.signin.presenters.activity.LoginActivity;
 import com.zjmy.signin.presenters.activity.SignActivity;
 import com.zjmy.signin.utils.app.JUtils;
+import com.zjmy.signin.utils.files.SPHelper;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -140,7 +141,9 @@ public class MainActivityView extends BaseViewImpl {
             builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
+                    //退出当前账户
                     SignInApplication.userName = null;
+                    SPHelper.getInstance(activity).remove(SPHelper.PASS_WORD);
                     tv_clickme.setText("登录");
                     tv_showuser.setText("用户尚未登录  ");
                     activity.startActivity(new Intent(activity, LoginActivity.class));

@@ -2,8 +2,13 @@ package com.zjmy.signin.presenters.activity;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -12,9 +17,11 @@ import com.zjmy.signin.R;
 import com.zjmy.signin.model.bean.Sign;
 import com.zjmy.signin.model.bean.Visit;
 import com.zjmy.signin.presenters.view.SignView;
+import com.zjmy.signin.utils.app.IdManager;
 import com.zjmy.signin.utils.files.SPHelper;
 
 import java.util.List;
+import java.util.UUID;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
@@ -45,7 +52,7 @@ public class SignActivity extends BaseActivity<SignView> {
             doVisitInOrOut();
         }
 
-
+        Log.e(TAG, "inCreat: "+ IdManager.getAndroidId(this));
     }
 
     @Override
@@ -135,7 +142,7 @@ public class SignActivity extends BaseActivity<SignView> {
                     v.setSignBehavior(0, date, time, null);
                 } else if (e == null && list.size() > 0) {
                     //数据库有当日数据,签退
-                    if (list.get(0).getSignoutPlace()!=null) {
+                    if (list.get(0).getSignoutPlace() != null) {
                         // 已经签退,无法更新数据
                         v.setSignBehavior(2, date, time, null);
                     } else {

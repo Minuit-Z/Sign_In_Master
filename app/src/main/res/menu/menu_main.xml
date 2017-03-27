@@ -12,4 +12,10 @@
             android:title="退出"
             android:showAsAction="collapseActionView"
             app:showAsAction="collapseActionView"/>
+
+    <item
+        android:id="@+id/menu_bind"
+        android:title="绑定设备"
+        android:showAsAction="collapseActionView"
+        app:showAsAction="collapseActionView"/>
 </menu>

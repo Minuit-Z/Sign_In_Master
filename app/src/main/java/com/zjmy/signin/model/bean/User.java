@@ -13,6 +13,15 @@ public class User extends BmobObject {
     String department; //部门
     String center; //中心
     String joinDate;//入职时间
+    String androidId; //绑定的ANDROID_ID
+
+    public String getAndroidId() {
+        return androidId;
+    }
+
+    public void setAndroidId(String androidId) {
+        this.androidId = androidId;
+    }
 
     public String getCenter() {
         return center;

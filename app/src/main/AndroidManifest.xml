@@ -24,7 +24,6 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <!-- SD卡读取权限，用户写入离线定位数据 -->
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
-
     <application
         android:name=".presenters.SignInApplication"
         android:allowBackup="true"
@@ -84,15 +83,20 @@
                   android:screenOrientation="portrait"
                   android:theme="@style/Translucent">
         </activity>
+        <activity android:name=".presenters.activity.BindActivity"/>
 
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="0C8WDb4oxgCR6gRNfBlIlOQ9jsuunaQt" />
+            android:value="pDWWNF3qLZZ76RArkxCrKjrLEB863nLF" />
 
         <service
                 android:name="com.baidu.location.f"
                 android:enabled="true"
-                android:process=":remote" />
+                android:process=":remote" >
+            <intent-filter>
+                <action android:name="com.baidu.location.service_v2.6"></action>
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

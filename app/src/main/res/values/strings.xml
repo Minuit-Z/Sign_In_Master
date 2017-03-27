@@ -34,4 +34,5 @@
 
     <!-- activity_feedback_layout -->
     <string name="feedback_tips">客服电话：13691047175 \n 邮箱：ningrongrong@bjzjmy.com</string>
+    <string name="bind_notice">绑定设备后,该账号只能在本设备上使用\n有效保障账号安全</string>
 </resources>

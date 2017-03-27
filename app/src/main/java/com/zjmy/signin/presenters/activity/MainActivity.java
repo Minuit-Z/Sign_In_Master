@@ -74,6 +74,10 @@ public class MainActivity extends BaseActivity<MainActivityView> {
                 });
                 builder.show();
                 break;
+            case R.id.menu_bind:
+                //绑定设备
+                startActivity(new Intent(this,BindActivity.class));
+                break;
         }
 
         return true;

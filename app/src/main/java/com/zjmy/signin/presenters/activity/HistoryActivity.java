@@ -19,12 +19,14 @@ import com.zjmy.signin.presenters.view.HistoryView;
 import com.zjmy.signin.utils.app.DynamicBoxUtil;
 import com.zjmy.signin.utils.files.SPHelper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
+import cn.carbswang.android.numberpickerview.library.NumberPickerView;
 import mehdi.sakout.dynamicbox.DynamicBox;
 
 
@@ -97,17 +99,19 @@ public class HistoryActivity extends BaseActivity<HistoryView> {
      * @desc 根据当前月份来初始化时间选择器
      */
     private void showPicker(String mo) {
+        String[] value=initMonth(mo);
         LayoutInflater inflater = getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_picker, null);
-        NumberPicker picker_month = (NumberPicker) view.findViewById(R.id.picker_month);
-        picker_month.setMaxValue(Integer.parseInt(mo));
+        NumberPickerView picker_month = (NumberPickerView) view.findViewById(R.id.picker_month);
+        picker_month.setDisplayedValues(value);
         picker_month.setMinValue(1);
+        picker_month.setMaxValue(Integer.parseInt(mo));
         picker_month.setValue(Integer.parseInt(mo)); //显示当前月份
-        picker_month.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);//禁止编辑
-        NumberPicker picker_year = (NumberPicker) view.findViewById(R.id.picker_year);
-        picker_year.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);//禁止编辑
+        NumberPickerView picker_year = (NumberPickerView) view.findViewById(R.id.picker_year);
         picker_year.setMinValue(2017);
         picker_year.setMaxValue(2017);
+        picker_year.setDisplayedValues(new String[]{"2017"});
+        picker_year.setValue(2017);
         Button btn = (Button) view.findViewById(R.id.btn_get);
         btn.setOnClickListener((View view1) -> {
             String month = picker_month.getValue() + "";
@@ -122,11 +126,24 @@ public class HistoryActivity extends BaseActivity<HistoryView> {
 
 
         alertDialog = new AlertDialog.Builder(this)
-                .setTitle("选择时间")
                 .setView(view)
                 .create();
         alertDialog.show();
     }
+
+    /**
+    *@author 张子扬
+    *@time 2017/3/27 0027 17:17
+    *@param mo 最大月份
+    *@desc 初始化月份
+    */
+    private String[] initMonth(String mo) {
+        List<String> lists=new ArrayList<>();
+        for (int i=1;i<=Integer.parseInt(mo);i++){
+            lists.add(i+"");
+        }
+        return lists.toArray(new String[lists.size()]);
+     }
 
 
     private void initVisitData(String month) {
