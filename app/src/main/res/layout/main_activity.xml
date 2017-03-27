@@ -18,7 +18,7 @@
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:textColor="@color/red"
-        android:text="可签到时间为早上6点到10点  签退时间中午12点到晚上23点" />
+        android:text="提示：签到时间为06:00 ~ 10:00  签退时间为12:00 ~ 23:00" />
 
     <TextView
         android:id="@+id/textView"

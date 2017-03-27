@@ -4,7 +4,6 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -131,26 +130,19 @@ public class SignActivity extends BaseActivity<SignView> {
         query.findObjects(new FindListener<Sign>() {
             @Override
             public void done(List<Sign> list, BmobException e) {
-
-                Log.e("test", "done: "+list.size() );
                 if (e == null && list.size() == 0) {
                     //数据库中没有当日数据,进行签到
                     v.setSignBehavior(0, date, time, null);
-                    Log.e("test", 1+"");
                 } else if (e == null && list.size() > 0) {
                     //数据库有当日数据,签退
                     if (list.get(0).getSignoutPlace()!=null) {
-                        Log.e("test",  2+"");
                         // 已经签退,无法更新数据
                         v.setSignBehavior(2, date, time, null);
                     } else {
-                        Log.e("test",  3+"");
                         String objId = list.get(0).getObjectId();
                         v.setSignBehavior(1, date, time, objId);
                     }
                 } else {
-                    Log.e("test", e.toString());
-                    Log.e("test", list.size()+"");
                     v.setSignBehavior(999, date, time, null);
                 }
             }
