@@ -10,18 +10,6 @@
         layout="@layout/appbar_layout" />
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tb_main"
-        android:ellipsize="marquee"
-        android:singleLine="true"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:textColor="@color/red"
-        android:layout_marginTop="5dip"
-        android:text="系统提示：员工签到时间为06:00 ~ 13:00  签退时间为12:00 ~ 23:00" />
-
-    <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

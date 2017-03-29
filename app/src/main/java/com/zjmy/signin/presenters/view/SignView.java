@@ -115,7 +115,7 @@ public class SignView extends BaseViewImpl {
      */
     private void doLogout() {
         String[] times = time.split(":");  // [时][分]
-        if (Integer.parseInt(times[0]) >= 12 && Integer.parseInt(times[0]) <= 23 && status == 1) {
+        if (status == 1) {
             if (date.isEmpty() || time.isEmpty() || objId == null) {
                 return;
             }
@@ -133,8 +133,6 @@ public class SignView extends BaseViewImpl {
                     }
                 }
             });
-        } else {
-            Toast.makeText(activity, "非签退时间,签退失败", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -145,59 +143,59 @@ public class SignView extends BaseViewImpl {
      */
     private void doLogin() throws MalformedURLException {
         if (tv_loc.getText().toString().equals("定位中...")) {
+            Toast.makeText(activity, "定位失败,无法签到", Toast.LENGTH_SHORT).show();
             return;
         }
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                URL url = getUrlFromDay(date);
-                HttpURLConnection connection = null;
-                try {
-                    connection = (HttpURLConnection) url.openConnection();
-                    connection.setRequestMethod("GET");
-                    connection.setConnectTimeout(8000);
-                    connection.setReadTimeout(8000);
-                    InputStream in = connection.getInputStream();
-                    // 下面对获取到的输入流进行读取
-                    BufferedReader reader = new BufferedReader(
-                            new InputStreamReader(in));
-                    StringBuilder response = new StringBuilder();
-                    String line;
-                    while ((line = reader.readLine()) != null) {
-                        response.append(line);
-                    }
-                    //此时response为json格式
-                    String dayType= CheckDayType.parseJson(response.toString(),date.replaceAll("-",""));
-
-                    String[] times = time.split(":");  // [时][分]
-                    if (Integer.parseInt(times[0]) >= 6 && Integer.parseInt(times[0]) <= 13 && status == 0) {
-                        //在签到时间,可以进行签到
-                        Sign sign = new Sign();
-                        sign.setDate(date);
-                        sign.setUser((String) SPHelper.getInstance(activity).getParam(SPHelper.USER, ""));
-                        sign.setName((String) SPHelper.getInstance(activity).getParam(SPHelper.NAME, ""));
-                        sign.setSigninPlace(tv_loc.getText().toString());
-                        sign.setDaytype(dayType);
-                        sign.setMonth(date.split("-")[1]);
-                        sign.setStartTime(time);
-
-                        sign.save(new SaveListener<String>() {
-                            @Override
-                            public void done(String s, BmobException e) {
-                                tv_behavior.setText("下班签退");
-                                status = 1;
-                                Toast.makeText(activity, "签到完成", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    } else {
-                        Toast.makeText(activity, "非签到时间,签到失败", Toast.LENGTH_SHORT).show();
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
+        //首先请求当日的类型,判断 工作日;节假日;休息日
+        //TODO
+        new Thread(() -> {
+            //拼接URL
+            URL url = getUrlFromDay(date);
+            HttpURLConnection connection = null;
+            try {
+                connection = (HttpURLConnection) url.openConnection();
+                connection.setRequestMethod("GET");
+                connection.setConnectTimeout(8000);
+                connection.setReadTimeout(8000);
+                InputStream in = connection.getInputStream();
+                // 下面对获取到的输入流进行读取
+                BufferedReader reader = new BufferedReader(
+                        new InputStreamReader(in));
+                StringBuilder json = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    json.append(line);
                 }
+                reader.close();
+                in.close();
+                String dayType = CheckDayType.parseJson(json.toString(), date.replaceAll("-", ""));
+
+                String[] times = time.split(":");  // [时][分]
+                if (status == 0) {
+                    //在签到时间,可以进行签到
+                    Sign sign = new Sign();
+                    sign.setDate(date);
+                    sign.setUser((String) SPHelper.getInstance(activity).getParam(SPHelper.USER, ""));
+                    sign.setName((String) SPHelper.getInstance(activity).getParam(SPHelper.NAME, ""));
+                    sign.setSigninPlace(tv_loc.getText().toString());
+                    sign.setDaytype("".equals(dayType) ? " " : dayType);
+                    sign.setMonth(date.split("-")[1]);
+                    sign.setStartTime(time);
+
+                    sign.save(new SaveListener<String>() {
+                        @Override
+                        public void done(String s, BmobException e) {
+                            tv_behavior.setText("下班签退");
+                            status = 1;
+                            Toast.makeText(activity, "签到完成", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        }).start();
+        }
+        ).start();
     }
 
 
@@ -396,6 +394,12 @@ public class SignView extends BaseViewImpl {
         }
     }
 
+    /**
+     * @param day 日期
+     * @author 张子扬
+     * @time 2017/3/29 0029 14:05
+     * @desc 拼接Url
+     */
     private URL getUrlFromDay(String day) {
         day = day.replaceAll("-", "");
         try {
