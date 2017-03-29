@@ -1,5 +1,7 @@
 package com.zjmy.signin.presenters.view;
 
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -52,6 +54,11 @@ public class HistoryView extends BaseViewImpl {
         activity = appCompatActivity;
         appCompatActivity.setSupportActionBar(toolbar);
         appCompatActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        Drawable upArrow = activity.getResources().getDrawable(R.mipmap.back);
+        upArrow.setColorFilter(activity.getResources().getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_ATOP);
+
+        appCompatActivity.getSupportActionBar().setHomeAsUpIndicator(upArrow);
         toolbar.setNavigationOnClickListener((View v) -> {
             appCompatActivity.finish();
         });

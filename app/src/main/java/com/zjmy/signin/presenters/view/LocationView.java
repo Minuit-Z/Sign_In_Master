@@ -1,5 +1,7 @@
 package com.zjmy.signin.presenters.view;
 
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -41,6 +43,11 @@ public class LocationView extends BaseViewImpl {
     public void setActivityContext(AppCompatActivity appCompatActivity) {
         appCompatActivity.setSupportActionBar(toolbar);
         appCompatActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        Drawable upArrow = appCompatActivity.getResources().getDrawable(R.mipmap.back);
+        upArrow.setColorFilter(appCompatActivity.getResources().getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_ATOP);
+
+        appCompatActivity.getSupportActionBar().setHomeAsUpIndicator(upArrow);
         toolbar.setNavigationOnClickListener((View v) -> {
             appCompatActivity.finish();
         });

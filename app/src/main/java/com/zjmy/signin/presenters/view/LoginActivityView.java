@@ -61,10 +61,8 @@ public class LoginActivityView extends BaseViewImpl {
         activity = appCompatActivity;
 
         String userName = (String) SPHelper.getInstance(appCompatActivity).getParam(SPHelper.USER, "");
-        String pass = (String) SPHelper.getInstance(appCompatActivity).getParam(SPHelper.PASS_WORD, "");
         if (userName != null && !userName.trim().equals("")) {
             _etUsername.setText(userName);
-            _etPassword.setText(pass);
             _etUsername.setSelection(userName.length());//调整光标位置
         } else {
             _etUsername.setSelection(0);//调整光标位置

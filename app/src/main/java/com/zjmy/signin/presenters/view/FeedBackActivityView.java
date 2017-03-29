@@ -1,5 +1,7 @@
 package com.zjmy.signin.presenters.view;
 
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -49,9 +51,14 @@ public class FeedBackActivityView extends BaseViewImpl {
     public void setActivityContext(AppCompatActivity activity) {
         this.activity=activity;
         toolbar.setTitle("问题反馈");
+        toolbar.setTitleTextColor(activity.getResources().getColor(R.color.colorPrimary));
         activity.setSupportActionBar(toolbar);
         activity.getSupportActionBar().setHomeButtonEnabled(true);
         activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Drawable upArrow = activity.getResources().getDrawable(R.mipmap.back);
+        upArrow.setColorFilter(activity.getResources().getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_ATOP);
+
+        activity.getSupportActionBar().setHomeAsUpIndicator(upArrow);
         toolbar.setNavigationOnClickListener((View v) -> {
             activity.finish();
         });

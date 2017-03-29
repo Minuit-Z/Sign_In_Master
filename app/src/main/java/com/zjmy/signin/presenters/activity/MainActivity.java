@@ -7,13 +7,24 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.zjmy.signin.R;
+import com.zjmy.signin.model.bean.User;
+import com.zjmy.signin.presenters.SignInApplication;
 import com.zjmy.signin.presenters.view.MainActivityView;
 import com.zjmy.signin.utils.app.AppManager;
 import com.zjmy.signin.utils.app.UpdateManager;
+import com.zjmy.signin.utils.files.SPHelper;
+
+import java.util.List;
+
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.FindListener;
 
 public class MainActivity extends BaseActivity<MainActivityView> {
     private static AppCompatActivity activity;
@@ -33,9 +44,37 @@ public class MainActivity extends BaseActivity<MainActivityView> {
         activity = this;
         v.initClock();
         v.init();
-
+        new Handler().post(()->initLogin());
         //检测更新
         new Handler().post(() -> UpdateManager.checkUpdate(this));
+    }
+
+    /**
+    *@author 张子扬
+    *@time 2017/3/29 0029 10:32
+    *@desc 自动登录
+    */
+    private void initLogin() {
+        Log.e("login test", "initLogin: 自动登录");
+        String pass= (String) SPHelper.getInstance(MainActivity.this).getParam(SPHelper.PASS_WORD,"");
+        if (!"".equals(pass)){
+            //有保存密码,开始自动登录
+            BmobQuery<User> query=new BmobQuery<>();
+            query.addWhereEqualTo("user",SPHelper.getInstance(this).getParam(SPHelper.USER,""));
+            query.addWhereEqualTo("password",pass);
+            query.findObjects(new FindListener<User>() {
+                @Override
+                public void done(List<User> list, BmobException e) {
+                    if (e==null&&list.size()>0){
+                        SignInApplication.userName = list.get(0).getName();
+                        Toast.makeText(MainActivity.this, "已自动登录", Toast.LENGTH_SHORT).show();
+                        v.initUser();
+                    }else {
+                        Log.e(TAG, "done: "+e.toString());
+                    }
+                }
+            });
+        }
     }
 
     @Override
