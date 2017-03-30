@@ -11,6 +11,7 @@ import com.zjmy.signin.presenters.activity.LocationActivity;
 import com.zjmy.signin.presenters.activity.LoginActivity;
 import com.zjmy.signin.presenters.activity.MainActivity;
 import com.zjmy.signin.presenters.activity.SignActivity;
+import com.zjmy.signin.presenters.activity.SplashActivity;
 
 import dagger.Component;
 
@@ -25,6 +26,7 @@ public interface ActivityComponent {
     void inject(LocationActivity activity);
     void inject(FeedBackActivity activity);
     void inject(BindActivity activity);
+    void inject(SplashActivity activity);
     Activity provideActivity();
 }
 

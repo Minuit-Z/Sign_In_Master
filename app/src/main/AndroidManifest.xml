@@ -24,10 +24,11 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <!-- SD卡读取权限，用户写入离线定位数据 -->
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY"/>
     <application
         android:name=".presenters.SignInApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/app_icon"
+        android:icon="@mipmap/logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
@@ -35,32 +36,28 @@
 
         <!-- fir.im 更新 -->
         <meta-data
-                android:name="BUG_HD_API_TOKEN"
-                android:value="66ea3440e0b813b5d5a346264543766f" />
+            android:name="BUG_HD_API_TOKEN"
+            android:value="66ea3440e0b813b5d5a346264543766f" />
 
         <meta-data
-                android:name="BUG_HD_SDK_GENERAL_KEY"
-                android:value="d873ba40d9c3a2493f73e2d5f739ddfa" />
+            android:name="BUG_HD_SDK_GENERAL_KEY"
+            android:value="d873ba40d9c3a2493f73e2d5f739ddfa" />
 
         <service android:name=".utils.update.service.DefaultDownloadService" />
         <!-- activity -->
         <activity
             android:name=".presenters.activity.LoginActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
-            android:theme="@style/MyDialog"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:launchMode="singleTask"/>
+            android:theme="@style/MyDialog" />
 
         <activity
             android:name=".presenters.activity.MainActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/Translucent">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".presenters.activity.SignActivity"
@@ -68,31 +65,40 @@
             android:theme="@style/Translucent" />
 
         <activity
-                android:name=".presenters.activity.LocationActivity"
-                android:screenOrientation="portrait"
-                android:theme="@style/Translucent" />
+            android:name=".presenters.activity.LocationActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Translucent" />
 
-        <activity android:name=".presenters.activity.HistoryActivity"
-                  android:launchMode="singleTask"
-                  android:screenOrientation="portrait"
-            android:theme="@style/Translucent">
-        </activity>
+        <activity
+            android:name=".presenters.activity.HistoryActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/Translucent"></activity>
 
-        <activity android:name=".presenters.activity.FeedBackActivity"
-                  android:launchMode="singleTask"
-                  android:screenOrientation="portrait"
-                  android:theme="@style/Translucent">
+        <activity
+            android:name=".presenters.activity.FeedBackActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/Translucent"></activity>
+        <activity android:name=".presenters.activity.BindActivity" />
+        <activity
+            android:name=".presenters.activity.SplashActivity"
+            android:theme="@style/splash">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
-        <activity android:name=".presenters.activity.BindActivity"/>
 
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="pDWWNF3qLZZ76RArkxCrKjrLEB863nLF" />
 
         <service
-                android:name="com.baidu.location.f"
-                android:enabled="true"
-                android:process=":remote" >
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote">
             <intent-filter>
                 <action android:name="com.baidu.location.service_v2.6"></action>
             </intent-filter>
