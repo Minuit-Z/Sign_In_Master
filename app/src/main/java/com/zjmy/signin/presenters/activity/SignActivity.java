@@ -156,4 +156,9 @@ public class SignActivity extends BaseActivity<SignView> {
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
 }

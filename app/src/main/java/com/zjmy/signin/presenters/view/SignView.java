@@ -9,6 +9,7 @@ import android.os.Message;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -43,6 +44,8 @@ import butterknife.OnClick;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
+
+import static android.content.ContentValues.TAG;
 
 
 public class SignView extends BaseViewImpl {
@@ -117,6 +120,7 @@ public class SignView extends BaseViewImpl {
         String[] times = time.split(":");  // [时][分]
         if (status == 1) {
             if (date.isEmpty() || time.isEmpty() || objId == null) {
+                Log.e(TAG, "doLogout: "+"empty");
                 return;
             }
 
@@ -130,6 +134,8 @@ public class SignView extends BaseViewImpl {
                         tv_behavior.setText("已签退");
                         status = 2;
                         Toast.makeText(activity, "已签退", Toast.LENGTH_SHORT).show();
+                    }else {
+                        Log.e(TAG, "done: "+e.toString() );
                     }
                 }
             });
@@ -172,7 +178,6 @@ public class SignView extends BaseViewImpl {
 
                 String[] times = time.split(":");  // [时][分]
                 if (status == 0) {
-                    //在签到时间,可以进行签到
                     Sign sign = new Sign();
                     sign.setDate(date);
                     sign.setUser((String) SPHelper.getInstance(activity).getParam(SPHelper.USER, ""));
@@ -185,7 +190,7 @@ public class SignView extends BaseViewImpl {
                     sign.save(new SaveListener<String>() {
                         @Override
                         public void done(String s, BmobException e) {
-                            tv_behavior.setText("下班签退");
+                            tv_behavior.setText("签到完成");
                             status = 1;
                             Toast.makeText(activity, "签到完成", Toast.LENGTH_SHORT).show();
                         }
@@ -283,6 +288,14 @@ public class SignView extends BaseViewImpl {
         root.setBackgroundColor(activity.getResources().getColor(R.color.white));
         til_feedback_content.setVisibility(View.GONE);
         img.setOnClickListener((View view) -> {
+            //点击一次之后禁用
+            img.setEnabled(false);
+            Log.e(TAG, "initViewBySign: "+status);
+            if (!NetworkUtil.checkNetWorkAvaluable(activity)){
+                img.setEnabled(true);
+                Log.e(TAG, "doLogin: "+"断网了日你妈卖批");
+                return;
+            }
             switch (status) {
                 case 0:
                     try {
@@ -295,6 +308,8 @@ public class SignView extends BaseViewImpl {
                     doLogout();
                     break;
                 default:
+                    Log.e(TAG, "initViewBySign: "+"异常处理");
+                    img.setEnabled(true);
                     ;//异常处理
             }
         });

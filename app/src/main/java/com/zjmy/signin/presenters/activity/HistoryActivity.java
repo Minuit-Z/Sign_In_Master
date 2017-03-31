@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.NumberPicker;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.zjmy.signin.R;
 import com.zjmy.signin.model.bean.Sign;
@@ -51,8 +52,10 @@ public class HistoryActivity extends BaseActivity<HistoryView> {
         activityComponent.inject(this);
         dynamicBox = DynamicBoxUtil.newInstance(this, v.get(R.id.rv));
         dynamicBox.showLoadingLayout();
-
         String date = getIntent().getStringExtra("date");
+        if (null==date){
+            Toast.makeText(this, "网络异常,请重试", Toast.LENGTH_SHORT).show();
+        }
         String month = date.split("-")[1];
         String year = date.split("-")[0];
 
