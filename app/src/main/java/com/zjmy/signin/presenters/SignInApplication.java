@@ -29,7 +29,7 @@ public class SignInApplication extends MultiDexApplication {
             StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder().detectAll().penaltyLog().build());
         }
         //初始化崩溃管理
-        FireCrasher.install(this, new CrashListener() {
+       /* FireCrasher.install(this, new CrashListener() {
             @Override
             public void onCrash(Throwable throwable, final Activity activity) {
                 // show your own message
@@ -39,7 +39,7 @@ public class SignInApplication extends MultiDexApplication {
                 //you need to add your crash reporting tool here
                 //Ex: Crashlytics.logException(throwable);
             }
-        });
+        });*/
 
         super.onCreate();
         application = this;

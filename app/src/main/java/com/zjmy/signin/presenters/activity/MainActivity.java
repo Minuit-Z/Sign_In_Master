@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.tbruyelle.rxpermissions.RxPermissions;
 import com.zjmy.signin.R;
+import com.zjmy.signin.inject.component.ActivityComponent;
 import com.zjmy.signin.model.bean.User;
 import com.zjmy.signin.presenters.SignInApplication;
 import com.zjmy.signin.presenters.view.MainActivityView;
@@ -45,19 +46,19 @@ public class MainActivity extends BaseActivity<MainActivityView> {
     public void inCreat(Bundle savedInstanceState) {
         activityComponent.inject(this);
         activity = this;
-        v.initClock();
-        v.init();
+        //自动登录
         new Handler().post(() -> initLogin());
-        //检测更新
-        rxPermissions=new RxPermissions(this);
-        rxPermissions.request(Manifest.permission.SYSTEM_ALERT_WINDOW)
-                .subscribe(granted -> {
-                    if (granted) {
-                        new Handler().post(() -> UpdateManager.checkUpdate(this));
-                    } else {
-                        new Handler().post(() -> UpdateManager.checkUpdate(this));
-                    }
-                });
+
+//        //检测更新
+//        rxPermissions=new RxPermissions(this);
+//        rxPermissions.request(Manifest.permission.SYSTEM_ALERT_WINDOW)
+//                .subscribe(granted -> {
+//                    if (granted) {
+//                        new Handler().post(() -> UpdateManager.checkUpdate(this));
+//                    } else {
+//                        new Handler().post(() -> UpdateManager.checkUpdate(this));
+//                    }
+//                });
     }
 
     /**
@@ -79,7 +80,6 @@ public class MainActivity extends BaseActivity<MainActivityView> {
                     if (e == null && list.size() > 0) {
                         SignInApplication.userName = list.get(0).getName();
                         Toast.makeText(MainActivity.this, "已自动登录", Toast.LENGTH_SHORT).show();
-                        v.initUser();
                     } else {
                         Log.e(TAG, "done: " + e.toString());
                     }
@@ -93,49 +93,53 @@ public class MainActivity extends BaseActivity<MainActivityView> {
         return this;
     }
 
-    //设置菜单
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_feedback:
-                Intent intent = new Intent(this, FeedBackActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.menu_exit:
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle("提醒");
-                builder.setMessage("确定要退出当前APP吗 ?");
-                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        AppManager.getAppManager().AppExit();
-                    }
-                });
-                builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                    }
-                });
-                builder.show();
-                break;
-            case R.id.menu_bind:
-                //绑定设备
-                startActivity(new Intent(this, BindActivity.class));
-                break;
-        }
-
-        return true;
-    }
+//    //设置菜单
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.menu_main, menu);
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        switch (item.getItemId()) {
+//            case R.id.menu_feedback:
+//                Intent intent = new Intent(this, FeedBackActivity.class);
+//                startActivity(intent);
+//                break;
+//            case R.id.menu_exit:
+//                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//                builder.setTitle("提醒");
+//                builder.setMessage("确定要退出当前APP吗 ?");
+//                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        AppManager.getAppManager().AppExit();
+//                    }
+//                });
+//                builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                    }
+//                });
+//                builder.show();
+//                break;
+//            case R.id.menu_bind:
+//                //绑定设备
+//                startActivity(new Intent(this, BindActivity.class));
+//                break;
+//        }
+//
+//        return true;
+//    }
 
     @Override
     protected void onResume() {
         super.onResume();
-        v.initUser();
+//        v.initUser();
+    }
+
+    public ActivityComponent getActivityComponent() {
+        return activityComponent;
     }
 }

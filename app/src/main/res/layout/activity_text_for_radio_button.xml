@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RadioGroup
+        android:id="@+id/rd_group"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+        <RadioButton
+            android:id="@+id/rb_kaoqin"
+            style="@style/tab_menu_item"
+            android:drawableTop="@mipmap/ic_launcher"
+            android:text="考勤"/>
+
+        <RadioButton
+            android:id="@+id/rb_tongji"
+            style="@style/tab_menu_item"
+            android:drawableTop="@mipmap/ic_launcher"
+            android:text="统计"/>
+
+        <RadioButton
+            android:id="@+id/rb_mine"
+            style="@style/tab_menu_item"
+            android:drawableTop="@mipmap/ic_launcher"
+            android:text="我的"/>
+
+    </RadioGroup>
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/rd_group"
+        >
+    </FrameLayout>
+</RelativeLayout>
