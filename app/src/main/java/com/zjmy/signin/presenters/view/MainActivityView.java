@@ -2,9 +2,12 @@ package com.zjmy.signin.presenters.view;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.IdRes;
+import android.support.v4.app.BundleCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
@@ -64,8 +67,10 @@ public class MainActivityView extends BaseViewImpl implements RadioGroup.OnCheck
     protected RadioGroup rGroub;
     private AppCompatActivity activity;
 //    private String date;
-    private Fragment fg1, fg2, fg3;
-
+    private Fragment fg1 = new Frag1();
+    private Fragment fg2 = new Frag2();
+    private Fragment fg3 = new Frag3();
+    private FragmentTransaction transaction;
     @Override
     public int getRootViewId() {
         return R.layout.activity_text_for_radio_button;
@@ -74,10 +79,17 @@ public class MainActivityView extends BaseViewImpl implements RadioGroup.OnCheck
     @Override
     public void setActivityContext(AppCompatActivity appCompatActivity) {
         activity = appCompatActivity;
+
+        transaction = activity.getSupportFragmentManager().beginTransaction();
+        transaction.add(R.id.fragment_container,fg1);
+        transaction.add(R.id.fragment_container,fg2);
+        transaction.hide(fg2);
+        transaction.add(R.id.fragment_container,fg3);
+        transaction.hide(fg3);
+        transaction.commit();
+
         rGroub.setOnCheckedChangeListener(this);
         rb_kaoqin.setChecked(true);
-
-
 //        toolbar.getMenu().clear();
 //        toolbar.inflateMenu(R.menu.menu_main);
 //        appCompatActivity.setSupportActionBar(toolbar);
@@ -122,27 +134,22 @@ public class MainActivityView extends BaseViewImpl implements RadioGroup.OnCheck
 
     @Override
     public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
-        android.support.v4.app.FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
+        transaction = activity.getSupportFragmentManager().beginTransaction();
+        transaction.hide(fg1);
+        transaction.hide(fg2);
+        transaction.hide(fg3);
         switch (checkedId) {
             case R.id.rb_kaoqin:
-                if (fg1 == null) {
-                    fg1 = new Frag1();
-                }
-                transaction.replace(R.id.fragment_container, fg1);
+                transaction.show(fg1);
                 break;
             case R.id.rb_tongji:
-                if (fg2 == null) {
-                    fg2 = new Frag2();
-                }
-                transaction.replace(R.id.fragment_container, fg2);
+                transaction.show(fg2);
                 break;
             case R.id.rb_mine:
-                if (fg3 == null) {
-                    fg3 = new Frag3();
-                }
-                transaction.replace(R.id.fragment_container, fg3);
+                transaction.show(fg3);
                 break;
         }
+
         transaction.commit();
     }
 

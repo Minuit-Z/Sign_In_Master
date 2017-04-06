@@ -37,6 +37,8 @@ public class FragInner_2 extends BaseFragmentPresenter<FragInner2View> {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initInject();
+
+        v.init();
     }
 
     public void initInject() {
@@ -46,5 +48,8 @@ public class FragInner_2 extends BaseFragmentPresenter<FragInner2View> {
                 .activityComponent(activity.getActivityComponent())
                 .build()
                 .inject(this);
+    }
+    public void update(String month){
+        v.init(month);
     }
 }

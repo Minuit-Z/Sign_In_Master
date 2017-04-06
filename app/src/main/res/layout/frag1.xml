@@ -44,9 +44,11 @@
     </android.support.design.widget.AppBarLayout>
 
     <RelativeLayout
+        android:id="@+id/root_frag1"
+        android:background="@mipmap/bg_sign"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="5">
+        android:layout_weight="7">
 
         <TextView
             android:id="@+id/tv_clock"
@@ -87,22 +89,22 @@
             android:layout_marginBottom="73dp"
             android:text="定位方式" />
 
-        <TextView
+        <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_alignTop="@+id/tv_main_loctype"
             android:layout_marginTop="23dp"
             android:background="#000"
-            android:text="TextView" />
+            android:id="@+id/view" />
 
         <TextView
             android:id="@+id/tv_location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="中国北京市海淀区巨山路同台自在香山"
             android:layout_alignParentBottom="true"
             android:layout_alignStart="@+id/tv_main_loctype"
-            android:layout_marginBottom="20dp"
-            android:text="中国北京市海淀区巨山路同台自在香山" />
+            android:layout_marginBottom="20dp" />
 
 
     </RelativeLayout>
@@ -110,7 +112,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2">
+        android:layout_weight="3">
 
         <LinearLayout
             android:id="@+id/layout_main_sign"
@@ -120,6 +122,7 @@
             android:visibility="visible">
 
             <ImageView
+                android:id="@+id/img_signin"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -134,6 +137,7 @@
                 android:paddingBottom="10dp" />
 
             <ImageView
+                android:id="@+id/img_signout"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -178,13 +182,20 @@
                 toolbar:counterMaxLength="10"
                 toolbar:counterOverflowTextAppearance="@style/counterOverflow">
 
-                <android.support.design.widget.TextInputEditText
-                    android:id="@+id/mobile"
+                <EditText
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="65dp"
+                    android:background="@null"
+                    android:clickable="true"
+                    android:gravity="top"
+                    android:imeOptions="actionDone"
+                    android:inputType="textMultiLine"
+                    android:minLines="8"
+                    android:paddingLeft="20dip"
+                    android:paddingRight="20dip"
+                    android:textColor="#000000"
+                    android:textSize="14sp" />
             </android.support.design.widget.TextInputLayout>
-
         </LinearLayout>
-
     </FrameLayout>
 </LinearLayout>

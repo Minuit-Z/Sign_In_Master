@@ -120,7 +120,7 @@ public class SignView extends BaseViewImpl {
         String[] times = time.split(":");  // [时][分]
         if (status == 1) {
             if (date.isEmpty() || time.isEmpty() || objId == null) {
-                Log.e(TAG, "doLogout: "+"empty");
+                Log.e(TAG, "doLogout: " + "empty");
                 return;
             }
 
@@ -134,8 +134,8 @@ public class SignView extends BaseViewImpl {
                         tv_behavior.setText("已签退");
                         status = 2;
                         Toast.makeText(activity, "已签退", Toast.LENGTH_SHORT).show();
-                    }else {
-                        Log.e(TAG, "done: "+e.toString() );
+                    } else {
+                        Log.e(TAG, "done: " + e.toString());
                     }
                 }
             });
@@ -290,10 +290,10 @@ public class SignView extends BaseViewImpl {
         img.setOnClickListener((View view) -> {
             //点击一次之后禁用
             img.setEnabled(false);
-            Log.e(TAG, "initViewBySign: "+status);
-            if (!NetworkUtil.checkNetWorkAvaluable(activity)){
+            Log.e(TAG, "initViewBySign: " + status);
+            if (!NetworkUtil.checkNetWorkAvaluable(activity)) {
                 img.setEnabled(true);
-                Log.e(TAG, "doLogin: "+"断网了日你妈卖批");
+                Log.e(TAG, "doLogin: " + "断网了日你妈卖批");
                 return;
             }
             switch (status) {
@@ -308,7 +308,7 @@ public class SignView extends BaseViewImpl {
                     doLogout();
                     break;
                 default:
-                    Log.e(TAG, "initViewBySign: "+"异常处理");
+                    Log.e(TAG, "initViewBySign: " + "异常处理");
                     img.setEnabled(true);
                     ;//异常处理
             }

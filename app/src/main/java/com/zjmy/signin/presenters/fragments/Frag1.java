@@ -3,21 +3,18 @@ package com.zjmy.signin.presenters.fragments;
 import android.Manifest;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
 
 import com.tbruyelle.rxpermissions.RxPermissions;
 import com.utopia.mvp.presenter.BaseFragmentPresenter;
-import com.zjmy.signin.R;
 import com.zjmy.signin.inject.component.DaggerFragmentComponent;
 import com.zjmy.signin.inject.module.FragmentModule;
 import com.zjmy.signin.presenters.activity.MainActivity;
 import com.zjmy.signin.presenters.view.Frag1View;
+
+import static android.content.ContentValues.TAG;
 
 
 /**
@@ -65,5 +62,11 @@ public class Frag1 extends BaseFragmentPresenter<Frag1View> {
                 .activityComponent(activity.getActivityComponent())
                 .build()
                 .inject(this);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.e(TAG, "onResume: " );
     }
 }
