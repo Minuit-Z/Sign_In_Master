@@ -1,6 +1,5 @@
 package com.zjmy.signin.presenters.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
@@ -22,9 +21,4 @@ public class LoginActivity extends BaseActivity<LoginActivityView> {
         return this;
     }
 
-    @Override
-    public void onBackPressed() {
-        startActivity(new Intent(LoginActivity.this,MainActivity.class));
-        finish();
-    }
 }

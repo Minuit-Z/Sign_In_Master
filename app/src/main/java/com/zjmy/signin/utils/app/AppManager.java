@@ -1,7 +1,6 @@
 package com.zjmy.signin.utils.app;
 
 import android.app.Activity;
-import android.content.Context;
 
 import java.util.Stack;
 

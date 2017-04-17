@@ -10,8 +10,8 @@ import android.widget.TextView;
 
 import com.utopia.mvp.view.BaseViewImpl;
 import com.zjmy.signin.R;
-import com.zjmy.signin.model.bean.Sign;
-import com.zjmy.signin.model.bean.Visit;
+import com.zjmy.signin.inject.qualifier.model.bean.Sign;
+import com.zjmy.signin.inject.qualifier.model.bean.Visit;
 import com.zjmy.signin.presenters.adapters.HistoryAdapter;
 import com.zjmy.signin.presenters.adapters.HistoryAdapter4Visit;
 

@@ -1,23 +1,17 @@
 package com.zjmy.signin.presenters.activity;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 
-import com.tbruyelle.rxpermissions.RxPermissions;
-import com.zjmy.signin.R;
-import com.zjmy.signin.model.bean.Sign;
-import com.zjmy.signin.model.bean.Visit;
-import com.zjmy.signin.presenters.view.SignView;
+import com.zjmy.signin.inject.qualifier.model.bean.User;
+import com.zjmy.signin.presenters.SignInApplication;
 import com.zjmy.signin.presenters.view.SplashView;
-import com.zjmy.signin.utils.app.IdManager;
 import com.zjmy.signin.utils.files.SPHelper;
 
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
@@ -34,19 +28,37 @@ public class SplashActivity extends BaseActivity<SplashView> {
     @Override
     public void inCreat(Bundle savedInstanceState) {
         activityComponent.inject(this);
-
-        new Thread(new Runnable() {
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                try {
-                    Thread.sleep(2000);
-                    startActivity(new Intent(SplashActivity.this,MainActivity.class));
+                String pass = (String) SPHelper.getInstance(SplashActivity.this).getParam(SPHelper.PASS_WORD, "");
+                if (!"".equals(pass)) {
+                    //有保存密码,开始自动登录
+                    BmobQuery<User> query = new BmobQuery<>();
+                    query.addWhereEqualTo("user", SPHelper.getInstance(SplashActivity.this).getParam(SPHelper.USER, ""));
+                    query.addWhereEqualTo("password", pass);
+                    query.findObjects(new FindListener<User>() {
+                        @Override
+                        public void done(List<User> list, BmobException e) {
+                            if (e == null && list.size() > 0) {
+                                SignInApplication.userName = list.get(0).getName();
+                                startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                                finish();
+                            } else {
+                                SPHelper.getInstance(SplashActivity.this).setParam(SPHelper.PASS_WORD, "");
+                                startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+                                finish();
+                            }
+                        }
+
+                    });
+                } else {
+                    startActivity(new Intent(SplashActivity.this, LoginActivity.class));
                     finish();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
                 }
             }
-        }).start();
+        }, 2000);
     }
 
     @Override

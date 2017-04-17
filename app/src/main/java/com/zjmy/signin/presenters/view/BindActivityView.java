@@ -2,20 +2,17 @@ package com.zjmy.signin.presenters.view;
 
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
-import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.utopia.mvp.view.BaseViewImpl;
 import com.zjmy.signin.R;
-import com.zjmy.signin.model.bean.Feedback;
-import com.zjmy.signin.model.bean.User;
+import com.zjmy.signin.inject.qualifier.model.bean.User;
 import com.zjmy.signin.utils.app.AppManager;
 import com.zjmy.signin.utils.app.IdManager;
 import com.zjmy.signin.utils.files.SPHelper;
@@ -27,7 +24,6 @@ import butterknife.OnClick;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
-import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
 
 import static android.content.ContentValues.TAG;

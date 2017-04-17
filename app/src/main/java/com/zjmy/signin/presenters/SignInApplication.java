@@ -1,12 +1,9 @@
 package com.zjmy.signin.presenters;
 
-import android.app.Activity;
 import android.os.StrictMode;
 import android.support.multidex.MultiDexApplication;
 
 import com.baidu.mapapi.SDKInitializer;
-import com.osama.firecrasher.CrashListener;
-import com.osama.firecrasher.FireCrasher;
 import com.zjmy.signin.BuildConfig;
 import com.zjmy.signin.inject.component.ApplicationComponent;
 import com.zjmy.signin.inject.component.DaggerApplicationComponent;

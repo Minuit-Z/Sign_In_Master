@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RadioGroup
+        android:id="@+id/rd_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rb_kaoqin"
+            style="@style/tab_menu_item"
+            android:checked="true"
+            android:drawableTop="@drawable/selector_rb_check_work"
+            android:text="考勤"
+            android:textColor="@color/selector_radio" />
+
+        <RadioButton
+            android:id="@+id/rb_tongji"
+            style="@style/tab_menu_item"
+            android:drawableTop="@drawable/selector_rb_record"
+            android:text="统计"
+            android:textColor="@color/selector_radio" />
+
+        <RadioButton
+            android:id="@+id/rb_mine"
+            style="@style/tab_menu_item"
+            android:text="我的"
+            android:drawableTop="@drawable/selector_rb_my"
+            android:textColor="@color/selector_radio" />
+
+    </RadioGroup>
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_above="@id/rd_group"
+        android:background="@color/gray" />
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/divider"></FrameLayout>
+</RelativeLayout>

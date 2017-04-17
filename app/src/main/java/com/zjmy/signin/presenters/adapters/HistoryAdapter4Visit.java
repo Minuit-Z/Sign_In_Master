@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.zjmy.signin.R;
-import com.zjmy.signin.model.bean.Visit;
+import com.zjmy.signin.inject.qualifier.model.bean.Visit;
 
 import java.util.List;
 

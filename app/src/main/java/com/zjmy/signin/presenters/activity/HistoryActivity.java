@@ -9,13 +9,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.zjmy.signin.R;
-import com.zjmy.signin.model.bean.Sign;
-import com.zjmy.signin.model.bean.Visit;
+import com.zjmy.signin.inject.qualifier.model.bean.Sign;
+import com.zjmy.signin.inject.qualifier.model.bean.Visit;
 import com.zjmy.signin.presenters.view.HistoryView;
 import com.zjmy.signin.utils.app.DynamicBoxUtil;
 import com.zjmy.signin.utils.files.SPHelper;

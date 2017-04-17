@@ -13,8 +13,7 @@ import android.widget.Toast;
 
 import com.utopia.mvp.view.BaseViewImpl;
 import com.zjmy.signin.R;
-import com.zjmy.signin.model.bean.Feedback;
-import com.zjmy.signin.presenters.activity.FeedBackActivity;
+import com.zjmy.signin.inject.qualifier.model.bean.Feedback;
 import com.zjmy.signin.utils.files.SPHelper;
 
 import butterknife.Bind;

@@ -24,7 +24,8 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <!-- SD卡读取权限，用户写入离线定位数据 -->
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
-    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY"/>
+    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
+
     <application
         android:name=".presenters.SignInApplication"
         android:allowBackup="true"
@@ -50,19 +51,14 @@
             android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:theme="@style/MyDialog" />
+            android:theme="@style/Translucent" />
 
         <activity
             android:name=".presenters.activity.MainActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:theme="@style/Translucent">
-
-        </activity>
-        <activity
-            android:name=".presenters.activity.SignActivity"
-            android:screenOrientation="portrait"
             android:theme="@style/Translucent" />
+
 
         <activity
             android:name=".presenters.activity.LocationActivity"
@@ -93,7 +89,7 @@
 
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="pDWWNF3qLZZ76RArkxCrKjrLEB863nLF" />
+            android:value="XZ7yUm0tgM4TV6fsOGm8EqnBymsUU5qe" />
 
         <service
             android:name="com.baidu.location.f"

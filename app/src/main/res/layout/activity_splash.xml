@@ -5,7 +5,7 @@
     android:orientation="vertical">
 
     <ImageView
-        android:background="@drawable/splash"
+        android:background="@mipmap/splash"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </LinearLayout>
