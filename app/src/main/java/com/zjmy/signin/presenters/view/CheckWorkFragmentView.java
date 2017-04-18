@@ -1,5 +1,6 @@
 package com.zjmy.signin.presenters.view;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.CountDownTimer;
@@ -100,7 +101,6 @@ public class CheckWorkFragmentView extends BaseViewImpl {
     protected TextView tv_loc_type;
     @Bind(R.id.tv_location)
     protected TextView tvLocation;
-    private LocationClient locationClient = null;
     private MyHandler handler = new MyHandler(this);
 
     //签到时需要的字段
@@ -260,10 +260,10 @@ public class CheckWorkFragmentView extends BaseViewImpl {
         tv_time.setText(formatter.format(curDate));
     }
 
-    public void showLocation(Context context) {
+    public void showLocation(Context context, Application application) {
         if (NetworkUtil.checkNetWorkAvaluable(context)) {
             //设置定位条件
-            locationClient = new LocationClient(context);
+            LocationClient locationClient = new LocationClient(context);
             locationClient.registerLocationListener(new BDLocationListener() {
                 @Override
                 public void onReceiveLocation(BDLocation bdLocation) {
@@ -282,9 +282,10 @@ public class CheckWorkFragmentView extends BaseViewImpl {
             });
             LocationClientOption option = new LocationClientOption();
             option.setOpenGps(true); // 打开gps
-            int span = 1000;
-            option.setScanSpan(span);
             option.setCoorType("bd09ll"); // 设置坐标类型
+            //可选，默认0，即仅定位一次，设置发起定位请求的间隔需要大于等于1000ms才是有效的
+            option.setLocationNotify(true);
+            //可选，默认false，设置是否当GPS有效时按照1S/1次频率输出GPS结果
             option.setIsNeedAddress(true); //需要地址信息
             option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy); // 设置GPS优先  // 设置GPS优先
             option.disableCache(true);//禁止启用缓存定位
@@ -332,11 +333,8 @@ public class CheckWorkFragmentView extends BaseViewImpl {
                         type = "定位异常";
                 }
                 if (mView.get() != null) {
-                    System.out.println("定位++++++++++++");
                     view.tv_loc_type.setText("已通过" + type);
                     view.tvLocation.setText(location.getAddrStr() + loc);
-                } else {
-                    System.out.println("销毁了++++++++++++++");
                 }
             }
         }
@@ -491,6 +489,7 @@ public class CheckWorkFragmentView extends BaseViewImpl {
                     });
                 }
             });
+            builder.show();
         }
 
     }
@@ -510,7 +509,7 @@ public class CheckWorkFragmentView extends BaseViewImpl {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         tvSubmitVisit.setEnabled(false);
                         //设置定位条件
-                        locationClient = new LocationClient(activity);
+                        LocationClient locationClient = new LocationClient(activity);
                         locationClient.registerLocationListener(new BDLocationListener() {
                             @Override
                             public void onReceiveLocation(BDLocation bdLocation) {
@@ -549,42 +548,12 @@ public class CheckWorkFragmentView extends BaseViewImpl {
                             }
                         });
                         LocationClientOption option = new LocationClientOption();
-                        option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);
-                        //可选，默认高精度，设置定位模式，高精度，低功耗，仅设备
-
-                        option.setCoorType("bd09ll");
-                        //可选，默认gcj02，设置返回的定位结果坐标系
-
-                        int span = 1000;
-                        option.setScanSpan(span);
-                        //可选，默认0，即仅定位一次，设置发起定位请求的间隔需要大于等于1000ms才是有效的
-
-                        option.setIsNeedAddress(true);
-                        //可选，设置是否需要地址信息，默认不需要
-
-                        option.setOpenGps(true);
-                        //可选，默认false,设置是否使用gps
-
-                        option.setLocationNotify(true);
-                        //可选，默认false，设置是否当GPS有效时按照1S/1次频率输出GPS结果
-
-                        option.setIsNeedLocationDescribe(true);
-                        //可选，默认false，设置是否需要位置语义化结果，可以在BDLocation.getLocationDescribe里得到，结果类似于“在北京天安门附近”
-
-                        option.setIsNeedLocationPoiList(true);
-                        //可选，默认false，设置是否需要POI结果，可以在BDLocation.getPoiList里得到
-
-                        option.setIgnoreKillProcess(false);
-                        //可选，默认true，定位SDK内部是一个SERVICE，并放到了独立进程，设置是否在stop的时候杀死这个进程，默认不杀死
-                        option.SetIgnoreCacheException(false);
-                        //可选，默认false，设置是否收集CRASH信息，默认收集
-                        option.setEnableSimulateGps(false);
-//                        option.setOpenGps(true); // 打开gps
-//                        option.setCoorType("bd09ll"); // 设置坐标类型
-//                        option.setIsNeedAddress(true); //需要地址信息
-//                        option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy); // 设置GPS优先  // 设置GPS优先
-//                        option.disableCache(true);//禁止启用缓存定位
-//                        option.setIsNeedLocationDescribe(true); //设置语义化结果
+                        option.setOpenGps(true); // 打开gps
+                        option.setCoorType("bd09ll"); // 设置坐标类型
+                        option.setIsNeedAddress(true); //需要地址信息
+                        option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy); // 设置GPS优先  // 设置GPS优先
+                        option.disableCache(true);//禁止启用缓存定位
+                        option.setIsNeedLocationDescribe(true); //设置语义化结果
                         locationClient.setLocOption(option);
                         locationClient.start();
                     }

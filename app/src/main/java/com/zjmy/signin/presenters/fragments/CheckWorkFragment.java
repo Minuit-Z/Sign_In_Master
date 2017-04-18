@@ -40,10 +40,11 @@ public class CheckWorkFragment extends BaseFragmentPresenter<CheckWorkFragmentVi
         v.init();
         RxPermissions rxPermissions = new RxPermissions(activity);
         //申请定位权限
+        //Manifest.permission.READ_PHONE_STATE, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE
         rxPermissions.request(Manifest.permission.ACCESS_COARSE_LOCATION)
                 .subscribe(granted -> {
                     if (granted) {
-                        v.showLocation(activity.getApplicationContext());
+                        v.showLocation(activity.getApplicationContext(), activity.getApplication());
                     } else {
                         v.setPermissions("获取定位权限失败");
                     }

@@ -3,7 +3,6 @@ package com.zjmy.signin.presenters;
 import android.os.StrictMode;
 import android.support.multidex.MultiDexApplication;
 
-import com.baidu.mapapi.SDKInitializer;
 import com.zjmy.signin.BuildConfig;
 import com.zjmy.signin.inject.component.ApplicationComponent;
 import com.zjmy.signin.inject.component.DaggerApplicationComponent;
@@ -44,7 +43,6 @@ public class SignInApplication extends MultiDexApplication {
         JUtils.initialize(this);
         FIR.init(this);//版本更新,错误收集等
         Bmob.initialize(getApplicationContext(),"f654080ef415d1b3dd5b65a2bbf75ee3");
-        SDKInitializer.initialize(getApplicationContext());//百度地图初始化
     }
 
     public ApplicationComponent getAppComponent() {
