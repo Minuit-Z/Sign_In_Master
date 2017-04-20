@@ -109,7 +109,6 @@
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="30dp"
             android:layout_marginLeft="10dp"
-            android:text="获取定位中..."
             android:textColor="@color/white" />
 
         <View
@@ -137,7 +136,6 @@
                 android:id="@+id/tv_main_loctype"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="定位失败！"
                 android:textColor="@color/white" />
         </LinearLayout>
 

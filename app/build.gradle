@@ -71,11 +71,12 @@ dependencies {
     compile 'com.nispok:snackbar:2.11.+'
     compile 'cn.bmob.android:bmob-sdk:3.5.0'
     compile 'im.fir:fir-sdk:latest.integration@aar'
+    //定位功能
+    compile 'com.amap.api:location:latest.integration'
     //NumberPickerView
     compile 'cn.carbswang.android:NumberPickerView:1.0.2'
     testCompile 'junit:junit:4.12'
     //波纹效果
     compile 'com.skyfishjy.ripplebackground:library:1.0.1'
-    compile files('libs/BaiduLBS_Android.jar')
 }
 

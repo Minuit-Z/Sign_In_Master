@@ -18,10 +18,10 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.baidu.location.BDLocation;
-import com.baidu.location.BDLocationListener;
-import com.baidu.location.LocationClient;
-import com.baidu.location.LocationClientOption;
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationClient;
+import com.amap.api.location.AMapLocationClientOption;
+import com.amap.api.location.AMapLocationListener;
 import com.utopia.mvp.view.BaseViewImpl;
 import com.zjmy.signin.R;
 import com.zjmy.signin.inject.qualifier.model.bean.Sign;
@@ -53,6 +53,8 @@ import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.QueryListener;
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
+
+import static cn.bmob.v3.Bmob.getApplicationContext;
 
 
 /**
@@ -114,6 +116,10 @@ public class CheckWorkFragmentView extends BaseViewImpl {
     private String signData;
     private String visitData;
     private int flag = 1;//1代表打卡签到页2代表拜访记录页
+    //声明AMapLocationClient类对象
+    public AMapLocationClient mLocationClient = null;
+    //声明定位回调监听器
+    public AMapLocationListener mLocationListener;
 
     @Override
     public void onPresenterDestory() {
@@ -157,7 +163,7 @@ public class CheckWorkFragmentView extends BaseViewImpl {
 
             @Override
             public void onFinish() {
-                activity.finish();
+
             }
         };
         countDownTimer.start();
@@ -262,36 +268,41 @@ public class CheckWorkFragmentView extends BaseViewImpl {
 
     public void showLocation(Context context, Application application) {
         if (NetworkUtil.checkNetWorkAvaluable(context)) {
-            //设置定位条件
-            LocationClient locationClient = new LocationClient(context);
-            locationClient.registerLocationListener(new BDLocationListener() {
+            mLocationListener = new AMapLocationListener() {
                 @Override
-                public void onReceiveLocation(BDLocation bdLocation) {
-                    if (bdLocation != null) {
-                        System.out.println("定位类型" + bdLocation.getLocType());
+                public void onLocationChanged(AMapLocation aMapLocation) {
+                    if (aMapLocation != null) {
                         Message msg = Message.obtain();
-                        msg.obj = bdLocation;
+                        msg.obj = aMapLocation;
                         handler.sendMessage(msg);
                     }
                 }
-
-                @Override
-                public void onConnectHotSpotMessage(String s, int i) {
-
-                }
-            });
-            LocationClientOption option = new LocationClientOption();
-            option.setOpenGps(true); // 打开gps
-            option.setCoorType("bd09ll"); // 设置坐标类型
-            //可选，默认0，即仅定位一次，设置发起定位请求的间隔需要大于等于1000ms才是有效的
-            option.setLocationNotify(true);
-            //可选，默认false，设置是否当GPS有效时按照1S/1次频率输出GPS结果
-            option.setIsNeedAddress(true); //需要地址信息
-            option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy); // 设置GPS优先  // 设置GPS优先
-            option.disableCache(true);//禁止启用缓存定位
-            option.setIsNeedLocationDescribe(true); //设置语义化结果
-            locationClient.setLocOption(option);
-            locationClient.start();
+            };
+            //初始化定位
+            mLocationClient = new AMapLocationClient(getApplicationContext());
+            //设置定位回调监听
+            mLocationClient.setLocationListener(mLocationListener);
+            //声明AMapLocationClientOption对象
+            AMapLocationClientOption mLocationOption = null;
+            //初始化AMapLocationClientOption对象
+            mLocationOption = new AMapLocationClientOption();
+            //设置定位模式为AMapLocationMode.Hight_Accuracy，高精度模式。
+            mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
+            //设置定位间隔,单位毫秒,默认为2000ms，最低1000ms。
+            mLocationOption.setInterval(1000);
+            //设置是否返回地址信息（默认返回地址信息）
+            mLocationOption.setNeedAddress(true);
+            //设置是否强制刷新WIFI，默认为true，强制刷新。
+            mLocationOption.setWifiActiveScan(false);
+            //设置是否允许模拟位置,默认为false，不允许模拟位置
+            mLocationOption.setMockEnable(false);
+            //单位是毫秒，默认30000毫秒，建议超时时间不要低于8000毫秒。
+            mLocationOption.setHttpTimeOut(20000);
+            //关闭缓存机制
+            mLocationOption.setLocationCacheEnable(false);//给定位客户端对象设置定位参数
+            mLocationClient.setLocationOption(mLocationOption);
+            //启动定位
+            mLocationClient.startLocation();
         }
     }
 
@@ -307,8 +318,7 @@ public class CheckWorkFragmentView extends BaseViewImpl {
      */
     private static class MyHandler extends Handler {
         private final WeakReference<CheckWorkFragmentView> mView;
-        private BDLocation location;
-
+        private AMapLocation aMapLocation;
 
         public MyHandler(CheckWorkFragmentView view) {
             mView = new WeakReference<>(view);
@@ -317,24 +327,36 @@ public class CheckWorkFragmentView extends BaseViewImpl {
         @Override
         public void handleMessage(Message msg) {
             CheckWorkFragmentView view = mView.get();
-            location = (BDLocation) msg.obj;
-            if (location != null && location.getLocationDescribe() != null) {
-                String loc = location.getLocationDescribe().replaceFirst("在", "");
-                loc = loc.replace("附近", "");
-                String type = "离线异常";
-                switch (location.getLocType()) {
-                    case BDLocation.TypeGpsLocation:
-                        type = "GPS定位";
-                        break;
-                    case BDLocation.TypeNetWorkLocation:
+            aMapLocation = (AMapLocation) msg.obj;
+            String type = "";
+            if (aMapLocation.getErrorCode() == 0) {
+                switch (aMapLocation.getLocationType()) {
+                    case 5:
                         type = "网络定位";
                         break;
-                    default:
-                        type = "定位异常";
                 }
                 if (mView.get() != null) {
                     view.tv_loc_type.setText("已通过" + type);
-                    view.tvLocation.setText(location.getAddrStr() + loc);
+                    view.tvLocation.setText(aMapLocation.getAddress());
+                }
+            } else {
+                switch (aMapLocation.getErrorCode()) {
+                    case 4:
+                        type = "网络情况差";
+                        break;
+                    case 6:
+                        type = "定位服务返回定位失败";
+                        break;
+                    case 12:
+                        type = "缺少定位权限";
+                        break;
+                    case 13:
+                        type = "定位失败，未开启网络";
+                        break;
+                }
+                if (mView.get() != null) {
+                    view.tv_loc_type.setText(type);
+                    view.tvLocation.setText("获取定位中...");
                 }
             }
         }
@@ -448,7 +470,7 @@ public class CheckWorkFragmentView extends BaseViewImpl {
             Toast.makeText(activity, "定位失败,无法签退", Toast.LENGTH_SHORT).show();
             return;
         }
-        if (!signData.equals("已签退")) {
+        if (!signData.equals("已签退") && !signData.equals("今日未签到")) {
             AlertDialog.Builder builder = new AlertDialog.Builder(activity);
             builder.setTitle("提示");
             builder.setMessage("确认签退?");
@@ -508,54 +530,34 @@ public class CheckWorkFragmentView extends BaseViewImpl {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         tvSubmitVisit.setEnabled(false);
-                        //设置定位条件
-                        LocationClient locationClient = new LocationClient(activity);
-                        locationClient.registerLocationListener(new BDLocationListener() {
-                            @Override
-                            public void onReceiveLocation(BDLocation bdLocation) {
-                                if (bdLocation != null) {
-                                    Visit visit = new Visit();
-                                    visit.setName((String) SPHelper.getInstance(activity).getParam(SPHelper.NAME, ""));
-                                    String loc = bdLocation.getLocationDescribe().replaceFirst("在", "");
-                                    loc = loc.replace("附近", "");
-                                    visit.setLocation(bdLocation.getAddrStr() + loc);
-                                    visit.setUser((String) SPHelper.getInstance(activity).getParam(SPHelper.USER, ""));
-                                    visit.setDate(date);
-                                    if (Integer.parseInt(month) > 0 && Integer.parseInt(month) < 10) {
-                                        visit.setMonth("0" + month);
+                        if (tvLocation.getText().toString().equals("获取定位中...")) {
+                            Toast.makeText(activity, "获取定位失败，无法提交", Toast.LENGTH_SHORT).show();
+                            tvSubmitVisit.setEnabled(true);
+                        } else {
+                            Visit visit = new Visit();
+                            visit.setName((String) SPHelper.getInstance(activity).getParam(SPHelper.NAME, ""));
+                            visit.setLocation(tvLocation.getText().toString());
+                            visit.setUser((String) SPHelper.getInstance(activity).getParam(SPHelper.USER, ""));
+                            visit.setDate(date);
+                            if (Integer.parseInt(month) > 0 && Integer.parseInt(month) < 10) {
+                                visit.setMonth("0" + month);
+                            } else {
+                                visit.setMonth(month);
+                            }
+                            visit.setSummary(etVisitRecord.getText().toString().trim());
+                            visit.save(new SaveListener<String>() {
+                                @Override
+                                public void done(String s, BmobException e) {
+                                    if (e == null) {
+                                        Toast.makeText(activity, "提交成功", Toast.LENGTH_SHORT).show();
+                                        getVisitRecord(date);
                                     } else {
-                                        visit.setMonth(month);
+                                        Toast.makeText(activity, "提交失败", Toast.LENGTH_SHORT).show();
                                     }
-                                    visit.setSummary(etVisitRecord.getText().toString().trim());
-                                    visit.save(new SaveListener<String>() {
-                                        @Override
-                                        public void done(String s, BmobException e) {
-                                            if (e == null) {
-                                                Toast.makeText(activity, "提交成功", Toast.LENGTH_SHORT).show();
-                                                getVisitRecord(date);
-                                            } else {
-                                                Toast.makeText(activity, "提交失败", Toast.LENGTH_SHORT).show();
-                                            }
-                                            tvSubmitVisit.setEnabled(true);
-                                        }
-                                    });
+                                    tvSubmitVisit.setEnabled(true);
                                 }
-                            }
-
-                            @Override
-                            public void onConnectHotSpotMessage(String s, int i) {
-
-                            }
-                        });
-                        LocationClientOption option = new LocationClientOption();
-                        option.setOpenGps(true); // 打开gps
-                        option.setCoorType("bd09ll"); // 设置坐标类型
-                        option.setIsNeedAddress(true); //需要地址信息
-                        option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy); // 设置GPS优先  // 设置GPS优先
-                        option.disableCache(true);//禁止启用缓存定位
-                        option.setIsNeedLocationDescribe(true); //设置语义化结果
-                        locationClient.setLocOption(option);
-                        locationClient.start();
+                            });
+                        }
                     }
                 });
                 builder.show();
