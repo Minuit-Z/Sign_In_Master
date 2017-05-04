@@ -18,6 +18,7 @@ public class Visit extends BmobObject implements IListModel{
     String sendee;//接收人
     String date ;//日期
     String month;//月份
+    String time; //时间(时分秒)
 
     public String getMonth() {
         return month;
@@ -91,7 +92,16 @@ public class Visit extends BmobObject implements IListModel{
         this.date = date;
     }
 
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
     @Override
+
     public int getModelViewType() {
         return 0;
     }

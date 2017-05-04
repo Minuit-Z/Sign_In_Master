@@ -105,9 +105,9 @@
 
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="a9ebe0f83ee9c5c7a8f9ad38ba3b02f8">//开发者申请的key
-
+            android:value="b65477aa4d3b22e832d97845c8743df2">//高德地图申请的key
         </meta-data>
+
         <service android:name="com.amap.api.location.APSService"></service>
     </application>
 

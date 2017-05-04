@@ -84,6 +84,19 @@
             android:layout_height="1dp"
             android:layout_marginLeft="15dp"
             android:background="#1000" />
+        <TextView
+            android:id="@+id/tv_feedback"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:padding="15dp"
+            android:text="问题反馈" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="15dp"
+            android:background="#1000" />
 
         <TextView
             android:id="@+id/tv_logout"
@@ -91,5 +104,11 @@
             android:layout_height="wrap_content"
             android:padding="15dp"
             android:text="注销" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mail"
+            android:id="@+id/btn_send_email"/>
     </LinearLayout>
 </LinearLayout>

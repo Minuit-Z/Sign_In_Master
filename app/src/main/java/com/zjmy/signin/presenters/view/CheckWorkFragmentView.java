@@ -11,6 +11,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputFilter;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -177,6 +178,7 @@ public class CheckWorkFragmentView extends BaseViewImpl {
         BmobQuery<Visit> queryVisit = new BmobQuery<>();
         queryVisit.addWhereEqualTo("user", SPHelper.getInstance(activity).getParam(SPHelper.USER, ""));
         queryVisit.addWhereEqualTo("date", date);
+        Log.e("LOG  ", "getVisitRecord: "+date );
         queryVisit.count(Visit.class, new CountListener() {
             @Override
             public void done(Integer integer, BmobException e) {
@@ -539,6 +541,7 @@ public class CheckWorkFragmentView extends BaseViewImpl {
                             visit.setLocation(tvLocation.getText().toString());
                             visit.setUser((String) SPHelper.getInstance(activity).getParam(SPHelper.USER, ""));
                             visit.setDate(date);
+                            visit.setTime(times);
                             if (Integer.parseInt(month) > 0 && Integer.parseInt(month) < 10) {
                                 visit.setMonth("0" + month);
                             } else {
@@ -551,6 +554,7 @@ public class CheckWorkFragmentView extends BaseViewImpl {
                                     if (e == null) {
                                         Toast.makeText(activity, "提交成功", Toast.LENGTH_SHORT).show();
                                         getVisitRecord(date);
+                                        tvSubmitVisit.setText("");
                                     } else {
                                         Toast.makeText(activity, "提交失败", Toast.LENGTH_SHORT).show();
                                     }

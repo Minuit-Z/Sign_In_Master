@@ -78,5 +78,9 @@ dependencies {
     testCompile 'junit:junit:4.12'
     //波纹效果
     compile 'com.skyfishjy.ripplebackground:library:1.0.1'
+    compile files('libs/activation.jar')
+    compile files('libs/additionnal.jar')
+    compile files('libs/commons-email-1.2.jar')
+    compile files('libs/mail.jar')
 }
 
