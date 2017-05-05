@@ -6,6 +6,8 @@ import com.zjmy.signin.presenters.fragments.CheckWorkFragment;
 import com.zjmy.signin.presenters.fragments.CheckWorkRecordFragment;
 import com.zjmy.signin.presenters.fragments.MyInfoFragment;
 import com.zjmy.signin.presenters.fragments.RecordFragment;
+import com.zjmy.signin.presenters.fragments.StuffSignRecordFragment;
+import com.zjmy.signin.presenters.fragments.StuffVisitRecordFragment;
 import com.zjmy.signin.presenters.fragments.VisitRecordFragment;
 
 import dagger.Component;
@@ -22,4 +24,8 @@ public interface FragmentComponent {
     void inject(CheckWorkRecordFragment fragment); //统计->考勤记录
 
     void inject(VisitRecordFragment fragment); //统计->拜访记录
+
+    void inject(StuffSignRecordFragment fragment); //统计->员工考勤记录
+
+    void inject(StuffVisitRecordFragment fragment); //统计->员工拜访记录
 }

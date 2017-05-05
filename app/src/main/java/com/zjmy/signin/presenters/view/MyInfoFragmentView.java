@@ -18,8 +18,6 @@ public class MyInfoFragmentView extends BaseViewImpl {
     protected TextView tvUsername;
     @Bind(R.id.tv_department)
     protected TextView tvDepartment;
-    @Bind(R.id.btn_send_email)
-    protected Button btn_send_email;
     private AppCompatActivity activity;
 
     @Override

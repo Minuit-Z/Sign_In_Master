@@ -5,8 +5,10 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatButton;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 
 import com.utopia.mvp.presenter.BaseFragmentPresenter;
 import com.zjmy.signin.R;
@@ -32,6 +34,7 @@ public class RecordFragment extends BaseFragmentPresenter<RecordFragmentView> {
     private MainActivity activity;
     private AlertDialog alertDialog;
     private int currrentMonth = 0;
+    private int identity;
 
     @Override
     public Class<RecordFragmentView> getRootViewClass() {
@@ -65,11 +68,20 @@ public class RecordFragment extends BaseFragmentPresenter<RecordFragmentView> {
         } else {
             v.getTvChooseDate().setText(currrentMonth + "月");
         }
-        v.initData(getChildFragmentManager(), getActivity());
+
+        //根据身份切换Toolbar显示内容
+        identity = (int) SPHelper.getInstance(activity).getParam(SPHelper.IDENTITY, 0);
+        if (identity == 0) {
+            //普通身份
+            v.initData(getChildFragmentManager(), getActivity());
+        } else {
+            v.initDataForLeader(getChildFragmentManager(), getActivity(), "我的记录");
+        }
         initEvent();
     }
 
     private void initEvent() {
+        //按月份查找
         v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -81,9 +93,98 @@ public class RecordFragment extends BaseFragmentPresenter<RecordFragmentView> {
                 } else {
                     showPicker(currrentMonth + "", year);
                 }
-
             }
         }, R.id.tv_choose_date);
+
+        //按月份查找
+        v.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String date = (String) SPHelper.getInstance(activity).getParam("date", "");
+                String year = date.split("-")[0];
+                if (currrentMonth == 0) {
+                    String month = (String) SPHelper.getInstance(activity).getParam("month", "");
+                    showPicker(month, year);
+                } else {
+                    showPicker(currrentMonth + "", year);
+                }
+            }
+        }, R.id.tv_choose_day_date);
+
+        //按指定日期查找
+        v.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date(System.currentTimeMillis()));
+                String[] dates = date.split("-");
+                showPicker(dates[0], dates[1], dates[2]);
+            }
+        }, R.id.tv_choose_day);
+
+
+        //我的记录
+        v.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                v.initDataForLeader(getChildFragmentManager(), getActivity(), "我的记录");
+            }
+        }, R.id.btn_tb_mine);
+
+        //员工记录
+        v.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                v.initDataForLeader(getChildFragmentManager(), getActivity(), "员工记录");
+            }
+        }, R.id.btn_tb_staff);
+    }
+
+    /**
+     * @param month 当前月份
+     * @param year  当前年份
+     * @param day   当前日
+     * @author 张子扬
+     * @desc 根据当前时间来初始化时间选择器
+     */
+    private void showPicker(String year, String month, String day) {
+        String[] value = initMonth(12 + "");
+        LayoutInflater inflater = activity.getLayoutInflater();
+        View view=inflater.inflate(R.layout.dialog_day_picker,null);
+        NumberPickerView picker_month=(NumberPickerView) view.findViewById(R.id.picker_month);
+        picker_month.setDisplayedValues(value);
+        picker_month.setMinValue(1);
+        picker_month.setMaxValue(12);
+        picker_month.setValue(Integer.parseInt(month)); //显示当前月份
+
+        NumberPickerView picker_year = (NumberPickerView) view.findViewById(R.id.picker_year);
+        picker_year.setMinValue(Integer.parseInt(year));
+        picker_year.setMaxValue(Integer.parseInt(year));
+        picker_year.setDisplayedValues(new String[]{year});
+        picker_year.setValue(Integer.parseInt(year));
+
+        NumberPickerView picker_day = (NumberPickerView) view.findViewById(R.id.picker_day);
+        String[] dayValue=initMonth(31+"");
+        picker_day.setDisplayedValues(dayValue);
+        picker_day.setMinValue(1);
+        picker_day.setMaxValue(31);
+        picker_day.setValue(Integer.parseInt(day));
+
+        AppCompatButton btn = (AppCompatButton) view.findViewById(R.id.btn_get);
+        btn.setOnClickListener((View view1) -> {
+            String curYear=picker_year.getValue()+"";
+            String curMonth = picker_month.getValue() + "";
+            String curDay=picker_day.getValue()+"";
+            currrentMonth = picker_month.getValue();
+
+            v.getTvChooseDay().setText(curMonth+"."+curDay);
+            v.update(curYear,curMonth,curDay);
+            alertDialog.dismiss();
+        });
+        alertDialog = new AlertDialog.Builder(activity)
+                .setView(view)
+                .create();
+        alertDialog.show();
+
     }
 
     /**
@@ -101,7 +202,6 @@ public class RecordFragment extends BaseFragmentPresenter<RecordFragmentView> {
         picker_month.setMinValue(1);
         picker_month.setMaxValue(12);
         picker_month.setValue(Integer.parseInt(month)); //显示当前月份
-        picker_month.setWrapSelectorWheel(false);
         NumberPickerView picker_year = (NumberPickerView) view.findViewById(R.id.picker_year);
         picker_year.setMinValue(Integer.parseInt(year));
         picker_year.setMaxValue(Integer.parseInt(year));
@@ -133,6 +233,7 @@ public class RecordFragment extends BaseFragmentPresenter<RecordFragmentView> {
         for (int i = 1; i <= Integer.parseInt(mo); i++) {
             lists.add(i + "");
         }
+        Log.e("LOG", "initMonth: "+lists.size() );
         return lists.toArray(new String[lists.size()]);
     }
 }

@@ -9,6 +9,7 @@ import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.utopia.mvp.view.BaseViewImpl;
 import com.zjmy.signin.R;
 import com.zjmy.signin.presenters.adapters.CheckWorkRecordAdapter;
+import com.zjmy.signin.presenters.adapters.StuffSignRecordAdapter;
 
 import butterknife.Bind;
 
@@ -49,6 +50,12 @@ public class CheckWorkRecordFragmentView extends BaseViewImpl {
         xRecyclerView.setItemAnimator(new DefaultItemAnimator());
     }
 
+    public void initRecycleView(StuffSignRecordAdapter adapter, LinearLayoutManager manager) {
+        xRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.SquareSpin);
+        xRecyclerView.setAdapter(adapter);
+        xRecyclerView.setLayoutManager(manager);
+        xRecyclerView.setItemAnimator(new DefaultItemAnimator());
+    }
     public void refreshComplete() {
         xRecyclerView.refreshComplete();
         xRecyclerView.loadMoreComplete();

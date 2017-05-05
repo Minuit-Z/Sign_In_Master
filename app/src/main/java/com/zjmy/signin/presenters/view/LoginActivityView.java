@@ -2,6 +2,7 @@ package com.zjmy.signin.presenters.view;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -11,6 +12,7 @@ import com.zjmy.signin.R;
 import com.zjmy.signin.inject.qualifier.model.bean.User;
 import com.zjmy.signin.presenters.SignInApplication;
 import com.zjmy.signin.presenters.activity.MainActivity;
+import com.zjmy.signin.presenters.activity.SplashActivity;
 import com.zjmy.signin.utils.app.IdManager;
 import com.zjmy.signin.utils.files.SPHelper;
 import com.zjmy.signin.utils.network.NetworkUtil;
@@ -87,6 +89,10 @@ public class LoginActivityView extends BaseViewImpl {
                             SPHelper.getInstance(activity).setParam(SPHelper.NAME, list.get(0).getName());
                             SPHelper.getInstance(activity).setParam(SPHelper.OBJID, list.get(0).getObjectId());
                             SPHelper.getInstance(activity).setParam(SPHelper.PASS_WORD, list.get(0).getPassword());
+                            SPHelper.getInstance(activity).setParam(SPHelper.IDENTITY, list.get(0).getIdentity());
+                            SPHelper.getInstance(activity).setParam(SPHelper.DEPARTMENT, list.get(0).getDepartment());
+                            SPHelper.getInstance(activity).setParam(SPHelper.CENTER, list.get(0).getCenter());
+
                             SignInApplication.userName = list.get(0).getName();
                             activity.startActivity(new Intent(activity, MainActivity.class));
                             Toast.makeText(activity, "登录完成", Toast.LENGTH_SHORT).show();

@@ -31,6 +31,7 @@ import mehdi.sakout.dynamicbox.DynamicBox;
 
 /**
  * Created by Administrator on 2017/4/2 0002.
+ * 考勤记录Fragment
  */
 
 public class CheckWorkRecordFragment extends BaseFragmentPresenter<CheckWorkRecordFragmentView> {
@@ -132,7 +133,9 @@ public class CheckWorkRecordFragment extends BaseFragmentPresenter<CheckWorkReco
                             box.showCustomView(DynamicBoxUtil.emptyView);
                         }
                     }
-                    v.refreshComplete();
+                    if(v!=null) {
+                        v.refreshComplete();
+                    }
                 } else {
                     e.printStackTrace();
                     v.refreshComplete();

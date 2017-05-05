@@ -22,26 +22,90 @@
                 toolbar:theme="@style/ToolbarTheme"
                 toolbar:title=" " />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:text="统计"
-                android:textColor="#fff"
-                android:textSize="20sp" />
+            <RelativeLayout
+                android:id="@+id/rl_record_ordinary"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone">
 
-            <TextView
-                android:id="@+id/tv_choose_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="15dp"
-                android:text="日期"
-                android:textColor="#fff"
-                android:textSize="20sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:text="统计"
+                    android:textColor="#fff"
+                    android:textSize="20sp" />
 
+                <TextView
+                    android:id="@+id/tv_choose_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="15dp"
+                    android:text="日期"
+                    android:textColor="#fff"
+                    android:textSize="20sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_record_leader"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="visible">
+
+                <RadioGroup
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/btn_tb_mine"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/selector_bg_left_radio"
+                        android:button="@null"
+                        android:checked="true"
+                        android:padding="10dp"
+                        android:text="我的记录"
+                        android:textColor="@drawable/selector_text_radio" />
+
+                    <RadioButton
+                        android:id="@+id/btn_tb_staff"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/selector_bg_right_radio"
+                        android:button="@null"
+                        android:padding="10dp"
+                        android:text="员工记录"
+                        android:textColor="@drawable/selector_text_radio" />
+
+                </RadioGroup>
+
+                <TextView
+                    android:id="@+id/tv_choose_day"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="15dp"
+                    android:text="日期"
+                    android:textColor="#fff"
+                    android:textSize="15sp" />
+                <TextView
+                    android:visibility="gone"
+                    android:id="@+id/tv_choose_day_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="15dp"
+                    android:text="日期"
+                    android:textColor="#fff"
+                    android:textSize="15sp" />
+            </RelativeLayout>
         </RelativeLayout>
     </android.support.design.widget.AppBarLayout>
 
@@ -56,10 +120,10 @@
         android:layout_height="1dp"
         android:background="@color/gray" />
 
+
     <android.support.v4.view.ViewPager
         android:id="@+id/vp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"></android.support.v4.view.ViewPager>
 
-    </android.support.v4.view.ViewPager>
 </LinearLayout>

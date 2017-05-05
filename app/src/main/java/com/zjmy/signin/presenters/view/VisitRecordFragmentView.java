@@ -8,6 +8,7 @@ import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.utopia.mvp.view.BaseViewImpl;
 import com.zjmy.signin.R;
+import com.zjmy.signin.presenters.adapters.StuffVisitRecordAdapter;
 import com.zjmy.signin.presenters.adapters.VisitRecordAdapter;
 
 import butterknife.Bind;
@@ -40,6 +41,13 @@ public class VisitRecordFragmentView extends BaseViewImpl {
     }
 
     public void initRecycleView(VisitRecordAdapter adapter, LinearLayoutManager manager) {
+        xRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.SquareSpin);
+        xRecyclerView.setAdapter(adapter);
+        xRecyclerView.setLayoutManager(manager);
+        xRecyclerView.setItemAnimator(new DefaultItemAnimator());
+    }
+
+    public void initRecycleView(StuffVisitRecordAdapter adapter, LinearLayoutManager manager) {
         xRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.SquareSpin);
         xRecyclerView.setAdapter(adapter);
         xRecyclerView.setLayoutManager(manager);

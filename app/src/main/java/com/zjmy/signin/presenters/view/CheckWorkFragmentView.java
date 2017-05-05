@@ -338,8 +338,10 @@ public class CheckWorkFragmentView extends BaseViewImpl {
                         break;
                 }
                 if (mView.get() != null) {
-                    view.tv_loc_type.setText("已通过" + type);
-                    view.tvLocation.setText(aMapLocation.getAddress());
+                    if (view!=null) {
+                        view.tv_loc_type.setText("已通过" + type);
+                        view.tvLocation.setText(aMapLocation.getAddress());
+                    }
                 }
             } else {
                 switch (aMapLocation.getErrorCode()) {
@@ -357,8 +359,10 @@ public class CheckWorkFragmentView extends BaseViewImpl {
                         break;
                 }
                 if (mView.get() != null) {
-                    view.tv_loc_type.setText(type);
-                    view.tvLocation.setText("获取定位中...");
+                    if (view!=null) {
+                        view.tv_loc_type.setText(type);
+                        view.tvLocation.setText("获取定位中...");
+                    }
                 }
             }
         }

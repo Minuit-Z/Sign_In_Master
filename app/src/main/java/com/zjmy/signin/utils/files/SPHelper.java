@@ -15,8 +15,11 @@ public class SPHelper {
     private static final String FILE_NAME = "share_moors";
     public static final String USER = "user";
     public static final String NAME = "name";
-    public static final String OBJID="obgId";
+    public static final String OBJID = "obgId";
     public static final String PASS_WORD = "pass_word";
+    public static final String IDENTITY = "identity";
+    public static final String DEPARTMENT = "department";
+    public static final String CENTER = "center";
     public static final String THEME_MODEL = "theme_model";//主题开关
     public static final String CACHE_MODEL = "cache_model";//缓存开关
     public static final String IMAGE_MODEL = "image_model";//图片开关

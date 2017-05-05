@@ -105,10 +105,5 @@
             android:padding="15dp"
             android:text="注销" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Mail"
-            android:id="@+id/btn_send_email"/>
     </LinearLayout>
 </LinearLayout>

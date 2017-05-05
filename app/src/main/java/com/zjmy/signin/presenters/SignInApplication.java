@@ -2,12 +2,16 @@ package com.zjmy.signin.presenters;
 
 import android.os.StrictMode;
 import android.support.multidex.MultiDexApplication;
+import android.util.Log;
 
 import com.zjmy.signin.BuildConfig;
 import com.zjmy.signin.inject.component.ApplicationComponent;
 import com.zjmy.signin.inject.component.DaggerApplicationComponent;
 import com.zjmy.signin.inject.module.ApplicationModule;
 import com.zjmy.signin.utils.app.JUtils;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import cn.bmob.v3.Bmob;
 import im.fir.sdk.FIR;

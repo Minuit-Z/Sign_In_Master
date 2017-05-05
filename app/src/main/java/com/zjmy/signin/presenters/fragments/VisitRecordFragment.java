@@ -31,6 +31,7 @@ import mehdi.sakout.dynamicbox.DynamicBox;
 
 /**
  * Created by Administrator on 2017/4/2 0002.
+ * 拜访记录Fragment
  */
 
 public class VisitRecordFragment extends BaseFragmentPresenter<VisitRecordFragmentView> {
@@ -129,7 +130,9 @@ public class VisitRecordFragment extends BaseFragmentPresenter<VisitRecordFragme
                             box.showCustomView(DynamicBoxUtil.emptyView);
                         }
                     }
-                    v.refreshComplete();
+
+                    if (v != null)
+                        v.refreshComplete();
                 } else {
                     e.printStackTrace();
                     v.refreshComplete();
