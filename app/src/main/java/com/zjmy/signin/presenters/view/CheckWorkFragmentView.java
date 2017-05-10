@@ -338,7 +338,7 @@ public class CheckWorkFragmentView extends BaseViewImpl {
                         break;
                 }
                 if (mView.get() != null) {
-                    if (view!=null) {
+                    if (view.tv_loc_type!=null&&view.tvLocation!=null) {
                         view.tv_loc_type.setText("已通过" + type);
                         view.tvLocation.setText(aMapLocation.getAddress());
                     }

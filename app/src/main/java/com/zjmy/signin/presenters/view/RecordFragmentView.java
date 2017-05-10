@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
@@ -43,6 +44,8 @@ public class RecordFragmentView extends BaseViewImpl {
     protected TextView tvChooseDay;
     @Bind(R.id.tv_choose_day_date)
     protected TextView tvChooseDayDate;
+    @Bind(R.id.tv_choose_department)
+    protected TextView tv_department;
     @Bind(R.id.rl_record_leader)
     protected RelativeLayout rl_leader;
     @Bind(R.id.rl_record_ordinary)
@@ -102,7 +105,13 @@ public class RecordFragmentView extends BaseViewImpl {
         rl_ordinary.setVisibility(View.GONE);
         switch (where) {
             case "员工记录":
-                tvChooseDay.setVisibility(View.VISIBLE);
+                int identity = (int) SPHelper.getInstance(activity).getParam(SPHelper.IDENTITY, 0);
+                tvChooseDayDate.setVisibility(View.VISIBLE);
+                if (identity == 5 || identity == 10||identity==4) {
+                    showDepartment(true);
+                } else {
+                    showDepartment(false);
+                }
                 vp.removeAllViews();
                 vp.setAdapter(null);
                 if (adapter_leader != null) {
@@ -114,6 +123,7 @@ public class RecordFragmentView extends BaseViewImpl {
                 activity.setSupportActionBar(tb);
                 break;
             case "我的记录":
+                showDepartment(false);
                 tvChooseDayDate.setVisibility(View.VISIBLE);
                 vp.removeAllViews();
                 vp.setAdapter(null);
@@ -126,6 +136,13 @@ public class RecordFragmentView extends BaseViewImpl {
                 activity.setSupportActionBar(tb);
                 break;
         }
+    }
+
+    public void showDepartment(boolean show) {
+        if (show)
+            tv_department.setVisibility(View.VISIBLE);
+        else
+            tv_department.setVisibility(View.GONE);
     }
 
     /**
@@ -141,14 +158,14 @@ public class RecordFragmentView extends BaseViewImpl {
             checkWorkRecordFragment.setCurrentMonth(month);
             VisitRecordFragment visitRecordFragment = (VisitRecordFragment) adapter.getFragment(1);
             visitRecordFragment.setCurrentMonth(month);
-            tvChooseDayDate.setText(month+"月");
+            tvChooseDayDate.setText(month + "月");
         } else {
             RecordFragmentAdapter adapter = (RecordFragmentAdapter) vp.getAdapter();
             CheckWorkRecordFragment checkWorkRecordFragment = (CheckWorkRecordFragment) adapter.getFragment(0);
             checkWorkRecordFragment.setCurrentMonth(month);
             VisitRecordFragment visitRecordFragment = (VisitRecordFragment) adapter.getFragment(1);
             visitRecordFragment.setCurrentMonth(month);
-            tvChooseDay.setText(month+"月");
+            tvChooseDay.setText(month + "月");
         }
     }
 
@@ -164,6 +181,20 @@ public class RecordFragmentView extends BaseViewImpl {
         StuffVisitRecordFragment stuffVisitRecordFragment = (StuffVisitRecordFragment) adapter.getFragment(1);
         stuffVisitRecordFragment.setDate(year + "-" + month + "-" + day);
 
-        tvChooseDay.setText(month+"."+day);
+        tvChooseDay.setText(month + "." + day);
+    }
+
+    /**
+     * @param department 部门
+     * @author 张子扬
+     * @time 2017/5/10 0010 10:06
+     * @desc 超级权限的人员可以使用按部门查询
+     */
+    public void update(String department, int code) {
+        RecordForLeaderFragmentAdapter adapter = (RecordForLeaderFragmentAdapter) vp.getAdapter();
+        StuffSignRecordFragment stuffSignRecordFragment = (StuffSignRecordFragment) adapter.getFragment(0);
+        stuffSignRecordFragment.setDepartment(department);
+        StuffVisitRecordFragment stuffVisitRecordFragment = (StuffVisitRecordFragment) adapter.getFragment(1);
+        stuffVisitRecordFragment.setDepartment(department);
     }
 }

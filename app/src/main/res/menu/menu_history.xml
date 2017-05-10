@@ -6,4 +6,11 @@
         android:id="@+id/menu_change_month"
         android:title="日期"
         app:showAsAction="ifRoom"></item>
+
+    <item
+        android:visible="false"
+        android:id="@+id/menu_change_department"
+        android:title="部门"
+        app:showAsAction="ifRoom"
+        />
 </menu>

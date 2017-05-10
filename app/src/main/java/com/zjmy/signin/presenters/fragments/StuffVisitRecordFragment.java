@@ -23,6 +23,7 @@ import com.zjmy.signin.utils.files.SPHelper;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -42,6 +43,7 @@ public class StuffVisitRecordFragment extends BaseFragmentPresenter<VisitRecordF
     private MainActivity activity;
     private int indexPage = 1;
     private String date = "";//当前时间
+    private String department="";
     private DynamicBox box;//加载框
 
     @Override
@@ -51,7 +53,19 @@ public class StuffVisitRecordFragment extends BaseFragmentPresenter<VisitRecordF
 
     public void setDate(String date) {
         this.date = initDate(date);
+        indexPage=1;
         myHeavyWork(true, true);
+    }
+
+    /**
+     *@author 张子扬
+     *@time 2017/5/10 0010 10:24
+     *@desc 设置部门
+     */
+    public void setDepartment(String department) {
+        this.department=department;
+        indexPage=1;
+        myHeavyWork(true,true);
     }
 
     @Override
@@ -112,14 +126,26 @@ public class StuffVisitRecordFragment extends BaseFragmentPresenter<VisitRecordF
             query4User.addWhereEqualTo("center", SPHelper.getInstance(activity).getParam(SPHelper.CENTER, ""));
             //查询比自己级别小的人员
             query4User.addWhereLessThan("identity", identity);
-        } else if (identity == 10) {
-            //特殊权限,无限制查询
-        } else if (identity == 5) {
-            //特殊权限,查询营销中心
-            query4User.addWhereEqualTo("center", "营销中心");
-        } else if (identity == 4) {
-            //特殊权限,查询产品中心
-            query4User.addWhereEqualTo("center", "产品中心");
+        } else if (identity == 10||identity==5) {
+            //特殊权限,无限制查询,按部门查找,默认为销售一部
+            Log.e("department", "initData: "+department );
+            //特殊权限,无限制查询,默认查询为 营销一部
+            if ("".equals(department)) {
+                query4User.addWhereEqualTo("department", "销售一部");
+            } else if (!department.equals("其他办事处")) {
+                query4User.addWhereEqualTo("department", department);
+            } else {
+                //查询其他办事处
+                List<String>  departments= Arrays.asList(new String[]{"陕西办","河北办","河南办","广西办","天津办","上海办","内蒙办","吉林办"});
+                query4User.addWhereContainedIn("department",departments);
+            }
+        }  else if (identity == 4) {
+            //特殊权限,产品中心以下的所有权限
+            if ("".equals(department)) {
+                query4User.addWhereEqualTo("department", "技术部");
+            } else {
+                query4User.addWhereEqualTo("department", department);
+            }
         }
         query4User.findObjects(new FindListener<User>() {
             @Override

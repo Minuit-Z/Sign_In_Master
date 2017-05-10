@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -76,6 +77,7 @@ public class RecordFragment extends BaseFragmentPresenter<RecordFragmentView> {
             v.initData(getChildFragmentManager(), getActivity());
         } else {
             v.initDataForLeader(getChildFragmentManager(), getActivity(), "我的记录");
+            v.showDepartment(false);
         }
         initEvent();
     }
@@ -121,6 +123,13 @@ public class RecordFragment extends BaseFragmentPresenter<RecordFragmentView> {
             }
         }, R.id.tv_choose_day);
 
+        //按部门查找
+        v.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showPicker(identity);
+            }
+        },R.id.tv_choose_department);
 
         //我的记录
         v.setOnClickListener(new View.OnClickListener() {
@@ -137,6 +146,42 @@ public class RecordFragment extends BaseFragmentPresenter<RecordFragmentView> {
                 v.initDataForLeader(getChildFragmentManager(), getActivity(), "员工记录");
             }
         }, R.id.btn_tb_staff);
+    }
+
+    /**
+    *@author 张子扬
+    *@time 2017/5/10 0010 9:36
+    *@desc 初始化部门的选择器
+    */
+    private void showPicker(int identity) {
+        String[] value;
+        if (identity==10) {
+             value= new String[]{"销售一部", "销售二部", "销售三部", "销售四部", "销售五部"
+                    , "销售六部", "营销办", "山西办", "其他办事处", "技术部", "售后部"};
+        }else if (identity==5){
+            value = new String[]{"销售一部", "销售二部", "销售三部", "销售四部", "销售五部"
+                    , "销售六部", "营销办", "山西办", "其他办事处"};
+        }else {
+            //identity==4
+            value = new String[]{"技术部", "售后部"};
+        }
+        LayoutInflater inflater=activity.getLayoutInflater();
+        View view=inflater.inflate(R.layout.dialog_department_picker,null);
+        NumberPickerView picker_department= (NumberPickerView) view.findViewById(R.id.picker_department);
+        picker_department.setDisplayedValues(value);
+        picker_department.setMinValue(1);
+        picker_department.setMaxValue(value.length);
+        picker_department.setValue(1);
+
+        AppCompatButton btn = (AppCompatButton) view.findViewById(R.id.btn_get);
+        btn.setOnClickListener((View)->{
+            Log.e("LOG", "showPicker: "+picker_department.getValue() );
+            v.update(value[picker_department.getValue()-1],0);
+            alertDialog.dismiss();
+        });
+        alertDialog=new AlertDialog.Builder(activity).create();
+        alertDialog.setView(view);
+        alertDialog.show();
     }
 
     /**
