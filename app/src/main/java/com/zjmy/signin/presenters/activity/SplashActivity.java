@@ -51,6 +51,12 @@ public class SplashActivity extends BaseActivity<SplashView> {
                                 SignInApplication.userName = list.get(0).getName();
                                 int identity = ("" + list.get(0).getIdentity()).equals("") ? 0 : list.get(0).getIdentity();
                                 SPHelper.getInstance(SplashActivity.this).setParam(SPHelper.IDENTITY, identity);
+                                SPHelper.getInstance(SplashActivity.this).setParam(SPHelper.USER, list.get(0).getUser());
+                                SPHelper.getInstance(SplashActivity.this).setParam(SPHelper.NAME, list.get(0).getName());
+                                SPHelper.getInstance(SplashActivity.this).setParam(SPHelper.OBJID, list.get(0).getObjectId());
+                                SPHelper.getInstance(SplashActivity.this).setParam(SPHelper.PASS_WORD, list.get(0).getPassword());
+                                SPHelper.getInstance(SplashActivity.this).setParam(SPHelper.DEPARTMENT, list.get(0).getDepartment());
+                                SPHelper.getInstance(SplashActivity.this).setParam(SPHelper.CENTER, list.get(0).getCenter());
                                 Log.e("LOG", "done: " + list.get(0).getClass().getSimpleName());
                                 startActivity(new Intent(SplashActivity.this, MainActivity.class));
                                 finish();

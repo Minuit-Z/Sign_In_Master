@@ -61,7 +61,8 @@ public class StuffVisitRecordAdapter extends BaseListAdapterPresenter<Visit> {
 
         @Override
         public void setData(Visit data) {
-            tvDate.setText(data.getName());
+            data.setTime(null==data.getTime()?"":data.getTime());
+            tvDate.setText(data.getName() +"\n"+data.getTime());
             tvDesc.setText(data.getSummary());
             tvLocation.setText(data.getLocation());
         }
