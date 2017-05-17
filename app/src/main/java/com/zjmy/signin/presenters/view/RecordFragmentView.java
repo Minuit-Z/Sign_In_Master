@@ -106,7 +106,7 @@ public class RecordFragmentView extends BaseViewImpl {
         switch (where) {
             case "员工记录":
                 int identity = (int) SPHelper.getInstance(activity).getParam(SPHelper.IDENTITY, 0);
-                tvChooseDayDate.setVisibility(View.VISIBLE);
+                tvChooseDay.setVisibility(View.VISIBLE);
                 if (identity == 5 || identity == 10||identity==4) {
                     showDepartment(true);
                 } else {

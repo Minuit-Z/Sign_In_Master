@@ -170,7 +170,7 @@ public class CheckWorkFragmentView extends BaseViewImpl {
         countDownTimer.start();
         tilVisitRecord.setCounterEnabled(true);
         tilVisitRecord.setCounterMaxLength(200);
-        etVisitRecord.setFilters(new InputFilter[]{new InputFilter.LengthFilter(50), JUtils.emojiFilter});
+        etVisitRecord.setFilters(new InputFilter[]{new InputFilter.LengthFilter(200), JUtils.emojiFilter});
     }
 
     //获取拜访的数据,并初始化UI
@@ -359,7 +359,7 @@ public class CheckWorkFragmentView extends BaseViewImpl {
                         break;
                 }
                 if (mView.get() != null) {
-                    if (view!=null) {
+                    if (view.tv_loc_type!=null&&view.tvLocation!=null) {
                         view.tv_loc_type.setText(type);
                         view.tvLocation.setText("获取定位中...");
                     }
@@ -392,7 +392,6 @@ public class CheckWorkFragmentView extends BaseViewImpl {
         }
         if (signData.equals("今日未签到")) {
             //首先请求当日的类型,判断 工作日;节假日;休息日
-            //TODO 此处可以用OkHttp优化
             AlertDialog.Builder builder = new AlertDialog.Builder(activity);
             builder.setTitle("提示");
             builder.setMessage("确认签到?");
@@ -558,7 +557,8 @@ public class CheckWorkFragmentView extends BaseViewImpl {
                                     if (e == null) {
                                         Toast.makeText(activity, "提交成功", Toast.LENGTH_SHORT).show();
                                         getVisitRecord(date);
-                                        tvSubmitVisit.setText("");
+//                                        tvSubmitVisit.setText("");
+                                        etVisitRecord.setText("");
                                     } else {
                                         Toast.makeText(activity, "提交失败", Toast.LENGTH_SHORT).show();
                                     }
