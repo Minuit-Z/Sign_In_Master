@@ -178,7 +178,7 @@ public class CheckWorkFragmentView extends BaseViewImpl {
         BmobQuery<Visit> queryVisit = new BmobQuery<>();
         queryVisit.addWhereEqualTo("user", SPHelper.getInstance(activity).getParam(SPHelper.USER, ""));
         queryVisit.addWhereEqualTo("date", date);
-        Log.e("LOG  ", "getVisitRecord: "+date );
+        Log.e("LOG  ", "getVisitRecord: " + date);
         queryVisit.count(Visit.class, new CountListener() {
             @Override
             public void done(Integer integer, BmobException e) {
@@ -338,7 +338,7 @@ public class CheckWorkFragmentView extends BaseViewImpl {
                         break;
                 }
                 if (mView.get() != null) {
-                    if (view.tv_loc_type!=null&&view.tvLocation!=null) {
+                    if (view.tv_loc_type != null && view.tvLocation != null) {
                         view.tv_loc_type.setText("已通过" + type);
                         view.tvLocation.setText(aMapLocation.getAddress());
                     }
@@ -359,7 +359,7 @@ public class CheckWorkFragmentView extends BaseViewImpl {
                         break;
                 }
                 if (mView.get() != null) {
-                    if (view.tv_loc_type!=null&&view.tvLocation!=null) {
+                    if (view.tv_loc_type != null && view.tvLocation != null) {
                         view.tv_loc_type.setText(type);
                         view.tvLocation.setText("获取定位中...");
                     }
@@ -474,8 +474,7 @@ public class CheckWorkFragmentView extends BaseViewImpl {
         if (tvLocation.getText().toString().equals("获取定位中...")) {
             Toast.makeText(activity, "定位失败,无法签退", Toast.LENGTH_SHORT).show();
             return;
-        }
-        if (!signData.equals("已签退") && !signData.equals("今日未签到")) {
+        } else if (!signData.equals("已签退") && !signData.equals("今日未签到")) {
             AlertDialog.Builder builder = new AlertDialog.Builder(activity);
             builder.setTitle("提示");
             builder.setMessage("确认签退?");

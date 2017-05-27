@@ -10,6 +10,8 @@ import android.util.Log;
 import com.zjmy.signin.inject.qualifier.model.bean.User;
 import com.zjmy.signin.presenters.SignInApplication;
 import com.zjmy.signin.presenters.view.SplashView;
+import com.zjmy.signin.utils.app.IdManager;
+import com.zjmy.signin.utils.app.JUtils;
 import com.zjmy.signin.utils.files.SPHelper;
 
 import java.util.List;
@@ -17,8 +19,10 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
+import cn.bmob.v3.listener.UpdateListener;
 
 public class SplashActivity extends BaseActivity<SplashView> {
 
@@ -44,6 +48,7 @@ public class SplashActivity extends BaseActivity<SplashView> {
                     BmobQuery<User> query = new BmobQuery<>();
                     query.addWhereEqualTo("user", SPHelper.getInstance(SplashActivity.this).getParam(SPHelper.USER, ""));
                     query.addWhereEqualTo("password", pass);
+                    query.addWhereEqualTo("androidId",IdManager.getAndroidId(SplashActivity.this));
                     query.findObjects(new FindListener<User>() {
                         @Override
                         public void done(List<User> list, BmobException e) {
@@ -85,7 +90,7 @@ public class SplashActivity extends BaseActivity<SplashView> {
         try {
             PackageManager manager = getPackageManager();
             PackageInfo packageInfo = manager.getPackageInfo(this.getPackageName(), 0);
-            v.getTv_version().setText("版本号: "+packageInfo.versionName);
+            v.getTv_version().setText("版本号: " + packageInfo.versionName);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }

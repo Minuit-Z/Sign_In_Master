@@ -47,7 +47,7 @@ public class CheckWorkFragment extends BaseFragmentPresenter<CheckWorkFragmentVi
                     if (granted) {
                         v.showLocation(activity.getApplicationContext(), activity.getApplication());
                     } else {
-                        v.setPermissions("获取权限失败");
+                        v.setPermissions("获取权限失败,请手动开放定位权限");
                     }
                 });
     }

@@ -11,6 +11,7 @@ import com.utopia.mvp.view.BaseViewImpl;
 import com.zjmy.signin.R;
 import com.zjmy.signin.inject.qualifier.model.bean.User;
 import com.zjmy.signin.presenters.SignInApplication;
+import com.zjmy.signin.presenters.activity.LoginActivity;
 import com.zjmy.signin.presenters.activity.MainActivity;
 import com.zjmy.signin.presenters.activity.SplashActivity;
 import com.zjmy.signin.utils.app.IdManager;
@@ -24,6 +25,7 @@ import butterknife.OnClick;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
+import cn.bmob.v3.listener.UpdateListener;
 
 /**
  * @Description: 登录
@@ -92,7 +94,19 @@ public class LoginActivityView extends BaseViewImpl {
                             SPHelper.getInstance(activity).setParam(SPHelper.IDENTITY, list.get(0).getIdentity());
                             SPHelper.getInstance(activity).setParam(SPHelper.DEPARTMENT, list.get(0).getDepartment());
                             SPHelper.getInstance(activity).setParam(SPHelper.CENTER, list.get(0).getCenter());
-
+                            if (list.get(0).getAndroidId()==null||list.get(0).getAndroidId().equals("")){
+                                //首次登陆,开始绑定设备号
+                                User user = new User();
+                                user.setAndroidId(IdManager.getAndroidId(activity));
+                                user.update(list.get(0).getObjectId(), new UpdateListener() {
+                                    @Override
+                                    public void done(BmobException e) {
+                                        if (e==null){
+                                            Toast.makeText(activity, "设备已绑定", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
+                            }
                             SignInApplication.userName = list.get(0).getName();
                             activity.startActivity(new Intent(activity, MainActivity.class));
                             Toast.makeText(activity, "登录完成", Toast.LENGTH_SHORT).show();
